@@ -2,7 +2,7 @@
 var game = {
   player1: {hand: [], cash: 100},
   player2: {hand: [], cash: 100},
-  dealer: {hand: []}, 
+  dealer: {hand: []},
   deck: [
     {suit: 'Hearts', name: 'Ace', value: 1, altValue: 11, img: ''},
     {suit: 'Hearts', name: '2', value: 2, img: ''},
@@ -61,7 +61,7 @@ var game = {
 var currentPlayer = game.player1
 
 // Need event listener for "deal" button
-// When clicked, shuffle the deck and distribute two cards to the
+// When clicked, call functoin that shuffles the deck and distribute two cards to the
 // dealer and each player.
 
 // Need event listener for "hit" button
@@ -77,4 +77,22 @@ var currentPlayer = game.player1
 
 
 // Need a "play turn" function
-//
+
+// Function that shuffles the cards in the deck using the Fisher Yates Shuffle
+function shuffle(array) {
+  var m = array.length, t, i;
+
+  // While there remain elements to shuffle…
+  while (m) {
+
+    // Pick a remaining element…
+    i = Math.floor(Math.random() * m--);
+
+    // And swap it with the current element.
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+  }
+
+  return array;
+}
