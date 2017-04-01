@@ -1,0 +1,24 @@
+.boardContainer {
+  height: 650px;
+  width: 1050px;
+  background: green;
+  border: 5px solid gold;
+}
+
+.dealer {
+  height: 200px;
+  width: 400px;
+  background: blue;
+}
+
+.player1 {
+  height: 200px;
+  width: 400px;
+  background: orange;
+}
+
+.player2 {
+  height: 200px;
+  width: 400px;
+  background: brown;
+}
