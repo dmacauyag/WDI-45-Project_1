@@ -66,12 +66,11 @@ var $newGame = $('.newGame')
 // Event listener to start a new game
 $newGame.on('click', function() {
   console.log('new game clicked');
+  currentPlayer = game.player1
   dealCards()
 })
 
-// Need event listener for "deal" button
-// When clicked, call functoin that shuffles the deck and distribute two cards to the
-// dealer and each player.
+// Function that shuffles the deck and deals a new hand to the dealer and both players
 function dealCards() {
   $deal.one('click', function() {
     console.log('deal clicked');
@@ -97,7 +96,13 @@ function dealCards() {
 // Need function that switches between turns
 // Default first turn goes to player 1
 // Implement logic to go to the dealer's turn
-
+function switchTurns() {
+  if (currentPlayer == game.player1) {
+    currentPlayer = game.player2
+  } else {
+    currentPlayer = game.dealer
+  }
+}
 
 // Need a "play turn" function
 
