@@ -2,6 +2,7 @@
 var game = {
   player1: {hand: [], cash: 100},
   player2: {hand: [], cash: 100},
+  dealer: {hand: []}, 
   deck: [
     {suit: 'Hearts', name: 'Ace', value: 1, altValue: 11, img: ''},
     {suit: 'Hearts', name: '2', value: 2, img: ''},
@@ -57,3 +58,23 @@ var game = {
     {suit: 'Clubs', name: 'King', value: 10, img: ''},
   ]
 }
+var currentPlayer = game.player1
+
+// Need event listener for "deal" button
+// When clicked, shuffle the deck and distribute two cards to the
+// dealer and each player.
+
+// Need event listener for "hit" button
+// When clicked, pop values from the deck and store in the player's hand array
+// Implement logic to calculate the player's hand
+
+// Need event listener for "stand" button
+// When clicked, call the function that switches between player's turn
+
+// Need function that switches between turns
+// Default first turn goes to player 1
+// Implement logic to go to the dealer's turn
+
+
+// Need a "play turn" function
+//
