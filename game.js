@@ -59,10 +59,33 @@ var game = {
   ]
 }
 var currentPlayer = game.player1
+var $deal = $('.deal')
+var $newGame = $('.newGame')
+
+
+// Event listener to start a new game
+$newGame.on('click', function() {
+  console.log('new game clicked');
+  dealCards()
+})
 
 // Need event listener for "deal" button
 // When clicked, call functoin that shuffles the deck and distribute two cards to the
 // dealer and each player.
+function dealCards() {
+  $deal.one('click', function() {
+    console.log('deal clicked');
+    game.deck = shuffle(game.deck)
+    console.log('deck shuffled');
+    game.dealer.hand = [game.deck.pop(), game.deck.pop()]
+    game.player1.hand = [game.deck.pop(), game.deck.pop()]
+    game.player2.hand = [game.deck.pop(), game.deck.pop()]
+    console.log('cards distributed');
+    console.log(game.dealer.hand);
+    console.log(game.player1.hand);
+    console.log(game.player2.hand);
+  })
+}
 
 // Need event listener for "hit" button
 // When clicked, pop values from the deck and store in the player's hand array
