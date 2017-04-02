@@ -1,8 +1,8 @@
 // Declare global variables
 var game = {
-  player1: {hand: [], score: 0, cash: 100},
-  player2: {hand: [], score: 0, cash: 100},
-  dealer: {hand: [], score : 0},
+  player1: {name: 'Player 1', hand: [], score: 0, cash: 100},
+  player2: {name: 'Player 2', hand: [], score: 0, cash: 100},
+  dealer: {name: 'Dealer', hand: [], score : 0},
   deck: [
     {suit: 'Hearts', name: 'Ace', value: 11, altValue: 1, img: ''},
     {suit: 'Hearts', name: '2', value: 2, img: ''},
@@ -72,6 +72,7 @@ var $standP2 = $('.standP2')
 $newGame.on('click', function() {
   console.log('new game clicked');
   currentPlayer = game.player1
+  resetScore()
   resetCardsToDeck()
   dealCards()
 })
@@ -91,50 +92,47 @@ function dealCards() {
     console.log(game.player2.hand);
     checkInitialCardValues()
     $hitP1.on('click', hit)
-    $standP1.on('click', stand)
+    $standP1.on('click', switchTurns)
   })
 }
 
-// Need event listener for "hit" button
-// When clicked, pop values from the deck and store in the player's hand array
-// Implement logic to calculate the player's hand
+// Function for the hit button
 function hit() {
-  console.log('hit clicked')
+  console.log('hit')
   currentPlayer.hand.push(game.deck.pop())
   console.log("new card added to current player's hand");
   console.log(currentPlayer.hand);
   checkCardValue()
 }
 
-// Need event listener for "stand" button
-// When clicked, call the function that switches between player's turn
-function stand() {
-  console.log('stand clicked');
+// Function that switches turns
+function switchTurns() {
   if (currentPlayer == game.player1) {
     $hitP1.off()
     $standP1.off()
     console.log('turn off player 1 buttons');
     $hitP2.on('click', hit)
-    $standP2.on('click', stand)
+    $standP2.on('click', switchTurns)
     console.log('turn on player 2 buttons');
+    currentPlayer = game.player2
+    console.log('switch to player 2');
   } else {
     $hitP2.off()
     $standP2.off()
     console.log('turn off player 2 buttons');
-  }
-  switchTurns()
-}
-
-// Need function that switches between turns
-// Default first turn goes to player 1
-// Implement logic to go to the dealer's turn
-function switchTurns() {
-  if (currentPlayer == game.player1) {
-    currentPlayer = game.player2
-    console.log('switch to player 2');
-  } else {
     currentPlayer = game.dealer
     console.log('switch to dealer');
+    playDealer()
+  }
+}
+
+// Function for the dealer's turn
+function playDealer() {
+  console.log('dealers turn');
+  if (currentPlayer.score < 17) {
+    hit()
+  } else {
+    checkForWinner()
   }
 }
 
@@ -159,14 +157,29 @@ function checkInitialCardValues() {
 // Function that checks for the cards values between turns
 function checkCardValue() {
   console.log('checking card value');
+  currentPlayer.score = 0
   for (var i = 0; i < currentPlayer.hand.length; i++) {
     currentPlayer.score += currentPlayer.hand[i].value
   }
   console.log(currentPlayer.score);
-  currentPlayer.score = 0
+  if (currentPlayer.score == 21) {
+    alert('BLACKJACK!')
+    switchTurns()
+  } else if (currentPlayer.score > 21) {
+    alert('Player BUST!')
+    switchTurns()
+  } else if (currentPlayer.name == 'Dealer') {
+    if (currentPlayer.score < 17) {
+      console.log('dealer must hit');
+      hit()
+    } else {
+      checkForWinner()
+    }
+  }
 }
 
 // Function that checks if there is a winner at the beginning of the game
+// =================== Need to correct for DOUBLE ACES! =================== //
 function checkforInitialWinner() {
   if ((game.dealer.score == 21) && (game.player1.score == 21) && (game.player2.score == 21)) {
     alert('Tie Game! The dealer and both players have 21!')
@@ -177,13 +190,11 @@ function checkforInitialWinner() {
   } else if (game.dealer.score == 21) {
     alert('Game Over! Dealer has 21!')
   }
-  game.dealer.score = 0
-  game.player1.score = 0
-  game.player2.score = 0
+  resetScore()
 }
 
 function checkForWinner() {
-  console.log('checking for win condition');
+  console.log('checking for the game winner');
 }
 
 // Function that places the cards back into the deck
@@ -204,6 +215,14 @@ function resetCardsToDeck() {
   }
   console.log('reshuffled player 2 cards to deck');
   console.log(game.deck.length);
+}
+
+// Function that resets each player's score
+function resetScore() {
+  game.dealer.score = 0
+  game.player1.score = 0
+  game.player2.score = 0
+  console.log('reset ALL scores to 0');
 }
 
 // Function that shuffles the cards in the deck using the Fisher Yates Shuffle
