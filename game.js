@@ -58,7 +58,7 @@ var game = {
     {suit: 'Clubs', name: 'King', value: 10, img: ''},
   ]
 }
-var currentPlayer = game.player1
+var currentPlayer
 var $deal = $('.deal')
 var $newGame = $('.newGame')
 var $hit = $('.hit')
@@ -100,8 +100,7 @@ function dealCards() {
 function hit() {
   console.log('hit')
   currentPlayer.hand.push(game.deck.pop())
-  console.log("new card added to current player's hand");
-  console.log(currentPlayer.hand);
+  console.log('new card added to ' + currentPlayer.name + ' hand');
   checkCardValue()
 }
 
@@ -110,18 +109,18 @@ function switchTurns() {
   if (currentPlayer == game.player1) {
     $hitP1.off()
     $standP1.off()
-    console.log('turn off player 1 buttons');
+    console.log('turn off ' + currentPlayer.name + ' buttons');
     $hitP2.on('click', hit)
     $standP2.on('click', switchTurns)
-    console.log('turn on player 2 buttons');
     currentPlayer = game.player2
-    console.log('switch to player 2');
+    console.log('turn on ' + currentPlayer.name + ' buttons');
+    console.log('switch to ' + currentPlayer.name);
   } else {
     $hitP2.off()
     $standP2.off()
-    console.log('turn off player 2 buttons');
+    console.log('turn off ' + currentPlayer.name + ' buttons');
     currentPlayer = game.dealer
-    console.log('switch to dealer');
+    console.log('switch to ' + currentPlayer.name);
     playDealer()
   }
 }
@@ -161,12 +160,12 @@ function checkCardValue() {
   for (var i = 0; i < currentPlayer.hand.length; i++) {
     currentPlayer.score += currentPlayer.hand[i].value
   }
-  console.log(currentPlayer.score);
+  console.log(currentPlayer.name + ' has ' + currentPlayer.score);
   if (currentPlayer.score == 21) {
-    alert('BLACKJACK!')
+    alert(currentPlayer.name + ' has BLACKJACK!')
     switchTurns()
   } else if (currentPlayer.score > 21) {
-    alert('Player BUST!')
+    alert(currentPlayer.name + ' BUST!')
     switchTurns()
   } else if (currentPlayer.name == 'Dealer') {
     if (currentPlayer.score < 17) {
@@ -190,7 +189,8 @@ function checkforInitialWinner() {
   } else if (game.dealer.score == 21) {
     alert('Game Over! Dealer has 21!')
   }
-  resetScore()
+  game.player1.score = 0
+  game.player2.score = 0
 }
 
 function checkForWinner() {
@@ -222,7 +222,6 @@ function resetScore() {
   game.dealer.score = 0
   game.player1.score = 0
   game.player2.score = 0
-  console.log('reset ALL scores to 0');
 }
 
 // Function that shuffles the cards in the deck using the Fisher Yates Shuffle
