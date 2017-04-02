@@ -115,20 +115,24 @@ function switchTurns() {
     currentPlayer = game.player2
     console.log('turn on ' + currentPlayer.name + ' buttons');
     console.log('switch to ' + currentPlayer.name);
-  } else {
+  } else if (currentPlayer == game.player2){
     $hitP2.off()
     $standP2.off()
     console.log('turn off ' + currentPlayer.name + ' buttons');
     currentPlayer = game.dealer
     console.log('switch to ' + currentPlayer.name);
     playDealer()
+  } else {
+    checkForWinner()
   }
 }
 
 // Function for the dealer's turn
 function playDealer() {
   console.log('dealers turn');
-  if (currentPlayer.score < 17) {
+  if (game.player1.score > 21 && game.player2.score > 21) {
+    alert('Dealer Wins!')
+  } else if (currentPlayer.score < 17) {
     hit()
   } else {
     checkForWinner()
@@ -189,12 +193,24 @@ function checkforInitialWinner() {
   } else if (game.dealer.score == 21) {
     alert('Game Over! Dealer has 21!')
   }
-  game.player1.score = 0
-  game.player2.score = 0
 }
 
 function checkForWinner() {
   console.log('checking for the game winner');
+  if (((game.player1.score > game.dealer.score) && game.player1.score <= 21) || (game.player1.score <= 21 && game.dealer.score > 21)) {
+    alert('Player 1 Beats The Dealer!')
+  } else if (((game.dealer.score > game.player1.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player1.score > 21)) {
+    alert('Dealer Beats Player 1!')
+  } else if (game.player1.score == game.dealer.score) {
+    alert('Dealer and Player 1 Tie!')
+  }
+  if (((game.player2.score > game.dealer.score) && game.player2.score <= 21) || (game.player2.score <= 21 && game.dealer.score > 21)) {
+    alert('Player 2 Beats The Dealer!')
+  } else if (((game.dealer.score > game.player2.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player2.score > 21)) {
+    alert('Dealer Beats Player 2!')
+  } else if (game.player2.score == game.dealer.score) {
+    alert('Dealer and Player 2 Tie!')
+  }
 }
 
 // Function that places the cards back into the deck
