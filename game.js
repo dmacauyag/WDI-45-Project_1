@@ -1,10 +1,10 @@
 // Declare global variables
 var game = {
-  player1: {hand: [], cash: 100},
-  player2: {hand: [], cash: 100},
-  dealer: {hand: []},
+  player1: {hand: [], score: 0, cash: 100},
+  player2: {hand: [], score: 0, cash: 100},
+  dealer: {hand: [], score : 0},
   deck: [
-    {suit: 'Hearts', name: 'Ace', value: 1, altValue: 11, img: ''},
+    {suit: 'Hearts', name: 'Ace', value: 11, altValue: 1, img: ''},
     {suit: 'Hearts', name: '2', value: 2, img: ''},
     {suit: 'Hearts', name: '3', value: 3, img: ''},
     {suit: 'Hearts', name: '4', value: 4, img: ''},
@@ -17,7 +17,7 @@ var game = {
     {suit: 'Hearts', name: 'Jack', value: 10, img: ''},
     {suit: 'Hearts', name: 'Queen', value: 10, img: ''},
     {suit: 'Hearts', name: 'King', value: 10, img: ''},
-    {suit: 'Diamonds', name: 'Ace', value: 1, altValue: 11, img: ''},
+    {suit: 'Diamonds', name: 'Ace', value: 11, altValue: 1, img: ''},
     {suit: 'Diamonds', name: '2', value: 2, img: ''},
     {suit: 'Diamonds', name: '3', value: 3, img: ''},
     {suit: 'Diamonds', name: '4', value: 4, img: ''},
@@ -30,7 +30,7 @@ var game = {
     {suit: 'Diamonds', name: 'Jack', value: 10, img: ''},
     {suit: 'Diamonds', name: 'Queen', value: 10, img: ''},
     {suit: 'Diamonds', name: 'King', value: 10, img: ''},
-    {suit: 'Spades', name: 'Ace', value: 1, altValue: 11, img: ''},
+    {suit: 'Spades', name: 'Ace', value: 11, altValue: 1, img: ''},
     {suit: 'Spades', name: '2', value: 2, img: ''},
     {suit: 'Spades', name: '3', value: 3, img: ''},
     {suit: 'Spades', name: '4', value: 4, img: ''},
@@ -43,7 +43,7 @@ var game = {
     {suit: 'Spades', name: 'Jack', value: 10, img: ''},
     {suit: 'Spades', name: 'Queen', value: 10, img: ''},
     {suit: 'Spades', name: 'King', value: 10, img: ''},
-    {suit: 'Clubs', name: 'Ace', value: 1, altValue: 11, img: ''},
+    {suit: 'Clubs', name: 'Ace', value: 11, altValue: 1, img: ''},
     {suit: 'Clubs', name: '2', value: 2, img: ''},
     {suit: 'Clubs', name: '3', value: 3, img: ''},
     {suit: 'Clubs', name: '4', value: 4, img: ''},
@@ -72,6 +72,7 @@ var $standP2 = $('.standP2')
 $newGame.on('click', function() {
   console.log('new game clicked');
   currentPlayer = game.player1
+  resetCardsToDeck()
   dealCards()
 })
 
@@ -88,31 +89,27 @@ function dealCards() {
     console.log(game.dealer.hand);
     console.log(game.player1.hand);
     console.log(game.player2.hand);
-    hit()
+    checkInitialCardValues()
+    $hitP1.on('click', hit)
+    $standP1.on('click', stand)
   })
 }
 
 // Need event listener for "hit" button
 // When clicked, pop values from the deck and store in the player's hand array
 // Implement logic to calculate the player's hand
-$hit.on('click', function() {
-  console.log('turn on hit click event');
-  hit()
-})
 
 function hit() {
   console.log('hit clicked')
   currentPlayer.hand.push(game.deck.pop())
   console.log("new card added to current player's hand");
+  console.log(currentPlayer.hand);
   checkCardValue()
 }
 
 // Need event listener for "stand" button
 // When clicked, call the function that switches between player's turn
-$stand.on('click', function() {
-  console.log('turn on stand click event');
-  stand()
-})
+
 
 function stand() {
   console.log('stand clicked');
@@ -120,6 +117,9 @@ function stand() {
     $hitP1.off()
     $standP1.off()
     console.log('turn off player 1 buttons');
+    $hitP2.on('click', hit)
+    $standP2.on('click', stand)
+    console.log('turn on player 2 buttons');
   } else {
     $hitP2.off()
     $standP2.off()
@@ -144,25 +144,79 @@ function switchTurns() {
 // Need a "play turn" function
 
 // Function that checks the cards value
+function checkInitialCardValues() {
+  console.log('checking the initial card values');
+  for (var i = 0; i < game.dealer.hand.length; i++) {
+    game.dealer.score += game.dealer.hand[i].value
+  }
+  console.log('dealers initial hand = ' + game.dealer.score);
+  for (var i = 0; i < game.player1.hand.length; i++) {
+    game.player1.score += game.player1.hand[i].value
+  }
+  console.log('player 1 initial hand = ' + game.player1.score);
+  for (var i = 0; i < currentPlayer.hand.length; i++) {
+    game.player2.score += game.player2.hand[i].value
+  }
+  console.log('player 2 initial hand = ' + game.player2.score);
+  checkforInitialWinner()
+}
+
 function checkCardValue() {
   console.log('checking card value');
+  for (var i = 0; i < currentPlayer.hand.length; i++) {
+    currentPlayer.score += currentPlayer.hand[i]
+  }
+  console.log(currentPlayer.score);
+  currentPlayer.score = 0
+}
+
+function checkforInitialWinner() {
+  if ((game.dealer.score == 21) && (game.player1.score == 21) && (game.player2.score == 21)) {
+    alert('Tie Game! The dealer and both players have 21!')
+  } else if ((game.dealer.score == 21) && (game.player1.score == 21)) {
+    alert('Tie Game! The dealer and player 1 have 21!')
+  } else if ((game.dealer.score == 21) && (game.player2.score == 21)) {
+    alert('Tie Game! The dealer and player 2 have 21!')
+  } else if (game.dealer.score == 21) {
+    alert('Game Over! Dealer has 21!')
+  }
+  game.dealer.score = 0
+  game.player1.score = 0
+  game.player2.score = 0
+}
+
+function checkForWinner() {
+  console.log('checking for win condition');
+}
+
+// Function that places the cards back into the deck
+function resetCardsToDeck() {
+  for (var i = 0; i < game.dealer.hand.length; i++) {
+    game.deck.push(game.dealer.hand[i].pop())
+  }
+  console.log('reshuffled dealers cards to deck');
+  for (var i = 0; i < game.player1.hand.length; i++) {
+    game.deck.push(game.player1.hand[i].pop())
+  }
+  console.log('reshuffled player 1 cards to deck');
+  for (var i = 0; i < game.player2.hand.length; i++) {
+    game.deck.push(game.player2.hand[i].pop())
+  }
+  console.log('reshuffled player 2 cards to deck');
+  console.log(game.deck);
 }
 
 // Function that shuffles the cards in the deck using the Fisher Yates Shuffle
 function shuffle(array) {
   var m = array.length, t, i;
-
   // While there remain elements to shuffle…
   while (m) {
-
     // Pick a remaining element…
     i = Math.floor(Math.random() * m--);
-
     // And swap it with the current element.
     t = array[m];
     array[m] = array[i];
     array[i] = t;
   }
-
   return array;
 }
