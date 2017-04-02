@@ -154,7 +154,7 @@ function checkInitialCardValues() {
     game.player1.score += game.player1.hand[i].value
   }
   console.log('player 1 initial hand = ' + game.player1.score);
-  for (var i = 0; i < currentPlayer.hand.length; i++) {
+  for (var i = 0; i < game.player2.hand.length; i++) {
     game.player2.score += game.player2.hand[i].value
   }
   console.log('player 2 initial hand = ' + game.player2.score);
@@ -191,19 +191,23 @@ function checkForWinner() {
 
 // Function that places the cards back into the deck
 function resetCardsToDeck() {
-  for (var i = 0; i < game.dealer.hand.length; i++) {
-    game.deck.push(game.dealer.hand[i].pop())
+  var dealerHandSize = game.dealer.hand.length
+  var player1HandSize = game.player1.hand.length
+  var player2HandSize = game.player2.hand.length
+  console.log(dealerHandSize);
+  for (var i = 0; i < dealerHandSize; i++) {
+    game.deck.push(game.dealer.hand.pop())
   }
   console.log('reshuffled dealers cards to deck');
-  for (var i = 0; i < game.player1.hand.length; i++) {
-    game.deck.push(game.player1.hand[i].pop())
+  for (var i = 0; i < player1HandSize; i++) {
+    game.deck.push(game.player1.hand.pop())
   }
   console.log('reshuffled player 1 cards to deck');
-  for (var i = 0; i < game.player2.hand.length; i++) {
-    game.deck.push(game.player2.hand[i].pop())
+  for (var i = 0; i < player2HandSize; i++) {
+    game.deck.push(game.player2.hand.pop())
   }
   console.log('reshuffled player 2 cards to deck');
-  console.log(game.deck);
+  console.log(game.deck.length);
 }
 
 // Function that shuffles the cards in the deck using the Fisher Yates Shuffle
