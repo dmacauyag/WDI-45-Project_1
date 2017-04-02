@@ -61,7 +61,12 @@ var game = {
 var currentPlayer = game.player1
 var $deal = $('.deal')
 var $newGame = $('.newGame')
-
+var $hit = $('.hit')
+var $stand = $('.stand')
+var $hitP1 = $('.hitP1')
+var $hitP2 = $('.hitP2')
+var $standP1 = $('.standP1')
+var $standP2 = $('.standP2')
 
 // Event listener to start a new game
 $newGame.on('click', function() {
@@ -83,15 +88,45 @@ function dealCards() {
     console.log(game.dealer.hand);
     console.log(game.player1.hand);
     console.log(game.player2.hand);
+    hit()
   })
 }
 
 // Need event listener for "hit" button
 // When clicked, pop values from the deck and store in the player's hand array
 // Implement logic to calculate the player's hand
+$hit.on('click', function() {
+  console.log('turn on hit click event');
+  hit()
+})
+
+function hit() {
+  console.log('hit clicked')
+  currentPlayer.hand.push(game.deck.pop())
+  console.log("new card added to current player's hand");
+  checkCardValue()
+}
 
 // Need event listener for "stand" button
 // When clicked, call the function that switches between player's turn
+$stand.on('click', function() {
+  console.log('turn on stand click event');
+  stand()
+})
+
+function stand() {
+  console.log('stand clicked');
+  if (currentPlayer == game.player1) {
+    $hitP1.off()
+    $standP1.off()
+    console.log('turn off player 1 buttons');
+  } else {
+    $hitP2.off()
+    $standP2.off()
+    console.log('turn off player 2 buttons');
+  }
+  switchTurns()
+}
 
 // Need function that switches between turns
 // Default first turn goes to player 1
@@ -99,12 +134,19 @@ function dealCards() {
 function switchTurns() {
   if (currentPlayer == game.player1) {
     currentPlayer = game.player2
+    console.log('switch to player 2');
   } else {
     currentPlayer = game.dealer
+    console.log('switch to dealer');
   }
 }
 
 // Need a "play turn" function
+
+// Function that checks the cards value
+function checkCardValue() {
+  console.log('checking card value');
+}
 
 // Function that shuffles the cards in the deck using the Fisher Yates Shuffle
 function shuffle(array) {
