@@ -98,7 +98,6 @@ function dealCards() {
 // Need event listener for "hit" button
 // When clicked, pop values from the deck and store in the player's hand array
 // Implement logic to calculate the player's hand
-
 function hit() {
   console.log('hit clicked')
   currentPlayer.hand.push(game.deck.pop())
@@ -109,8 +108,6 @@ function hit() {
 
 // Need event listener for "stand" button
 // When clicked, call the function that switches between player's turn
-
-
 function stand() {
   console.log('stand clicked');
   if (currentPlayer == game.player1) {
@@ -141,9 +138,7 @@ function switchTurns() {
   }
 }
 
-// Need a "play turn" function
-
-// Function that checks the cards value
+// Function that checks the initial card values
 function checkInitialCardValues() {
   console.log('checking the initial card values');
   for (var i = 0; i < game.dealer.hand.length; i++) {
@@ -161,15 +156,17 @@ function checkInitialCardValues() {
   checkforInitialWinner()
 }
 
+// Function that checks for the cards values between turns
 function checkCardValue() {
   console.log('checking card value');
   for (var i = 0; i < currentPlayer.hand.length; i++) {
-    currentPlayer.score += currentPlayer.hand[i]
+    currentPlayer.score += currentPlayer.hand[i].value
   }
   console.log(currentPlayer.score);
   currentPlayer.score = 0
 }
 
+// Function that checks if there is a winner at the beginning of the game
 function checkforInitialWinner() {
   if ((game.dealer.score == 21) && (game.player1.score == 21) && (game.player2.score == 21)) {
     alert('Tie Game! The dealer and both players have 21!')
@@ -194,7 +191,6 @@ function resetCardsToDeck() {
   var dealerHandSize = game.dealer.hand.length
   var player1HandSize = game.player1.hand.length
   var player2HandSize = game.player2.hand.length
-  console.log(dealerHandSize);
   for (var i = 0; i < dealerHandSize; i++) {
     game.deck.push(game.dealer.hand.pop())
   }
