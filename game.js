@@ -87,10 +87,7 @@ function dealCards() {
     dealToPlayer1()
     dealToPlayer2()
     console.log('cards distributed');
-    console.log(game.dealer.hand);
-    console.log(game.player1.hand);
-    console.log(game.player2.hand);
-    checkInitialCardValues()
+    setTimeout(checkInitialCardValues, 4000)
     $hitP1.on('click', hit)
     $standP1.on('click', switchTurns)
   })
@@ -99,9 +96,9 @@ function dealCards() {
 // Function to deal dealer's hand
 function dealToDealer() {
   game.dealer.hand = [game.deck.pop(), game.deck.pop()]
-  $('<img src=' + game.dealer.hand[0].img + '>').appendTo('.dealer')
+  $('<img class="cardImage" src=' + game.dealer.hand[0].img + '>').appendTo('.dealer')
   setTimeout(function() {
-    $('<img src=' + game.dealer.hand[1].img + '>').appendTo('.dealer')
+    $('<img class="cardImage" src=' + game.dealer.hand[1].img + '>').appendTo('.dealer')
   }, 1500)
 }
 
@@ -109,10 +106,10 @@ function dealToDealer() {
 function dealToPlayer1() {
   game.player1.hand = [game.deck.pop(), game.deck.pop()]
   setTimeout(function(){
-    $('<img src=' + game.player1.hand[0].img + '>').appendTo('.player1')
+    $('<img class="cardImage" src=' + game.player1.hand[0].img + '>').appendTo('.player1')
   }, 500)
   setTimeout(function(){
-    $('<img src=' + game.player1.hand[1].img + '>').appendTo('.player1')
+    $('<img class="cardImage" src=' + game.player1.hand[1].img + '>').appendTo('.player1')
   }, 2000)
 }
 
@@ -120,10 +117,10 @@ function dealToPlayer1() {
 function dealToPlayer2() {
   game.player2.hand = [game.deck.pop(), game.deck.pop()]
   setTimeout(function(){
-    $('<img src=' + game.player2.hand[0].img + '>').appendTo('.player2')
+    $('<img class="cardImage" src=' + game.player2.hand[0].img + '>').appendTo('.player2')
   }, 1000)
   setTimeout(function(){
-    $('<img src=' + game.player2.hand[1].img + '>').appendTo('.player2')
+    $('<img class="cardImage" src=' + game.player2.hand[1].img + '>').appendTo('.player2')
   }, 2500)
 }
 
@@ -131,7 +128,7 @@ function dealToPlayer2() {
 function hit() {
   console.log('hit')
   currentPlayer.hand.push(game.deck.pop())
-  $('<img src=' + currentPlayer.hand[currentPlayer.hand.length - 1].img + '>').appendTo(currentPlayer.class)
+  $('<img class="cardImage" src=' + currentPlayer.hand[currentPlayer.hand.length - 1].img + '>').appendTo(currentPlayer.class)
   console.log('new card added to ' + currentPlayer.name + ' hand');
   checkCardValue()
 }
@@ -217,14 +214,15 @@ function checkCardValue() {
 // Function that checks if there is a winner at the beginning of the game
 // =================== Need to correct for DOUBLE ACES! =================== //
 function checkforInitialWinner() {
-  if ((game.dealer.score == 21) && (game.player1.score == 21) && (game.player2.score == 21)) {
-    alert('Tie Game! The dealer and both players have 21!')
-  } else if ((game.dealer.score == 21) && (game.player1.score == 21)) {
-    alert('Tie Game! The dealer and player 1 have 21!')
-  } else if ((game.dealer.score == 21) && (game.player2.score == 21)) {
-    alert('Tie Game! The dealer and player 2 have 21!')
-  } else if (game.dealer.score == 21) {
-    alert('Game Over! Dealer has 21!')
+  console.log('checking for initial blackack');
+  if (game.player1.score == 21) {
+    alert('Player 1 has 21!')
+  }
+  if (game.player2.score == 21) {
+    alert('Player 2 has 21!')
+  }
+  if (game.dealer.score == 21) {
+    checkForWinner()
   }
 }
 
@@ -251,6 +249,7 @@ function resetCardsToDeck() {
   var dealerHandSize = game.dealer.hand.length
   var player1HandSize = game.player1.hand.length
   var player2HandSize = game.player2.hand.length
+  $('.cardImage').remove()
   for (var i = 0; i < dealerHandSize; i++) {
     game.deck.push(game.dealer.hand.pop())
   }
