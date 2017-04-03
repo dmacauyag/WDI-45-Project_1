@@ -1,7 +1,7 @@
 // Declare global variables
 var game = {
-  player1: {name: 'Player 1', class: '.player1', hand: [], score: 0, cash: 100},
-  player2: {name: 'Player 2', class: '.player2', hand: [], score: 0, cash: 100},
+  player1: {name: 'Player 1', class: '.player1', aces: 0, hand: [], score: 0, cash: 100},
+  player2: {name: 'Player 2', class: '.player2', aces: 0, hand: [], score: 0, cash: 100},
   dealer: {name: 'Dealer', class: '.dealer', hand: [], score : 0},
   deck: [
     {suit: 'Hearts', name: 'Ace', value: 11, altValue: 1, img: 'images/ace_of_hearts.png'},
@@ -169,13 +169,24 @@ function checkInitialCardValues() {
   for (var i = 0; i < game.dealer.hand.length; i++) {
     game.dealer.score += game.dealer.hand[i].value
   }
+  if (game.dealer.score > 21) {
+    game.dealer.score -= 10
+  }
+
   console.log('dealers initial hand = ' + game.dealer.score);
   for (var i = 0; i < game.player1.hand.length; i++) {
     game.player1.score += game.player1.hand[i].value
   }
+  if (game.player1.score > 21) {
+    game.player1.score -= 10
+  }
   console.log('player 1 initial hand = ' + game.player1.score);
+
   for (var i = 0; i < game.player2.hand.length; i++) {
     game.player2.score += game.player2.hand[i].value
+  }
+  if (game.player2.score > 21) {
+    game.player2.score -= 10
   }
   console.log('player 2 initial hand = ' + game.player2.score);
   checkforInitialWinner()
@@ -203,6 +214,17 @@ function checkCardValue() {
       setTimeout(checkForWinner, 500)
     }
   }
+}
+
+// Function that checks for Ace
+function isAce() {
+  var numberOfAces = 0
+  for (var i = 0; i < game.currentPlayer.hand.length; i++) {
+    if (game.currentPlayer.hand[i].suit == 'Ace') {
+      numberOfAces++
+    }
+  }
+  console.log(numberOfAces);
 }
 
 // Function that checks if there is a winner at the beginning of the game
