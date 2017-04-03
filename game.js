@@ -153,13 +153,15 @@ function switchTurns() {
 function playDealer() {
   console.log('dealers turn');
   $('.cardBack').replaceWith('<img class="cardImage" src=' + game.dealer.hand[1].img + '>')
+  console.log((game.player1.score > 21 && game.player2.score > 21));
   if (game.player1.score > 21 && game.player2.score > 21) {
+    console.log('dealer won');
     alert('Dealer Wins!')
-  } else if (currentPlayer.score < 17) {
+    checkForWinner()
+  } else if (currentPlayer.score < 17 && (game.player1.score <= 21 && game.player2.score <= 21)) {
+    console.log(currentPlayer.score);
     console.log('dealer must hit');
     hit()
-  } else {
-    checkForWinner()
   }
 }
 
@@ -215,7 +217,7 @@ function checkCardValue() {
     }
   }
   if (currentPlayer.name == 'Dealer') {
-    if (currentPlayer.score < 17) {
+    if (currentPlayer.score < 17 && (game.player1.score <= 21 && game.player2.score <= 21)) {
       console.log('dealer must hit');
       hit()
     } else {
@@ -266,6 +268,8 @@ function checkforInitialWinner() {
     alert('Player 2 has 21!')
   }
   if (game.dealer.score == 21) {
+    // Game should end here if this happens
+    $('.cardBack').replaceWith('<img class="cardImage" src=' + game.dealer.hand[1].img + '>')
     checkForWinner()
   }
 }
