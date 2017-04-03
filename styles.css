@@ -1,6 +1,6 @@
 .boardContainer {
   height: 550px;
-  width: 1050px;
+  width: 1400px;
   background: green;
   border: 5px solid gold;
   margin: 0 auto;
@@ -8,29 +8,43 @@
 }
 
 .dealer {
-  height: 250px;
-  width: 500px;
+  height: 175px;
+  width: 650px;
   background: blue;
+  border: 3px solid brown;
   text-align: center;
-  margin: auto;
+  margin:  10px auto;
 }
 
 .player1 {
-  height: 250px;
-  width: 500px;
+  height: 175px;
+  width: 650px;
   background: orange;
-  float: left;
+  border: 3px solid brown;
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: 10px;
+  left: 10px;
 }
 
 .player2 {
-  height: 250px;
-  width: 500px;
+  height: 175px;
+  width: 650px;
   background: brown;
+  border: 3px solid brown;
   float: right;
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 10px;
+  right: 10px;
+}
+
+.hand {
+  height: 175px;
+  width: 130px;
+  display: inline-block;
+  float: left;
+}
+
+img {
+  height: 175px;
+  width: 130px;
 }
