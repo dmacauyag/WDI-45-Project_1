@@ -159,11 +159,12 @@ function switchTurns() {
 // Function for the dealer's turn
 function playDealer() {
   console.log('dealers turn');
+  $('.cardBack').replaceWith('<img class="cardImage" src=' + game.dealer.hand[1].img + '>')
   if (game.player1.score > 21 && game.player2.score > 21) {
     alert('Dealer Wins!')
   } else if (currentPlayer.score < 17) {
     console.log('dealer must hit');
-    hit()
+    setTimeout(hit, 500)
   } else {
     checkForWinner()
   }
@@ -204,9 +205,9 @@ function checkCardValue() {
   } else if (currentPlayer.name == 'Dealer') {
     if (currentPlayer.score < 17) {
       console.log('dealer must hit');
-      hit()
+      setTimeout(hit, 500)
     } else {
-      checkForWinner()
+      setTimeout(checkForWinner, 500)
     }
   }
 }
