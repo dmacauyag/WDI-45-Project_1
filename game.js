@@ -1,8 +1,8 @@
 // Declare global variables
 var game = {
-  player1: {name: 'Player 1', hand: [], score: 0, cash: 100},
-  player2: {name: 'Player 2', hand: [], score: 0, cash: 100},
-  dealer: {name: 'Dealer', hand: [], score : 0},
+  player1: {name: 'Player 1', class: '.player1', hand: [], score: 0, cash: 100},
+  player2: {name: 'Player 2', class: '.player2', hand: [], score: 0, cash: 100},
+  dealer: {name: 'Dealer', class: '.dealer', hand: [], score : 0},
   deck: [
     {suit: 'Hearts', name: 'Ace', value: 11, altValue: 1, img: 'images/ace_of_hearts.png'},
     {suit: 'Hearts', name: '2', value: 2, img: 'images/2_of_hearts.png'},
@@ -131,6 +131,7 @@ function dealToPlayer2() {
 function hit() {
   console.log('hit')
   currentPlayer.hand.push(game.deck.pop())
+  $('<img src=' + currentPlayer.hand[currentPlayer.hand.length - 1].img + '>').appendTo(currentPlayer.class)
   console.log('new card added to ' + currentPlayer.name + ' hand');
   checkCardValue()
 }
