@@ -74,18 +74,16 @@ $newGame.on('click', function() {
   currentPlayer = game.player1
   resetScore()
   resetCardsToDeck()
-  dealCards()
+  deal()
 })
 
 // Function that shuffles the deck and deals a new hand to the dealer and both players
-function dealCards() {
+function deal() {
   $deal.one('click', function() {
     console.log('deal clicked');
     game.deck = shuffle(game.deck)
     console.log('deck shuffled');
-    dealToDealer()
-    dealToPlayer1()
-    dealToPlayer2()
+    dealCards()
     console.log('cards distributed');
     setTimeout(checkInitialCardValues, 3500)
     $hitP1.on('click', hit)
@@ -93,29 +91,24 @@ function dealCards() {
   })
 }
 
-// Function to deal dealer's hand
-function dealToDealer() {
+// Function that visually deals cards to each player
+function dealCards() {
   game.dealer.hand = [game.deck.pop(), game.deck.pop()]
+  game.player1.hand = [game.deck.pop(), game.deck.pop()]
+  game.player2.hand = [game.deck.pop(), game.deck.pop()]
+
   $('<img class="cardImage" src=' + game.dealer.hand[0].img + '>').appendTo('.dealer')
   setTimeout(function() {
     $('<img class="cardImage cardBack" src="images/card_back.jpg">').appendTo('.dealer')
   }, 1500)
-}
 
-// Function to deal player1's hand
-function dealToPlayer1() {
-  game.player1.hand = [game.deck.pop(), game.deck.pop()]
   setTimeout(function(){
     $('<img class="cardImage" src=' + game.player1.hand[0].img + '>').appendTo('.player1')
   }, 500)
   setTimeout(function(){
     $('<img class="cardImage" src=' + game.player1.hand[1].img + '>').appendTo('.player1')
   }, 2000)
-}
 
-// Function to deal player2's hand
-function dealToPlayer2() {
-  game.player2.hand = [game.deck.pop(), game.deck.pop()]
   setTimeout(function(){
     $('<img class="cardImage" src=' + game.player2.hand[0].img + '>').appendTo('.player2')
   }, 1000)
@@ -166,7 +159,7 @@ function playDealer() {
     console.log('dealer must hit');
     setTimeout(hit, 500)
   } else {
-    checkForWinner()
+    setTimeout(checkForWinner, 500)
   }
 }
 
@@ -227,6 +220,7 @@ function checkforInitialWinner() {
   }
 }
 
+// Function checks for winner at the END of the game
 function checkForWinner() {
   console.log('checking for the game winner');
   if (((game.player1.score > game.dealer.score) && game.player1.score <= 21) || (game.player1.score <= 21 && game.dealer.score > 21)) {
