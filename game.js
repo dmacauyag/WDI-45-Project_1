@@ -83,9 +83,9 @@ function dealCards() {
     console.log('deal clicked');
     game.deck = shuffle(game.deck)
     console.log('deck shuffled');
-    game.dealer.hand = [game.deck.pop(), game.deck.pop()]
-    game.player1.hand = [game.deck.pop(), game.deck.pop()]
-    game.player2.hand = [game.deck.pop(), game.deck.pop()]
+    dealToDealer()
+    dealToPlayer1()
+    dealToPlayer2()
     console.log('cards distributed');
     console.log(game.dealer.hand);
     console.log(game.player1.hand);
@@ -94,6 +94,27 @@ function dealCards() {
     $hitP1.on('click', hit)
     $standP1.on('click', switchTurns)
   })
+}
+
+// Function to deal dealer's hand
+function dealToDealer() {
+  game.dealer.hand = [game.deck.pop(), game.deck.pop()]
+  $('<img src=' + game.dealer.hand[0].img + '>').appendTo('.dealer')
+  $('<img src=' + game.dealer.hand[1].img + '>').appendTo('.dealer')
+}
+
+// Function to deal player1's hand
+function dealToPlayer1() {
+  game.player1.hand = [game.deck.pop(), game.deck.pop()]
+  $('<img src=' + game.player1.hand[0].img + '>').appendTo('.player1')
+  $('<img src=' + game.player1.hand[1].img + '>').appendTo('.player1')
+}
+
+// Function to deal player2's hand
+function dealToPlayer2() {
+  game.player2.hand = [game.deck.pop(), game.deck.pop()]
+  $('<img src=' + game.player2.hand[0].img + '>').appendTo('.player2')
+  $('<img src=' + game.player2.hand[1].img + '>').appendTo('.player2')
 }
 
 // Function for the hit button
@@ -133,6 +154,7 @@ function playDealer() {
   if (game.player1.score > 21 && game.player2.score > 21) {
     alert('Dealer Wins!')
   } else if (currentPlayer.score < 17) {
+    console.log('dealer must hit');
     hit()
   } else {
     checkForWinner()
