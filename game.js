@@ -100,21 +100,31 @@ function dealCards() {
 function dealToDealer() {
   game.dealer.hand = [game.deck.pop(), game.deck.pop()]
   $('<img src=' + game.dealer.hand[0].img + '>').appendTo('.dealer')
-  $('<img src=' + game.dealer.hand[1].img + '>').appendTo('.dealer')
+  setTimeout(function() {
+    $('<img src=' + game.dealer.hand[1].img + '>').appendTo('.dealer')
+  }, 1500)
 }
 
 // Function to deal player1's hand
 function dealToPlayer1() {
   game.player1.hand = [game.deck.pop(), game.deck.pop()]
-  $('<img src=' + game.player1.hand[0].img + '>').appendTo('.player1')
-  $('<img src=' + game.player1.hand[1].img + '>').appendTo('.player1')
+  setTimeout(function(){
+    $('<img src=' + game.player1.hand[0].img + '>').appendTo('.player1')
+  }, 500)
+  setTimeout(function(){
+    $('<img src=' + game.player1.hand[1].img + '>').appendTo('.player1')
+  }, 2000)
 }
 
 // Function to deal player2's hand
 function dealToPlayer2() {
   game.player2.hand = [game.deck.pop(), game.deck.pop()]
-  $('<img src=' + game.player2.hand[0].img + '>').appendTo('.player2')
-  $('<img src=' + game.player2.hand[1].img + '>').appendTo('.player2')
+  setTimeout(function(){
+    $('<img src=' + game.player2.hand[0].img + '>').appendTo('.player2')
+  }, 1000)
+  setTimeout(function(){
+    $('<img src=' + game.player2.hand[1].img + '>').appendTo('.player2')
+  }, 2500)
 }
 
 // Function for the hit button
