@@ -87,7 +87,7 @@ function dealCards() {
     dealToPlayer1()
     dealToPlayer2()
     console.log('cards distributed');
-    setTimeout(checkInitialCardValues, 4000)
+    setTimeout(checkInitialCardValues, 3500)
     $hitP1.on('click', hit)
     $standP1.on('click', switchTurns)
   })
@@ -98,7 +98,7 @@ function dealToDealer() {
   game.dealer.hand = [game.deck.pop(), game.deck.pop()]
   $('<img class="cardImage" src=' + game.dealer.hand[0].img + '>').appendTo('.dealer')
   setTimeout(function() {
-    $('<img class="cardImage" src=' + game.dealer.hand[1].img + '>').appendTo('.dealer')
+    $('<img class="cardImage cardBack" src="images/card_back.jpg">').appendTo('.dealer')
   }, 1500)
 }
 
@@ -130,7 +130,7 @@ function hit() {
   currentPlayer.hand.push(game.deck.pop())
   $('<img class="cardImage" src=' + currentPlayer.hand[currentPlayer.hand.length - 1].img + '>').appendTo(currentPlayer.class)
   console.log('new card added to ' + currentPlayer.name + ' hand');
-  checkCardValue()
+  setTimeout(checkCardValue, 500)
 }
 
 // Function that switches turns
