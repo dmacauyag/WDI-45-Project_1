@@ -123,7 +123,7 @@ function hit() {
   currentPlayer.hand.push(game.deck.pop())
   $('<img class="cardImage" src=' + currentPlayer.hand[currentPlayer.hand.length - 1].img + '>').appendTo(currentPlayer.class)
   console.log('new card added to ' + currentPlayer.name + ' hand');
-  setTimeout(checkCardValue, 500)
+  checkCardValue()
 }
 
 // Function that switches turns
@@ -157,9 +157,9 @@ function playDealer() {
     alert('Dealer Wins!')
   } else if (currentPlayer.score < 17) {
     console.log('dealer must hit');
-    setTimeout(hit, 500)
+    hit()
   } else {
-    setTimeout(checkForWinner, 500)
+    checkForWinner()
   }
 }
 
@@ -196,6 +196,7 @@ function checkInitialCardValues() {
 function checkCardValue() {
   console.log('checking card value');
   currentPlayer.score = 0
+  currentPlayer.aces = 0
   for (var i = 0; i < currentPlayer.hand.length; i++) {
     currentPlayer.score += currentPlayer.hand[i].value
   }
@@ -203,28 +204,55 @@ function checkCardValue() {
   if (currentPlayer.score == 21) {
     alert(currentPlayer.name + ' has BLACKJACK!')
     switchTurns()
-  } else if (currentPlayer.score > 21) {
-    alert(currentPlayer.name + ' BUST!')
-    switchTurns()
-  } else if (currentPlayer.name == 'Dealer') {
+  }
+  if (currentPlayer.score > 21) {
+    if (isAce()) {
+      console.log('player has aces');
+      checkAce()
+    } else {
+      alert(currentPlayer.name + ' BUST!')
+      switchTurns()
+    }
+  }
+  if (currentPlayer.name == 'Dealer') {
     if (currentPlayer.score < 17) {
       console.log('dealer must hit');
-      setTimeout(hit, 500)
+      hit()
     } else {
-      setTimeout(checkForWinner, 500)
+      checkForWinner()
     }
   }
 }
 
 // Function that checks for Ace
 function isAce() {
-  var numberOfAces = 0
-  for (var i = 0; i < game.currentPlayer.hand.length; i++) {
-    if (game.currentPlayer.hand[i].suit == 'Ace') {
-      numberOfAces++
+  console.log('check if hand has aces');
+  for (var i = 0; i < currentPlayer.hand.length; i++) {
+    if (currentPlayer.hand[i].name == 'Ace') {
+      currentPlayer.aces++
     }
   }
-  console.log(numberOfAces);
+  if (currentPlayer.aces != 0) {
+    console.log('hand has an ace');
+    return true
+  } else {
+    console.log('hand has no aces');
+    return false
+  }
+}
+
+// Function to calculate new score if there are aces in the player's hand
+function checkAce() {
+  console.log('get new value for ace');
+  for (var i = 0; i < currentPlayer.aces; i++) {
+    if (currentPlayer.score > 21) {
+      currentPlayer.score -= 10
+    }
+  }
+  if (currentPlayer.score > 21) {
+    alert(currentPlayer.name + ' BUST!')
+    switchTurns()
+  }
 }
 
 // Function that checks if there is a winner at the beginning of the game
@@ -282,11 +310,14 @@ function resetCardsToDeck() {
   console.log(game.deck.length);
 }
 
-// Function that resets each player's score
+// Function that resets each player's score and ace value
 function resetScore() {
   game.dealer.score = 0
   game.player1.score = 0
   game.player2.score = 0
+  game.dealer.aces = 0
+  game.player1.aces = 0
+  game.player2.aces = 0
 }
 
 // Function that shuffles the cards in the deck using the Fisher Yates Shuffle
