@@ -260,6 +260,9 @@ function checkAce() {
   if (currentPlayer.score > 21) {
     alert(currentPlayer.name + ' BUST!')
     switchTurns()
+  } else if (currentPlayer.score == 21) {
+    alert(currentPlayer.name + ' has 21!')
+    switchTurns()  
   }
 }
 
