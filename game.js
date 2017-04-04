@@ -335,6 +335,12 @@ function resetValues() {
   game.player2.aces = 0
 }
 
+// Function that accepts string inputs and displays on the screen
+function notify(string) {
+  $('h3').remove()
+  $('.dealer').append('<h3>' + string + '</h3>')
+}
+
 // Function that shuffles the cards in the deck using the Fisher Yates Shuffle
 function shuffle(array) {
   var m = array.length, t, i;

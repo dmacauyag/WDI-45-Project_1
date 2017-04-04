@@ -5,7 +5,8 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  border: 5px solid gold;
+  border: 10px solid saddlebrown;
+  border-radius: 20px;
   margin: 0 auto;
   position: relative;
 }
@@ -167,4 +168,10 @@ input {
 h2 {
   color: white;
   font-weight: bold;
+}
+
+h3 {
+  color: white;
+  font-weight: bold;
+  font-size: 36px;
 }
