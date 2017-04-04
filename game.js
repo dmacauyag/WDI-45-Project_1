@@ -158,7 +158,7 @@ function playDealer() {
     console.log('dealer won');
     alert('Dealer Wins!')
     checkForWinner()
-  } else if (currentPlayer.score < 17 && (game.player1.score <= 21 && game.player2.score <= 21)) {
+  } else if (currentPlayer.score < 17 && (game.player1.score <= 21 || game.player2.score <= 21)) {
     console.log(currentPlayer.score);
     console.log('dealer must hit');
     hit()
@@ -217,7 +217,7 @@ function checkCardValue() {
     }
   }
   if (currentPlayer.name == 'Dealer') {
-    if (currentPlayer.score < 17 && (game.player1.score <= 21 && game.player2.score <= 21)) {
+    if (currentPlayer.score < 17 && (game.player1.score <= 21 || game.player2.score <= 21)) {
       console.log('dealer must hit');
       hit()
     } else {
