@@ -166,10 +166,8 @@ function switchTurns() {
 function playDealer() {
   console.log('dealers turn');
   $('.cardBack').replaceWith('<img class="cardImage" src=' + game.dealer.hand[1].img + '>')
-  console.log((game.player1.score > 21 && game.player2.score > 21));
   if (game.player1.score > 21 && game.player2.score > 21) {
     console.log('dealer won');
-    alert('Dealer Wins!')
     checkForWinner()
   } else if (currentPlayer.score < 17 && (game.player1.score <= 21 || game.player2.score <= 21)) {
     console.log(currentPlayer.score);
@@ -188,8 +186,8 @@ function checkInitialCardValues() {
   if (game.dealer.score > 21) {
     game.dealer.score -= 10
   }
-
   console.log('dealers initial hand = ' + game.dealer.score);
+
   for (var i = 0; i < game.player1.hand.length; i++) {
     game.player1.score += game.player1.hand[i].value
   }
@@ -218,7 +216,6 @@ function checkCardValue() {
   }
   console.log(currentPlayer.name + ' has ' + currentPlayer.score);
   if (currentPlayer.score == 21) {
-    alert(currentPlayer.name + ' has BLACKJACK!')
     switchTurns()
   }
   if (currentPlayer.score > 21) {
@@ -226,7 +223,6 @@ function checkCardValue() {
       console.log('player has aces');
       checkAce()
     } else {
-      alert(currentPlayer.name + ' BUST!')
       switchTurns()
     }
   }
@@ -266,10 +262,8 @@ function checkAce() {
     }
   }
   if (currentPlayer.score > 21) {
-    alert(currentPlayer.name + ' BUST!')
     switchTurns()
   } else if (currentPlayer.score == 21) {
-    alert(currentPlayer.name + ' has 21!')
     switchTurns()
   }
 }
@@ -278,10 +272,8 @@ function checkAce() {
 function checkforInitialWinner() {
   console.log('checking for initial blackack');
   if (game.player1.score == 21) {
-    alert('Player 1 has 21!')
   }
   if (game.player2.score == 21) {
-    alert('Player 2 has 21!')
   }
   if (game.dealer.score == 21) {
     // Game should end here if this happens
@@ -294,18 +286,12 @@ function checkforInitialWinner() {
 function checkForWinner() {
   console.log('checking for the game winner');
   if (((game.player1.score > game.dealer.score) && game.player1.score <= 21) || (game.player1.score <= 21 && game.dealer.score > 21)) {
-    alert('Player 1 Beats The Dealer!')
   } else if (((game.dealer.score > game.player1.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player1.score > 21)) {
-    alert('Dealer Beats Player 1!')
   } else if (game.player1.score == game.dealer.score) {
-    alert('Dealer and Player 1 Tie!')
   }
   if (((game.player2.score > game.dealer.score) && game.player2.score <= 21) || (game.player2.score <= 21 && game.dealer.score > 21)) {
-    alert('Player 2 Beats The Dealer!')
   } else if (((game.dealer.score > game.player2.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player2.score > 21)) {
-    alert('Dealer Beats Player 2!')
   } else if (game.player2.score == game.dealer.score) {
-    alert('Dealer and Player 2 Tie!')
   }
 }
 
