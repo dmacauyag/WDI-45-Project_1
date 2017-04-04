@@ -87,7 +87,7 @@ function deal() {
     console.log('deck shuffled');
     dealCards()
     console.log('cards distributed');
-    setTimeout(checkInitialCardValues, 3500)
+    checkInitialCardValues()
     playTurn()
   })
 }
