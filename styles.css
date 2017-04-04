@@ -72,6 +72,15 @@ img {
   width: 130px;
 }
 
+.cardImage {
+  margin-left: -60px;
+  box-shadow: 0px 0px 20px
+}
+
+.cardImage:first-child {
+  margin-left: 0
+}
+
 .hit {
   border: 5px solid #696969;
   border-radius: 50%;

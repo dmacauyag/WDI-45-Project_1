@@ -77,8 +77,6 @@ var $standP2 = $('.standP2')
     deal()
   })
 
-
-
 // Function that shuffles the deck and deals a new hand to the dealer and both players
 function deal() {
   $deal.one('click', function() {
@@ -124,7 +122,6 @@ function playTurn() {
   } else {
     checkForWinner()
   }
-
 }
 
 // Function for the hit button
@@ -271,7 +268,6 @@ function checkAce() {
 function checkforInitialBlackjack() {
   console.log('checking for initial blackack');
   if (game.dealer.score == 21) {
-    // Game should end here if this happens
     $('.cardBack').replaceWith('<img class="cardImage" src=' + game.dealer.hand[1].img + '>')
     checkForWinner()
   } else {
@@ -284,19 +280,27 @@ function checkforInitialBlackjack() {
 function checkForWinner() {
   console.log('checking for the game winner');
   // Add a way to alert players of the final outcome.
+  // First check if Player busted 
   if (((game.player1.score > game.dealer.score) && game.player1.score <= 21) || (game.player1.score <= 21 && game.dealer.score > 21)) {
-
+    // Player 1 Beats Dealer
+    console.log('Player 1 Beats Dealer');
   } else if (((game.dealer.score > game.player1.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player1.score > 21)) {
-
+    // Dealer Beats Player 1
+    console.log('Dealer Beats Player 1');
   } else if (game.player1.score == game.dealer.score) {
-
+    // Dealer and Player 1 Tie
+    console.log('Dealer and Player 1 Tie');
   }
+
   if (((game.player2.score > game.dealer.score) && game.player2.score <= 21) || (game.player2.score <= 21 && game.dealer.score > 21)) {
-
+    // Player 2 Beats Dealer
+    console.log('Player 2 Beats Dealer');
   } else if (((game.dealer.score > game.player2.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player2.score > 21)) {
-
+    // Dealer Beats Player 2
+    console.log('Dealer Beats Player 2');
   } else if (game.player2.score == game.dealer.score) {
-
+    // Dealer and Player 2 Tie
+    console.log('Dealer and Player 2 Tie');
   }
 }
 
