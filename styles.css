@@ -1,7 +1,10 @@
 .boardContainer {
-  height: 550px;
+  height: 700px;
   width: 1400px;
-  background: green;
+  background-image: url('https://simonsblogpark.com/onlinegambling/wp-content/uploads/2015/01/blackjack-e1421619943744.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   border: 5px solid gold;
   margin: 0 auto;
   position: relative;

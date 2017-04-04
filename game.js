@@ -1,7 +1,7 @@
 // Declare global variables
 var game = {
-  player1: {name: 'Player 1', class: '.player1', aces: 0, hand: [], score: 0, cash: 100},
-  player2: {name: 'Player 2', class: '.player2', aces: 0, hand: [], score: 0, cash: 100},
+  player1: {name: 'Player 1', class: '.player1', aces: 0, hand: [], score: 0, cash: 100, bet: 0},
+  player2: {name: 'Player 2', class: '.player2', aces: 0, hand: [], score: 0, cash: 100, bet: 0},
   dealer: {name: 'Dealer', class: '.dealer', hand: [], score : 0},
   deck: [
     {suit: 'Hearts', name: 'Ace', value: 11, altValue: 1, img: 'images/ace_of_hearts.png'},
@@ -258,7 +258,6 @@ function checkAce() {
 }
 
 // Function that checks if there is a winner at the beginning of the game
-// =================== Need to correct for DOUBLE ACES! =================== //
 function checkforInitialWinner() {
   console.log('checking for initial blackack');
   if (game.player1.score == 21) {
