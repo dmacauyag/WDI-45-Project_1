@@ -88,12 +88,11 @@ function deal() {
     dealCards()
     console.log('cards distributed');
     setTimeout(checkInitialCardValues, 3500)
-    $hitP1.on('click', hit)
-    $standP1.on('click', switchTurns)
+    playTurn()
   })
 }
 
-// Function that visually deals cards to each player
+// Function pops cards from the deck into each players hand array. Function also visually displays the cards on the screen
 function dealCards() {
   game.dealer.hand = [game.deck.pop(), game.deck.pop()]
   game.player1.hand = [game.deck.pop(), game.deck.pop()]
@@ -119,6 +118,22 @@ function dealCards() {
   }, 2500)
 }
 
+// Function for player 1 and player 2 turns
+function playTurn() {
+  if (currentPlayer.name == 'Player 1') {
+    console.log('turn on ' + currentPlayer.name + ' buttons');
+    $hitP1.on('click', hit)
+    $standP1.on('click', switchTurns)
+  } else if (currentPlayer.name == 'Player 2') {
+    console.log('turn on ' + currentPlayer.name + ' buttons');
+    $hitP2.on('click', hit)
+    $standP2.on('click', switchTurns)
+  } else {
+    checkForWinner()
+  }
+
+}
+
 // Function for the hit button
 function hit() {
   console.log('hit')
@@ -134,11 +149,9 @@ function switchTurns() {
     $hitP1.off()
     $standP1.off()
     console.log('turn off ' + currentPlayer.name + ' buttons');
-    $hitP2.on('click', hit)
-    $standP2.on('click', switchTurns)
     currentPlayer = game.player2
-    console.log('turn on ' + currentPlayer.name + ' buttons');
     console.log('switch to ' + currentPlayer.name);
+    playTurn()
   } else if (currentPlayer == game.player2){
     $hitP2.off()
     $standP2.off()
