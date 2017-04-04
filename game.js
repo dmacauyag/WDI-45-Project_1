@@ -88,7 +88,6 @@ function deal() {
     dealCards()
     console.log('cards distributed');
     checkInitialCardValues()
-    playTurn()
   })
 }
 
@@ -203,7 +202,7 @@ function checkInitialCardValues() {
     game.player2.score -= 10
   }
   console.log('player 2 initial hand = ' + game.player2.score);
-  checkforInitialWinner()
+  checkforInitialBlackjack()
 }
 
 // Function that checks for the cards values between turns
@@ -269,29 +268,35 @@ function checkAce() {
 }
 
 // Function that checks if there is a winner at the beginning of the game
-function checkforInitialWinner() {
+function checkforInitialBlackjack() {
   console.log('checking for initial blackack');
-  if (game.player1.score == 21) {
-  }
-  if (game.player2.score == 21) {
-  }
   if (game.dealer.score == 21) {
     // Game should end here if this happens
     $('.cardBack').replaceWith('<img class="cardImage" src=' + game.dealer.hand[1].img + '>')
     checkForWinner()
+  } else {
+    console.log('dealer does not have 21, start play');
+    playTurn()
   }
 }
 
 // Function checks for winner at the END of the game
 function checkForWinner() {
   console.log('checking for the game winner');
+  // Add a way to alert players of the final outcome.
   if (((game.player1.score > game.dealer.score) && game.player1.score <= 21) || (game.player1.score <= 21 && game.dealer.score > 21)) {
+
   } else if (((game.dealer.score > game.player1.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player1.score > 21)) {
+
   } else if (game.player1.score == game.dealer.score) {
+
   }
   if (((game.player2.score > game.dealer.score) && game.player2.score <= 21) || (game.player2.score <= 21 && game.dealer.score > 21)) {
+
   } else if (((game.dealer.score > game.player2.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player2.score > 21)) {
+
   } else if (game.player2.score == game.dealer.score) {
+
   }
 }
 
