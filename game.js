@@ -112,10 +112,14 @@ function dealCards() {
 function playTurn() {
   if (currentPlayer.name == 'Player 1') {
     console.log('turn on ' + currentPlayer.name + ' buttons');
+    $hitP1.addClass('onP1')
+    $standP1.addClass('onP1')
     $hitP1.on('click', hit)
     $standP1.on('click', switchTurns)
   } else if (currentPlayer.name == 'Player 2') {
     console.log('turn on ' + currentPlayer.name + ' buttons');
+    $hitP2.addClass('onP2')
+    $standP2.addClass('onP2')
     $hitP2.on('click', hit)
     $standP2.on('click', switchTurns)
   } else {
@@ -136,6 +140,8 @@ function hit() {
 // Function that switches turns
 function switchTurns() {
   if (currentPlayer == game.player1) {
+    $hitP1.removeClass('onP1')
+    $standP1.removeClass('onP1')
     $hitP1.off()
     $standP1.off()
     console.log('turn off ' + currentPlayer.name + ' buttons');
@@ -143,6 +149,8 @@ function switchTurns() {
     console.log('switch to ' + currentPlayer.name);
     playTurn()
   } else if (currentPlayer == game.player2){
+    $hitP2.removeClass('onP2')
+    $standP2.removeClass('onP2')
     $hitP2.off()
     $standP2.off()
     console.log('turn off ' + currentPlayer.name + ' buttons');
@@ -262,7 +270,7 @@ function checkAce() {
     switchTurns()
   } else if (currentPlayer.score == 21) {
     alert(currentPlayer.name + ' has 21!')
-    switchTurns()  
+    switchTurns()
   }
 }
 

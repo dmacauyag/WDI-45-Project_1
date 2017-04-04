@@ -81,6 +81,8 @@ img {
   font-size: 20px;
   height: 90px;
   width: 90px;
+  transition-duration: 0.4s;
+  opacity: 0.8;
 }
 
 .stand {
@@ -92,6 +94,28 @@ img {
   font-size: 20px;
   height: 90px;
   width: 90px;
+  transition-duration: 0.4s;
+  opacity: 0.8;
+}
+
+.onP1 {
+  background-color: maroon;
+  color: white;
+  opacity: 1;
+}
+
+.onP1:hover {
+  background-color: tomato;
+}
+
+.onP2 {
+  background-color: maroon;
+  color: white;
+  opacity: 1;
+}
+
+.onP2:hover {
+  background-color: tomato;
 }
 
 .newGame {
