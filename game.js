@@ -98,24 +98,14 @@ function dealCards() {
   game.player1.hand = [game.deck.pop(), game.deck.pop()]
   game.player2.hand = [game.deck.pop(), game.deck.pop()]
 
-  $('<img class="cardImage" src=' + game.dealer.hand[0].img + '>').appendTo('.dealer')
-  setTimeout(function() {
-    $('<img class="cardImage cardBack" src="images/card_back.jpg">').appendTo('.dealer')
-  }, 1500)
+  $('<img class="cardImage" src=' + game.dealer.hand[0].img + '>').hide().appendTo('.dealer').show('slow')
+  $('<img class="cardImage cardBack" src="images/card_back.jpg">').appendTo('.dealer').show('slow')
 
-  setTimeout(function(){
-    $('<img class="cardImage" src=' + game.player1.hand[0].img + '>').appendTo('.player1')
-  }, 500)
-  setTimeout(function(){
-    $('<img class="cardImage" src=' + game.player1.hand[1].img + '>').appendTo('.player1')
-  }, 2000)
+  $('<img class="cardImage" src=' + game.player1.hand[0].img + '>').hide().appendTo('.player1').show('slow')
+  $('<img class="cardImage" src=' + game.player1.hand[1].img + '>').hide().appendTo('.player1').show('slow')
 
-  setTimeout(function(){
-    $('<img class="cardImage" src=' + game.player2.hand[0].img + '>').appendTo('.player2')
-  }, 1000)
-  setTimeout(function(){
-    $('<img class="cardImage" src=' + game.player2.hand[1].img + '>').appendTo('.player2')
-  }, 2500)
+  $('<img class="cardImage" src=' + game.player2.hand[0].img + '>').hide().appendTo('.player2').show('slow')
+  $('<img class="cardImage" src=' + game.player2.hand[1].img + '>').hide().appendTo('.player2').show('slow')
 }
 
 // Function for player 1 and player 2 turns
@@ -138,7 +128,7 @@ function playTurn() {
 function hit() {
   console.log('hit')
   currentPlayer.hand.push(game.deck.pop())
-  $('<img class="cardImage" src=' + currentPlayer.hand[currentPlayer.hand.length - 1].img + '>').appendTo(currentPlayer.class)
+  $('<img class="cardImage" src=' + currentPlayer.hand[currentPlayer.hand.length - 1].img + '>').hide().appendTo(currentPlayer.class).show('slow')
   console.log('new card added to ' + currentPlayer.name + ' hand');
   checkCardValue()
 }
