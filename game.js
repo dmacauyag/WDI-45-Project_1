@@ -72,7 +72,7 @@ var $standP2 = $('.standP2')
   $newGame.on('click', function() {
     console.log('new game clicked');
     currentPlayer = game.player1
-    resetScore()
+    resetValues()
     resetCardsToDeck()
     deal()
   })
@@ -317,7 +317,7 @@ function resetCardsToDeck() {
 }
 
 // Function that resets each player's score and ace value
-function resetScore() {
+function resetValues() {
   game.dealer.score = 0
   game.player1.score = 0
   game.player2.score = 0
