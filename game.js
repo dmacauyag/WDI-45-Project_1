@@ -68,16 +68,15 @@ var $hitP2 = $('.hitP2')
 var $standP1 = $('.standP1')
 var $standP2 = $('.standP2')
 
-// Function that starts a new game
-function newGame() {
-  $newGame.one('click', function() {
+// Event listener for new game
+  $newGame.on('click', function() {
     console.log('new game clicked');
     currentPlayer = game.player1
     resetScore()
     resetCardsToDeck()
     deal()
   })
-}
+
 
 
 // Function that shuffles the deck and deals a new hand to the dealer and both players
@@ -294,7 +293,6 @@ function checkForWinner() {
   } else if (game.player2.score == game.dealer.score) {
     alert('Dealer and Player 2 Tie!')
   }
-  newGame()
 }
 
 // Function that places the cards back into the deck
@@ -342,5 +340,3 @@ function shuffle(array) {
   }
   return array;
 }
-
-newGame()
