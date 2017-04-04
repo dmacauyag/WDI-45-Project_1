@@ -280,7 +280,7 @@ function checkforInitialBlackjack() {
 function checkForWinner() {
   console.log('checking for the game winner');
   // Add a way to alert players of the final outcome.
-  // First check if Player busted 
+  // First check if Player busted
   if (((game.player1.score > game.dealer.score) && game.player1.score <= 21) || (game.player1.score <= 21 && game.dealer.score > 21)) {
     // Player 1 Beats Dealer
     console.log('Player 1 Beats Dealer');
