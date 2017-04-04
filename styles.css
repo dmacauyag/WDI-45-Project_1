@@ -57,7 +57,7 @@
   display: inline-block;
   position: absolute;
   bottom: 200px;
-  right: 330px;
+  right: 380px;
 }
 
 .hand {
@@ -129,4 +129,9 @@ input {
   border: 3px solid goldenrod;
   background-color: green;
   color: white;
+}
+
+h2 {
+  color: white;
+  font-weight: bold;
 }
