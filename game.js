@@ -207,6 +207,7 @@ function checkInitialCardValues() {
   }
   console.log('player 2 initial hand = ' + game.player2.score);
   checkforInitialBlackjack()
+  displayScore()
 }
 
 // Function that checks for the cards values between turns
@@ -238,6 +239,7 @@ function checkCardValue() {
       checkForWinner()
     }
   }
+  displayScore()
 }
 
 // Function that checks for Ace
@@ -343,11 +345,20 @@ function resetValues() {
   game.dealer.aces = 0
   game.player1.aces = 0
   game.player2.aces = 0
+
+  document.querySelector('.score1').innerHTML = 'SCORE: '
+  document.querySelector('.score2').innerHTML = 'SCORE: '
 }
 
 // Function that accepts string inputs and displays on the screen
 function notify(string) {
   document.querySelector('h2').innerHTML = string
+}
+
+// Function that displays each player's score
+function displayScore() {
+  document.querySelector('.score1').innerHTML = 'SCORE: ' + game.player1.score
+  document.querySelector('.score2').innerHTML = 'SCORE: ' + game.player2.score
 }
 
 // Function that shuffles the cards in the deck using the Fisher Yates Shuffle
