@@ -92,7 +92,7 @@ img {
   height: 90px;
   width: 90px;
   transition-duration: 0.4s;
-  opacity: 0.8;
+  opacity: 0.5;
 }
 
 .stand {
@@ -105,7 +105,7 @@ img {
   height: 90px;
   width: 90px;
   transition-duration: 0.4s;
-  opacity: 0.8;
+  opacity: 0.5;
 }
 
 .onP1 {
@@ -141,18 +141,35 @@ img {
   position: absolute;
   top: 40px;
   left: 20px;
+  transition-duration: 0.4s;
+}
+
+.newGame:hover {
+  background-color: olive;
 }
 
 .deal {
   border: 5px solid goldenrod;
   border-radius: 50%;
-  background-color: firebrick;
-  color: white;
+  background-color: #D3D3D3;
+  color: black;
   text-align: center;
   font-weight: bold;
   font-size: 24px;
   height: 100px;
   width: 100px;
+  transition-duration: 0.4s;
+  opacity: 0.5;
+}
+
+.dealOn {
+  background-color: firebrick;
+  color: white;
+  opacity: 1;
+}
+
+.dealOn:hover {
+  background-color: tomato;
 }
 
 input {

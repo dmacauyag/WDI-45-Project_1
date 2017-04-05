@@ -77,6 +77,7 @@ notify('Welcome to Blackjack! Press New Game to begin.')
     currentPlayer = game.player1
     resetValues()
     resetCardsToDeck()
+    $deal.addClass('dealOn')
     deal()
   })
 
@@ -84,6 +85,7 @@ notify('Welcome to Blackjack! Press New Game to begin.')
 function deal() {
   $deal.one('click', function() {
     console.log('deal clicked');
+    $deal.removeClass('dealOn')
     game.deck = shuffle(game.deck)
     console.log('deck shuffled');
     dealCards()
