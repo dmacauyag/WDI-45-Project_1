@@ -98,6 +98,7 @@ function checkBetP1() {
     alert('Player 1, please enter a valid bet!')
   } else {
     game.player1.bet = player1Bet
+    document.querySelector('.betValueP1').innerHTML = 'Player 1 Bet: $' + game.player1.bet
     $('.placeBetP1').off()
     $('.placeBetP1').removeClass('placeBetOn')
     if (game.player2.bet > 0) {
@@ -121,6 +122,7 @@ function checkBetP2() {
     alert('Player 2, please enter a valid bet!')
   } else {
     game.player2.bet = player2Bet
+    document.querySelector('.betValueP2').innerHTML = 'Player 2 Bet: $' + game.player2.bet
     $('.placeBetP2').off()
     $('.placeBetP2').removeClass('placeBetOn')
     if (game.player1.bet > 0) {
@@ -410,6 +412,10 @@ function resetValues() {
   document.querySelector('.score1').innerHTML = ''
   document.querySelector('.score2').innerHTML = ''
   document.querySelector('.scoreDealer').innerHTML = ''
+  document.querySelector('.betValueP1').innerHTML = 'Player 1 Bet: $'
+  document.querySelector('.betValueP2').innerHTML = 'Player 2 Bet: $'
+  document.querySelector('.cashP1').innerHTML = 'Player 1 Cash: $' + game.player1.cash
+  document.querySelector('.cashP2').innerHTML = 'Player 2 Cash: $' + game.player2.cash
 }
 
 // Function that accepts string inputs and displays on the screen
