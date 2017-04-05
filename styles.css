@@ -71,7 +71,7 @@ label {
   display: inline-block;
   position: absolute;
   bottom: 200px;
-  right: 320px;
+  right: 230px;
 }
 
 .hand {
@@ -242,4 +242,22 @@ h3 {
 
 .score:empty {
   display: none;
+}
+
+.placeBet {
+  transition-duration: 0.4s;
+  background-color: #D3D3D3;
+  color: white;
+  opacity: 0.5;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.placeBetOn {
+  background-color: firebrick;
+  opacity: 1;
+}
+
+.placeBetOn:hover {
+  background-color: tomato;
 }

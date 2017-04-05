@@ -67,6 +67,8 @@ var $hitP1 = $('.hitP1')
 var $hitP2 = $('.hitP2')
 var $standP1 = $('.standP1')
 var $standP2 = $('.standP2')
+var player1Cash = game.player1.cash
+var player2Cash = game.player2.cash
 //============================================================================//
 
 notify('Welcome to Blackjack! Press NEW GAME to begin.')
@@ -74,13 +76,60 @@ notify('Welcome to Blackjack! Press NEW GAME to begin.')
 // Event listener for new game
   $newGame.on('click', function() {
     console.log('new game clicked');
-    notify('Press DEAL to  play!')
+    notify('Please place a minimum bet of $10 and then press DEAL to play!')
     currentPlayer = game.player1
     resetValues()
     resetCardsToDeck()
-    $deal.addClass('dealOn')
-    deal()
+    $('.placeBet').addClass('placeBetOn')
+    $('.placeBetP1').on('click', checkBetP1)
+    $('.placeBetP2').on('click', checkBetP2)
   })
+
+// Function that checks for the validity of Player 1 bet prior to dealing cards
+function checkBetP1() {
+  console.log('checking Player 1 bet');
+  var player1Bet = Number($('.betP1').val())
+
+  if (player1Bet > player1Cash) {
+    alert('Player 1 does not have enough cash to place that bet!')
+  } else if (player1Bet < 10) {
+    alert('Player 1, please enter a minimum bet of $10!')
+  } else if (isNaN(player1Bet) == true) {
+    alert('Player 1, please enter a valid bet!')
+  } else {
+    game.player1.bet = player1Bet
+    $('.placeBetP1').off()
+    $('.placeBetP1').removeClass('placeBetOn')
+    if (game.player2.bet > 0) {
+      console.log(game.player2.bet);
+      $deal.addClass('dealOn')
+      deal()
+    }
+  }
+}
+
+// Function that checks for the validity of Player 2 bet prior to dealing cards
+function checkBetP2() {
+  console.log('checking Player 2 bet');
+  var player2Bet = Number($('.betP2').val())
+
+  if (player2Bet > player2Cash) {
+    alert('Player 2 does not have enough cash to place that bet!')
+  } else if (player2Bet < 10) {
+    alert('Player 2, please enter a minimum bet of $10!')
+  } else if (isNaN(player2Bet) == true) {
+    alert('Player 2, please enter a valid bet!')
+  } else {
+    game.player2.bet = player2Bet
+    $('.placeBetP2').off()
+    $('.placeBetP2').removeClass('placeBetOn')
+    if (game.player1.bet > 0) {
+      console.log(game.player1.bet);
+      $deal.addClass('dealOn')
+      deal()
+    }
+  }
+}
 
 // Function that shuffles the deck and deals a new hand to the dealer and both players
 function deal() {
@@ -355,6 +404,8 @@ function resetValues() {
   game.dealer.aces = 0
   game.player1.aces = 0
   game.player2.aces = 0
+  game.player1.bet = 0
+  game.player2.bet = 0
 
   document.querySelector('.score1').innerHTML = ''
   document.querySelector('.score2').innerHTML = ''
