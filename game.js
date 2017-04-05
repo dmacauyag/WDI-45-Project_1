@@ -1,4 +1,4 @@
-// Declare global variables
+//========================== Global Variables ================================//
 var game = {
   player1: {name: 'Player 1', class: '.player1', aces: 0, hand: [], score: 0, cash: 100, bet: 0},
   player2: {name: 'Player 2', class: '.player2', aces: 0, hand: [], score: 0, cash: 100, bet: 0},
@@ -67,13 +67,14 @@ var $hitP1 = $('.hitP1')
 var $hitP2 = $('.hitP2')
 var $standP1 = $('.standP1')
 var $standP2 = $('.standP2')
+//============================================================================//
 
-notify('Welcome to Blackjack! Press New Game to begin.')
+notify('Welcome to Blackjack! Press NEW GAME to begin.')
 
 // Event listener for new game
   $newGame.on('click', function() {
     console.log('new game clicked');
-    notify('Press Deal to  play!')
+    notify('Press DEAL to  play!')
     currentPlayer = game.player1
     resetValues()
     resetCardsToDeck()
@@ -113,19 +114,27 @@ function dealCards() {
 // Function for player 1 and player 2 turns
 function playTurn() {
   if (currentPlayer.name == 'Player 1') {
-    console.log('turn on ' + currentPlayer.name + ' buttons');
-    notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
-    $hitP1.addClass('onP1')
-    $standP1.addClass('onP1')
-    $hitP1.on('click', hit)
-    $standP1.on('click', switchTurns)
+    if (currentPlayer.score == 21) {
+      switchTurns()
+    } else {
+      console.log('turn on ' + currentPlayer.name + ' buttons');
+      notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
+      $hitP1.addClass('onP1')
+      $standP1.addClass('onP1')
+      $hitP1.on('click', hit)
+      $standP1.on('click', switchTurns)
+    }
   } else if (currentPlayer.name == 'Player 2') {
-    console.log('turn on ' + currentPlayer.name + ' buttons');
-    notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
-    $hitP2.addClass('onP2')
-    $standP2.addClass('onP2')
-    $hitP2.on('click', hit)
-    $standP2.on('click', switchTurns)
+      if (currentPlayer.score == 21) {
+        switchTurns()
+      } else {
+        console.log('turn on ' + currentPlayer.name + ' buttons');
+        notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
+        $hitP2.addClass('onP2')
+        $standP2.addClass('onP2')
+        $hitP2.on('click', hit)
+        $standP2.on('click', switchTurns)
+      }
   } else {
     checkForWinner()
   }
@@ -313,7 +322,8 @@ function checkForWinner() {
     // Dealer and Player 2 Tie
     console.log('Dealer and Player 2 Tie');
   }
-  notify('Press New Game to play again!')
+  displayScore()
+  notify('Press NEW GAME to play again!')
 }
 
 // Function that places the cards back into the deck
@@ -346,8 +356,9 @@ function resetValues() {
   game.player1.aces = 0
   game.player2.aces = 0
 
-  document.querySelector('.score1').innerHTML = 'SCORE: '
-  document.querySelector('.score2').innerHTML = 'SCORE: '
+  document.querySelector('.score1').innerHTML = ''
+  document.querySelector('.score2').innerHTML = ''
+  document.querySelector('.scoreDealer').innerHTML = ''
 }
 
 // Function that accepts string inputs and displays on the screen
@@ -357,8 +368,33 @@ function notify(string) {
 
 // Function that displays each player's score
 function displayScore() {
-  document.querySelector('.score1').innerHTML = 'SCORE: ' + game.player1.score
-  document.querySelector('.score2').innerHTML = 'SCORE: ' + game.player2.score
+  if (game.player1.score == 21) {
+    document.querySelector('.score1').innerHTML = 'SCORE: ' + game.player1.score + ' - BLACKJACK!'
+  } else if (game.player1.score > 21) {
+    document.querySelector('.score1').innerHTML = 'SCORE: ' + game.player1.score + ' - BUST!'
+  } else {
+    document.querySelector('.score1').innerHTML = 'SCORE: ' + game.player1.score
+  }
+
+  if (game.player2.score == 21) {
+    document.querySelector('.score2').innerHTML = 'SCORE: ' + game.player2.score + ' - BLACKJACK!'
+  } else if (game.player2.score > 21) {
+    document.querySelector('.score2').innerHTML = 'SCORE: ' + game.player2.score + ' - BUST!'
+  } else {
+    document.querySelector('.score2').innerHTML = 'SCORE: ' + game.player2.score
+  }
+
+  if (game.dealer.score == 21) {
+    document.querySelector('.scoreDealer').innerHTML = 'DEALER HAS ' + game.dealer.score + ' - BLACKJACK!'
+  } else if (currentPlayer.name != 'Dealer') {
+    document.querySelector('.scoreDealer').innerHTML = 'DEALER SHOWS ' + game.dealer.hand[0].value
+  } else {
+    if (game.dealer.score > 21) {
+      document.querySelector('.scoreDealer').innerHTML = 'DEALER HAS ' + game.dealer.score + ' - BUST!'
+    } else {
+      document.querySelector('.scoreDealer').innerHTML = 'DEALER HAS ' + game.dealer.score
+    }
+  }
 }
 
 // Function that shuffles the cards in the deck using the Fisher Yates Shuffle
