@@ -11,6 +11,10 @@
   position: relative;
 }
 
+button:focus {
+  outline: 0;
+}
+
 .dealer {
   height: 175px;
   width: 650px;

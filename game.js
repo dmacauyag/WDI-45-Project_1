@@ -270,6 +270,7 @@ function checkAce() {
   } else if (currentPlayer.score == 21) {
     switchTurns()
   }
+  notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
 }
 
 // Function that checks if there is a winner at the beginning of the game
