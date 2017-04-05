@@ -68,9 +68,12 @@ var $hitP2 = $('.hitP2')
 var $standP1 = $('.standP1')
 var $standP2 = $('.standP2')
 
+notify('Welcome to Blackjack! Press New Game to begin.')
+
 // Event listener for new game
   $newGame.on('click', function() {
     console.log('new game clicked');
+    notify('Press Deal to  play!')
     currentPlayer = game.player1
     resetValues()
     resetCardsToDeck()
@@ -109,12 +112,14 @@ function dealCards() {
 function playTurn() {
   if (currentPlayer.name == 'Player 1') {
     console.log('turn on ' + currentPlayer.name + ' buttons');
+    notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
     $hitP1.addClass('onP1')
     $standP1.addClass('onP1')
     $hitP1.on('click', hit)
     $standP1.on('click', switchTurns)
   } else if (currentPlayer.name == 'Player 2') {
     console.log('turn on ' + currentPlayer.name + ' buttons');
+    notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
     $hitP2.addClass('onP2')
     $standP2.addClass('onP2')
     $hitP2.on('click', hit)
@@ -210,6 +215,7 @@ function checkCardValue() {
   for (var i = 0; i < currentPlayer.hand.length; i++) {
     currentPlayer.score += currentPlayer.hand[i].value
   }
+  notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
   console.log(currentPlayer.name + ' has ' + currentPlayer.score);
   if (currentPlayer.score == 21) {
     switchTurns()
@@ -302,6 +308,7 @@ function checkForWinner() {
     // Dealer and Player 2 Tie
     console.log('Dealer and Player 2 Tie');
   }
+  notify('Press New Game to play again!')
 }
 
 // Function that places the cards back into the deck
@@ -337,8 +344,7 @@ function resetValues() {
 
 // Function that accepts string inputs and displays on the screen
 function notify(string) {
-  $('h3').remove()
-  $('.dealer').append('<h3>' + string + '</h3>')
+  document.querySelector('h2').innerHTML = string
 }
 
 // Function that shuffles the cards in the deck using the Fisher Yates Shuffle
