@@ -1,7 +1,7 @@
 //========================== Global Variables ================================//
 var game = {
-  player1: {name: 'Player 1', class: '.player1', aces: 0, hand: [], score: 0, cash: 100, bet: 0},
-  player2: {name: 'Player 2', class: '.player2', aces: 0, hand: [], score: 0, cash: 100, bet: 0},
+  player1: {name: 'Player 1', class: '.player1', aces: 0, hand: [], score: 0, cash: 100, bet: 0, resolved: false},
+  player2: {name: 'Player 2', class: '.player2', aces: 0, hand: [], score: 0, cash: 100, bet: 0, resolved: false},
   dealer: {name: 'Dealer', class: '.dealer', hand: [], score : 0},
   deck: [
     {suit: 'Hearts', name: 'Ace', value: 11, altValue: 1, img: 'images/ace_of_hearts.png'},
@@ -355,24 +355,63 @@ function checkForWinner() {
   if (((game.player1.score > game.dealer.score) && game.player1.score <= 21) || (game.player1.score <= 21 && game.dealer.score > 21)) {
     // Player 1 Beats Dealer
     console.log('Player 1 Beats Dealer');
+    if (game.player1.resolved == false) {
+      game.player1.cash = game.player1.cash + (game.player1.bet * 2)
+      game.player1.resolved = true
+    }
   } else if (((game.dealer.score > game.player1.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player1.score > 21)) {
     // Dealer Beats Player 1
     console.log('Dealer Beats Player 1');
+    if (game.player1.resolved == false) {
+      game.player1.cash = game.player1.cash - game.player1.bet
+      game.player1.resolved = true
+    }
   } else if (game.player1.score == game.dealer.score) {
     // Dealer and Player 1 Tie
     console.log('Dealer and Player 1 Tie');
+    if (game.player1.resolved == false) {
+      game.player1.cash = game.player1.cash - game.player1.bet
+      game.player1.resolved = true
+    }
+  } else if (game.player1.score > 21) {
+    // Player 1 Bust
+    console.log('Player 1 Bust');
+    if (game.player1.resolved == false) {
+      game.player1.cash = game.player1.cash - game.player1.bet
+      game.player1.resolved = true
+    }
   }
 
   if (((game.player2.score > game.dealer.score) && game.player2.score <= 21) || (game.player2.score <= 21 && game.dealer.score > 21)) {
     // Player 2 Beats Dealer
     console.log('Player 2 Beats Dealer');
+    if (game.player2.resolved == false) {
+      game.player2.cash = game.player2.cash + (game.player2.bet * 2)
+      game.player2.resolved = true
+    }
   } else if (((game.dealer.score > game.player2.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player2.score > 21)) {
     // Dealer Beats Player 2
     console.log('Dealer Beats Player 2');
+    if (game.player2.resolved == false) {
+      game.player2.cash = game.player2.cash - game.player2.bet
+      game.player2.resolved = true
+    }
   } else if (game.player2.score == game.dealer.score) {
     // Dealer and Player 2 Tie
     console.log('Dealer and Player 2 Tie');
+    if (game.player2.resolved == false) {
+      game.player2.cash = game.player2.cash - game.player2.bet
+      game.player2.resolved = true
+    }
+  } else if (game.player2.score > 21) {
+    // Player 2 Bust
+    console.log('Player 2 Bust');
+    if (game.player2.resolved == false) {
+      game.player2.cash = game.player2.cash - game.player2.bet
+      game.player2.resolved = true
+    }
   }
+
   displayScore()
   notify('Press NEW GAME to play again!')
 }
@@ -408,6 +447,8 @@ function resetValues() {
   game.player2.aces = 0
   game.player1.bet = 0
   game.player2.bet = 0
+  game.player1.resolved = false
+  game.player2.resolved = false
 
   document.querySelector('.score1').innerHTML = ''
   document.querySelector('.score2').innerHTML = ''
@@ -452,6 +493,8 @@ function displayScore() {
       document.querySelector('.scoreDealer').innerHTML = 'DEALER HAS ' + game.dealer.score
     }
   }
+  document.querySelector('.cashP1').innerHTML = 'Player 1 Cash: $' + game.player1.cash
+  document.querySelector('.cashP2').innerHTML = 'Player 2 Cash: $' + game.player2.cash
 }
 
 // Function that shuffles the cards in the deck using the Fisher Yates Shuffle
