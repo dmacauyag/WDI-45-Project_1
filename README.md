@@ -47,3 +47,5 @@ The graphics for the face up cards was found on the <a href="https://code.google
 
 The background image was found <a href="https://mxg.cdnbf.net/mexchangeblackjack/turbo/assets/gameView/tableBackground.png">here</a> via Google search.
 
+The function for shuffling the deck array containing the card objects was done via the Fisher Yates Shuffle.
+
