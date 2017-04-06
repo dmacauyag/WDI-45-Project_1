@@ -76,7 +76,7 @@ notify('Welcome to Blackjack! Press NEW GAME to begin.')
 // Event listener for new game
   $newGame.on('click', function() {
     console.log('new game clicked');
-    notify('Please place a minimum bet of $10 and then press DEAL to play!')
+    notify('Please place a minimum bet of $10')
     currentPlayer = game.player1
     resetValues()
     resetCardsToDeck()
@@ -135,6 +135,7 @@ function checkBetP2() {
 
 // Function that shuffles the deck and deals a new hand to the dealer and both players
 function deal() {
+  notify('Press DEAL to play!')
   $deal.one('click', function() {
     console.log('deal clicked');
     $deal.removeClass('dealOn')
