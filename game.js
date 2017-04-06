@@ -365,8 +365,8 @@ function checkForWinner() {
       $('.resultP1').addClass('resultWin')
       document.querySelector('.resultP1').innerHTML = 'WIN!'
     }
-  } else if (((game.dealer.score > game.player1.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player1.score > 21)) {
-    // Dealer Beats Player 1
+  } else if (((game.dealer.score > game.player1.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player1.score > 21) || game.player1.score > 21) {
+    // Dealer Beats Player 1 (Player 1 Bust)
     console.log('Dealer Beats Player 1');
     if (game.player1.resolved == false) {
       game.player1.resolved = true
@@ -382,14 +382,6 @@ function checkForWinner() {
       $('.resultP1').addClass('resultTie')
       document.querySelector('.resultP1').innerHTML = 'TIE!'
     }
-  } else if (game.player1.score > 21) {
-    // Player 1 Bust
-    console.log('Player 1 Bust');
-    if (game.player1.resolved == false) {
-      game.player1.resolved = true
-      $('.resultP1').addClass('resultLose')
-      document.querySelector('.resultP1').innerHTML = 'LOSE!'
-    }
   }
   // Player 2 //
   if (((game.player2.score > game.dealer.score) && game.player2.score <= 21) || (game.player2.score <= 21 && game.dealer.score > 21)) {
@@ -401,8 +393,8 @@ function checkForWinner() {
       $('.resultP2').addClass('resultWin')
       document.querySelector('.resultP2').innerHTML = 'WIN!'
     }
-  } else if (((game.dealer.score > game.player2.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player2.score > 21)) {
-    // Dealer Beats Player 2
+  } else if (((game.dealer.score > game.player2.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player2.score > 21) || game.player2.score > 21) {
+    // Dealer Beats Player 2 (Player 2 Bust)
     console.log('Dealer Beats Player 2');
     if (game.player2.resolved == false) {
       game.player2.resolved = true
@@ -417,14 +409,6 @@ function checkForWinner() {
       game.player2.cash = game.player2.cash + game.player2.bet
       $('.resultP2').addClass('resultTie')
       document.querySelector('.resultP2').innerHTML = 'TIE!'
-    }
-  } else if (game.player2.score > 21) {
-    // Player 2 Bust
-    console.log('Player 2 Bust');
-    if (game.player2.resolved == false) {
-      game.player2.resolved = true
-      $('.resultP2').addClass('resultLose')
-      document.querySelector('.resultP2').innerHTML = 'LOSE!'
     }
   }
   displayScore()
