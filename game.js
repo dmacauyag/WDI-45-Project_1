@@ -76,7 +76,7 @@ var $standP2 = $('.standP2')
 
 notify('Welcome to Blackjack! Press NEW GAME to begin.')
 
-// Event listener for new game
+// Event listener for the new game button
   $newGame.on('click', function() {
     console.log('new game clicked');
     notify('Please place a minimum bet of $10')
@@ -316,7 +316,7 @@ function checkCardValue() {
   displayScore()
 }
 
-// Function that checks for Ace
+// Function that checks if a players hand contains an ace card
 function isAce() {
   console.log('check if hand has aces');
   for (var i = 0; i < currentPlayer.hand.length; i++) {
@@ -349,7 +349,7 @@ function checkAce() {
   notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
 }
 
-// Function that checks if there is a winner at the beginning of the game
+// Function that checks if the dealer's starting hand is a 21 (blackjack)
 function checkforInitialBlackjack() {
   console.log('checking for initial blackack');
   if (game.dealer.score == 21) {
@@ -473,7 +473,7 @@ function resetCardsToDeck() {
   console.log(game.deck.length);
 }
 
-// Function that resets each player's score and ace value
+// Function that resets values to begin a new game
 function resetValues() {
   game.dealer.score = 0
   game.player1.score = 0
@@ -499,7 +499,7 @@ function resetValues() {
   $('.result').removeClass('resultWin resultLose resultTie')
 }
 
-// Function that accepts string inputs and displays on the screen
+// Function that accepts string inputs and displays game notifications on the screen
 function notify(string) {
   document.querySelector('h2').innerHTML = string
 }
