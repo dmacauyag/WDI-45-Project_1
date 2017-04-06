@@ -22,19 +22,19 @@ The point value for each card is as follows:
 
 Each player starts the game with $100. Prior to dealing the cards, each player must place a minimum bet of $10. If the player wins the game, they receive double the amount they bet. If they lose, then the money that they bet is lost. If there is a tie, then the amount that was bet is returned to the player. 
 
-During each player's turn, the player is given two options, hit or stand. If the player chooses to hit, they receive an additional card from the deck. If they choose to stand, then the turn passes to the next player. 
+During each player's turn, the player is given two options, hit or stand. If the player chooses to hit, they receive an additional card from the deck. The player can continue to hit until they either score 21 or go over 21. If they choose to stand, then the turn passes to the next player. 
 
-During the dealer's turn the face down card is revealed. If both players have a score over 21, the dealer will stand and both players lose. Otherwise, if the dealer has a score total less than 17, then the dealer must continue to hit until the dealer's score is over 17. If the dealer's initial two cards score 21 then the game ends. 
+During the dealer's turn the face down card is revealed. If both players have a score over 21, the dealer will stand and both players lose. Otherwise, if the dealer has a score total less than 17, then the dealer must continue to hit until the dealer's score is greater than or equal to 17. If the dealer's initial two cards score 21 then the game ends. 
 
 
 ## Development and Technologies
 Blackjack was built using HTML, CSS, Javascript and the jQuery Library. 
 
 ## User Stories
-* As a user, I want to be able to clearly see what my score is as well as the dealer's score so that it is easier to keep track of the current game state. 
-* As a user, I want the ability to place bets prior to dealing the cards so that the game is more similar to real blackjack.
+* As a user, I want to be able to clearly see my score as well as the dealer's score so that it is easier to keep track of the current game state. 
+* As a user, I want the ability to place bets prior to dealing the cards so that the game simulates the experience of playing blackjack at a casino. 
 * As a user, I want to be able to play with a friend so that there is a more competitive aspect to the game. 
-* As a user, I want the interface to be simple so that there is no confusion as to how to play the game. 
+* As a user, I want the interface to be clear and simple so that there is no confusion on what is going on or how to play the game. 
 
 ## MVP
 * At the beginning of the game, the dealer and each player each receive two cards. 
