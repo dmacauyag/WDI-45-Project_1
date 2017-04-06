@@ -358,6 +358,8 @@ function checkForWinner() {
     if (game.player1.resolved == false) {
       game.player1.cash = game.player1.cash + (game.player1.bet * 2)
       game.player1.resolved = true
+      $('.resultP1').addClass('resultWin')
+      document.querySelector('.resultP1').innerHTML = 'WIN!'
     }
   } else if (((game.dealer.score > game.player1.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player1.score > 21)) {
     // Dealer Beats Player 1
@@ -365,12 +367,16 @@ function checkForWinner() {
     if (game.player1.resolved == false) {
       game.player1.cash = game.player1.cash - game.player1.bet
       game.player1.resolved = true
+      $('.resultP1').addClass('resultLose')
+      document.querySelector('.resultP1').innerHTML = 'LOSE!'
     }
   } else if (game.player1.score == game.dealer.score) {
     // Dealer and Player 1 Tie
     console.log('Dealer and Player 1 Tie');
     if (game.player1.resolved == false) {
       game.player1.resolved = true
+      $('.resultP1').addClass('resultTie')
+      document.querySelector('.resultP1').innerHTML = 'TIE!'
     }
   } else if (game.player1.score > 21) {
     // Player 1 Bust
@@ -378,6 +384,8 @@ function checkForWinner() {
     if (game.player1.resolved == false) {
       game.player1.cash = game.player1.cash - game.player1.bet
       game.player1.resolved = true
+      $('.resultP1').addClass('resultLose')
+      document.querySelector('.resultP1').innerHTML = 'LOSE!'
     }
   }
 
@@ -387,6 +395,8 @@ function checkForWinner() {
     if (game.player2.resolved == false) {
       game.player2.cash = game.player2.cash + (game.player2.bet * 2)
       game.player2.resolved = true
+      $('.resultP2').addClass('resultWin')
+      document.querySelector('.resultP2').innerHTML = 'WIN!'
     }
   } else if (((game.dealer.score > game.player2.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player2.score > 21)) {
     // Dealer Beats Player 2
@@ -394,12 +404,16 @@ function checkForWinner() {
     if (game.player2.resolved == false) {
       game.player2.cash = game.player2.cash - game.player2.bet
       game.player2.resolved = true
+      $('.resultP2').addClass('resultLose')
+      document.querySelector('.resultP2').innerHTML = 'LOSE!'
     }
   } else if (game.player2.score == game.dealer.score) {
     // Dealer and Player 2 Tie
     console.log('Dealer and Player 2 Tie');
     if (game.player2.resolved == false) {
       game.player2.resolved = true
+      $('.resultP2').addClass('resultTie')
+      document.querySelector('.resultP2').innerHTML = 'TIE!'
     }
   } else if (game.player2.score > 21) {
     // Player 2 Bust
@@ -407,6 +421,8 @@ function checkForWinner() {
     if (game.player2.resolved == false) {
       game.player2.cash = game.player2.cash - game.player2.bet
       game.player2.resolved = true
+      $('.resultP2').addClass('resultLose')
+      document.querySelector('.resultP2').innerHTML = 'LOSE!'
     }
   }
 
@@ -455,6 +471,10 @@ function resetValues() {
   document.querySelector('.betValueP2').innerHTML = 'Player 2 Bet: $'
   document.querySelector('.cashP1').innerHTML = 'Player 1 Cash: $' + game.player1.cash
   document.querySelector('.cashP2').innerHTML = 'Player 2 Cash: $' + game.player2.cash
+  document.querySelector('.resultP1').innerHTML = ''
+  document.querySelector('.resultP2').innerHTML = ''
+
+  $('.result').removeClass('resultWin resultLose resultTie')
 }
 
 // Function that accepts string inputs and displays on the screen

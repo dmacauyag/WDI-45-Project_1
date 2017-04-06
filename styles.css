@@ -51,6 +51,7 @@ label {
 }
 
 .player1Buttons {
+  width: 600px;
   display: inline-block;
   position: absolute;
   bottom: 200px;
@@ -68,10 +69,11 @@ label {
 }
 
 .player2Buttons {
+  width: 600px;
   display: inline-block;
   position: absolute;
   bottom: 200px;
-  right: 230px;
+  right: 50px;
 }
 
 .hand {
@@ -211,6 +213,37 @@ h3 {
   font-size: 24px;
   margin: 0;
 }
+
+.result {
+  float: right;
+  position: relative;
+  top: -50px;
+  right: 40px;
+  border-style: ridge;
+  border-radius: 10px;
+  font-size: 36px;
+  color: white;
+  padding: 4px;
+ }
+
+ .resultWin {
+   border-color: green;
+   background-color: #2ECC71;
+ }
+
+ .resultLose {
+   border-color: red;
+   background-color: #E74C3C;
+ }
+
+ .resultTie {
+   border-color: orange;
+   background-color: #F39C12;
+ }
+
+ .result:empty {
+   display: none;
+ }
 
 .score {
   text-decoration: underline;
