@@ -370,7 +370,6 @@ function checkForWinner() {
     // Dealer and Player 1 Tie
     console.log('Dealer and Player 1 Tie');
     if (game.player1.resolved == false) {
-      game.player1.cash = game.player1.cash - game.player1.bet
       game.player1.resolved = true
     }
   } else if (game.player1.score > 21) {
@@ -400,7 +399,6 @@ function checkForWinner() {
     // Dealer and Player 2 Tie
     console.log('Dealer and Player 2 Tie');
     if (game.player2.resolved == false) {
-      game.player2.cash = game.player2.cash - game.player2.bet
       game.player2.resolved = true
     }
   } else if (game.player2.score > 21) {
@@ -467,7 +465,7 @@ function notify(string) {
 // Function that displays each player's score
 function displayScore() {
   if (game.player1.score == 21) {
-    document.querySelector('.score1').innerHTML = 'SCORE: ' + game.player1.score + ' - BLACKJACK!'
+    document.querySelector('.score1').innerHTML = 'SCORE: ' + game.player1.score
   } else if (game.player1.score > 21) {
     document.querySelector('.score1').innerHTML = 'SCORE: ' + game.player1.score + ' - BUST!'
   } else {
@@ -475,7 +473,7 @@ function displayScore() {
   }
 
   if (game.player2.score == 21) {
-    document.querySelector('.score2').innerHTML = 'SCORE: ' + game.player2.score + ' - BLACKJACK!'
+    document.querySelector('.score2').innerHTML = 'SCORE: ' + game.player2.score
   } else if (game.player2.score > 21) {
     document.querySelector('.score2').innerHTML = 'SCORE: ' + game.player2.score + ' - BUST!'
   } else {
@@ -483,7 +481,7 @@ function displayScore() {
   }
 
   if (game.dealer.score == 21) {
-    document.querySelector('.scoreDealer').innerHTML = 'DEALER HAS ' + game.dealer.score + ' - BLACKJACK!'
+    document.querySelector('.scoreDealer').innerHTML = 'DEALER HAS ' + game.dealer.score
   } else if (currentPlayer.name != 'Dealer') {
     document.querySelector('.scoreDealer').innerHTML = 'DEALER SHOWS ' + game.dealer.hand[0].value
   } else {
