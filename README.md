@@ -3,7 +3,7 @@
 
 A web based version of one of the world's most popular casino games. Also known as "twenty-one", two players take turns playing against the dealer trying to score 21 without going over.
 
-CLICK HERE to play Blackjack!
+<a href="https://dmacauyag.github.io/WDI-45-Project_1/">CLICK HERE</a> to play Blackjack!
 
 ## How to play:
 At the beginning of the game, the dealer and each player are each dealt two cards. The dealer keeps one card face up and the other face down. 
