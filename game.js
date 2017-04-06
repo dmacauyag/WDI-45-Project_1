@@ -60,7 +60,8 @@ var game = {
 }
 var audio = {
   chips: new Audio('audio/chips.wav'),
-  hit: new Audio('audio/hit.wav')
+  hit: new Audio('audio/hit.wav'),
+  shuffle: new Audio('audio/shuffle.wav')
 }
 var currentPlayer
 var $deal = $('.deal')
@@ -148,6 +149,7 @@ function deal() {
   notify('Press DEAL to play!')
   $deal.one('click', function() {
     console.log('deal clicked');
+    audio.shuffle.play()
     $deal.removeClass('dealOn')
     game.deck = shuffle(game.deck)
     console.log('deck shuffled');
