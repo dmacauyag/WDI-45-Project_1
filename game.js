@@ -67,8 +67,6 @@ var $hitP1 = $('.hitP1')
 var $hitP2 = $('.hitP2')
 var $standP1 = $('.standP1')
 var $standP2 = $('.standP2')
-var player1Cash = game.player1.cash
-var player2Cash = game.player2.cash
 //============================================================================//
 
 notify('Welcome to Blackjack! Press NEW GAME to begin.')
@@ -89,6 +87,7 @@ notify('Welcome to Blackjack! Press NEW GAME to begin.')
 function checkBetP1() {
   console.log('checking Player 1 bet');
   var player1Bet = Number($('.betP1').val())
+  var player1Cash = game.player1.cash
 
   if (player1Bet > player1Cash) {
     alert('Player 1 does not have enough cash to place that bet!')
@@ -98,7 +97,9 @@ function checkBetP1() {
     alert('Player 1, please enter a valid bet!')
   } else {
     game.player1.bet = player1Bet
-    document.querySelector('.betValueP1').innerHTML = 'Player 1 Bet: $' + game.player1.bet
+    game.player1.cash = game.player1.cash - player1Bet
+    document.querySelector('.betValueP1').innerHTML = 'Player 1 Bet: $' + player1Bet
+    document.querySelector('.cashP1').innerHTML = 'Player 1 Cash: $' + game.player1.cash
     $('.placeBetP1').off()
     $('.placeBetP1').removeClass('placeBetOn')
     if (game.player2.bet > 0) {
@@ -113,6 +114,7 @@ function checkBetP1() {
 function checkBetP2() {
   console.log('checking Player 2 bet');
   var player2Bet = Number($('.betP2').val())
+  var player2Cash = game.player2.cash
 
   if (player2Bet > player2Cash) {
     alert('Player 2 does not have enough cash to place that bet!')
@@ -122,7 +124,9 @@ function checkBetP2() {
     alert('Player 2, please enter a valid bet!')
   } else {
     game.player2.bet = player2Bet
-    document.querySelector('.betValueP2').innerHTML = 'Player 2 Bet: $' + game.player2.bet
+    game.player2.cash = game.player2.cash - player2Bet
+    document.querySelector('.betValueP2').innerHTML = 'Player 2 Bet: $' + player2Bet
+    document.querySelector('.cashP2').innerHTML = 'Player 2 Cash: $' + game.player2.cash
     $('.placeBetP2').off()
     $('.placeBetP2').removeClass('placeBetOn')
     if (game.player1.bet > 0) {
@@ -351,7 +355,7 @@ function checkforInitialBlackjack() {
 // Function checks for winner at the END of the game
 function checkForWinner() {
   console.log('checking for the game winner');
-  // Add a way to alert players of the final outcome.
+  // Player 1 //
   if (((game.player1.score > game.dealer.score) && game.player1.score <= 21) || (game.player1.score <= 21 && game.dealer.score > 21)) {
     // Player 1 Beats Dealer
     console.log('Player 1 Beats Dealer');
@@ -365,7 +369,6 @@ function checkForWinner() {
     // Dealer Beats Player 1
     console.log('Dealer Beats Player 1');
     if (game.player1.resolved == false) {
-      game.player1.cash = game.player1.cash - game.player1.bet
       game.player1.resolved = true
       $('.resultP1').addClass('resultLose')
       document.querySelector('.resultP1').innerHTML = 'LOSE!'
@@ -374,6 +377,7 @@ function checkForWinner() {
     // Dealer and Player 1 Tie
     console.log('Dealer and Player 1 Tie');
     if (game.player1.resolved == false) {
+      game.player1.cash = game.player1.cash + game.player1.bet
       game.player1.resolved = true
       $('.resultP1').addClass('resultTie')
       document.querySelector('.resultP1').innerHTML = 'TIE!'
@@ -382,13 +386,12 @@ function checkForWinner() {
     // Player 1 Bust
     console.log('Player 1 Bust');
     if (game.player1.resolved == false) {
-      game.player1.cash = game.player1.cash - game.player1.bet
       game.player1.resolved = true
       $('.resultP1').addClass('resultLose')
       document.querySelector('.resultP1').innerHTML = 'LOSE!'
     }
   }
-
+  // Player 2 //
   if (((game.player2.score > game.dealer.score) && game.player2.score <= 21) || (game.player2.score <= 21 && game.dealer.score > 21)) {
     // Player 2 Beats Dealer
     console.log('Player 2 Beats Dealer');
@@ -402,7 +405,6 @@ function checkForWinner() {
     // Dealer Beats Player 2
     console.log('Dealer Beats Player 2');
     if (game.player2.resolved == false) {
-      game.player2.cash = game.player2.cash - game.player2.bet
       game.player2.resolved = true
       $('.resultP2').addClass('resultLose')
       document.querySelector('.resultP2').innerHTML = 'LOSE!'
@@ -412,6 +414,7 @@ function checkForWinner() {
     console.log('Dealer and Player 2 Tie');
     if (game.player2.resolved == false) {
       game.player2.resolved = true
+      game.player2.cash = game.player2.cash + game.player2.bet
       $('.resultP2').addClass('resultTie')
       document.querySelector('.resultP2').innerHTML = 'TIE!'
     }
@@ -419,7 +422,6 @@ function checkForWinner() {
     // Player 2 Bust
     console.log('Player 2 Bust');
     if (game.player2.resolved == false) {
-      game.player2.cash = game.player2.cash - game.player2.bet
       game.player2.resolved = true
       $('.resultP2').addClass('resultLose')
       document.querySelector('.resultP2').innerHTML = 'LOSE!'
