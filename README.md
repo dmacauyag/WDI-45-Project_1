@@ -1,10 +1,12 @@
 # **BLACKJACK**
+![ScreenShot](documentation/Screenshot.png)
+
 A web based version of one of the world's most popular casino games. Also known as "twenty-one", two players take turns playing against the dealer trying to score 21 without going over.
 
 CLICK HERE to play Blackjack!
 
 ## How to play:
-At the beginning of the game, the dealer and each player are each dealt two cards. The dealer keeps one card face up and keeps the other card face down. 
+At the beginning of the game, the dealer and each player are each dealt two cards. The dealer keeps one card face up and the other face down. 
 
 The object of the game is for each player to beat the dealer in one of three ways:
 
@@ -18,15 +20,21 @@ The point value for each card is as follows:
 * Numeric cards are worth the same amount of points as shown on the card
 * Aces can be counted as either 1 or 11
 
-During each player's turn, the player is given two options, hit or stand. If the player chooses to hit, they receive an additional card from the top of the deck. If they choose to stand, then the turn passes to the next player. 
+Each player starts the game with $100. Prior to dealing the cards, each player must place a minimum bet of $10. If the player wins the game, they receive double the amount they bet. If they lose, then the money that they bet is lost. If there is a tie, then the amount that was bet is returned to the player. 
 
-During the dealer's turn the face down card is revealed. If both player have a score over 21, the dealer will stand and both players lose. Otherwise, if the dealer has a score total less than 17, then the dealer must continue to hit until the dealer's score is over 17. 
+During each player's turn, the player is given two options, hit or stand. If the player chooses to hit, they receive an additional card from the deck. If they choose to stand, then the turn passes to the next player. 
+
+During the dealer's turn the face down card is revealed. If both players have a score over 21, the dealer will stand and both players lose. Otherwise, if the dealer has a score total less than 17, then the dealer must continue to hit until the dealer's score is over 17. If the dealer's initial two cards score 21 then the game ends. 
 
 
 ## Development and Technologies
 Blackjack was built using HTML, CSS, Javascript and the jQuery Library. 
 
 ## User Stories
+* As a user, I want to be able to clearly see what my score is as well as the dealer's score so that it is easier to keep track of the current game state. 
+* As a user, I want the ability to place bets prior to dealing the cards so that the game is more similar to real blackjack.
+* As a user, I want to be able to play with a friend so that there is a more competitive aspect to the game. 
+* As a user, I want the interface to be simple so that there is no confusion as to how to play the game. 
 
 ## MVP
 * At the beginning of the game, the dealer and each player each receive two cards. 
@@ -47,5 +55,23 @@ The graphics for the face up cards was found on the <a href="https://code.google
 
 The background image was found <a href="https://mxg.cdnbf.net/mexchangeblackjack/turbo/assets/gameView/tableBackground.png">here</a> via Google search.
 
-The function for shuffling the deck array containing the card objects was done via the Fisher Yates Shuffle.
+The function for shuffling the deck array containing the card objects was done via the <a href="https://bost.ocks.org/mike/shuffle/">Fisher Yates Shuffle</a>.
+
+```
+function shuffle(array) {
+  var m = array.length, t, i;
+  
+  // While there remain elements to shuffle…
+  while (m) {
+  
+    // Pick a remaining element…
+    i = Math.floor(Math.random() * m--);
+    
+    // And swap it with the current element.
+    t = array[m];
+    array[m] = array[i];
+    array[i] = t;
+  }
+  return array;
+}
 
