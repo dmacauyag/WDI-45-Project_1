@@ -58,6 +58,10 @@ var game = {
     {suit: 'Clubs', name: 'King', value: 10, img: 'images/king_of_clubs.png'},
   ]
 }
+var audio = {
+  chips: new Audio('audio/chips.wav'),
+  hit: new Audio('audio/hit.wav')
+}
 var currentPlayer
 var $deal = $('.deal')
 var $newGame = $('.newGame')
@@ -96,6 +100,7 @@ function checkBetP1() {
   } else if (isNaN(player1Bet) == true) {
     alert('Player 1, please enter a valid bet!')
   } else {
+    audio.chips.play()
     game.player1.bet = player1Bet
     game.player1.cash = game.player1.cash - player1Bet
     document.querySelector('.betValueP1').innerHTML = 'Player 1 Bet: $' + player1Bet
@@ -123,6 +128,7 @@ function checkBetP2() {
   } else if (isNaN(player2Bet) == true) {
     alert('Player 2, please enter a valid bet!')
   } else {
+    audio.chips.play()
     game.player2.bet = player2Bet
     game.player2.cash = game.player2.cash - player2Bet
     document.querySelector('.betValueP2').innerHTML = 'Player 2 Bet: $' + player2Bet
@@ -199,6 +205,7 @@ function playTurn() {
 // Function for the hit button
 function hit() {
   console.log('hit')
+  audio.hit.play()
   currentPlayer.hand.push(game.deck.pop())
   $('<img class="cardImage" src=' + currentPlayer.hand[currentPlayer.hand.length - 1].img + '>').hide().appendTo(currentPlayer.class).show('slow')
   console.log('new card added to ' + currentPlayer.name + ' hand');
