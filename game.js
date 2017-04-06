@@ -427,9 +427,36 @@ function checkForWinner() {
       document.querySelector('.resultP2').innerHTML = 'LOSE!'
     }
   }
-
   displayScore()
-  notify('Press NEW GAME to play again!')
+  playerBankrupt()
+}
+
+
+// Function that checks if a player is out of cash
+function playerBankrupt() {
+  if (game.player1.cash <= 0) {
+    notify("Player 1 is out of cash! Press RESTART to reset each player's cash")
+    $('.restart').removeClass('restartOff')
+    $('.restart').one('click', function() {
+      game.player1.cash = 100
+      game.player2.cash = 100
+      displayScore()
+      $('.restart').addClass('restartOff')
+      notify('Press NEW GAME to play again!')
+    })
+  } else if (game.player2.cash <= 0) {
+    notify("Player 2 is out of cash! Press RESTART to reset each player's cash")
+    $('.restart').removeClass('restartOff')
+    $('.restart').one('click', function() {
+      game.player1.cash = 100
+      game.player2.cash = 100
+      displayScore()
+      $('.restart').addClass('restartOff')
+      notify('Press NEW GAME to play again!')
+    })
+  } else {
+    notify('Press NEW GAME to play again!')
+  }
 }
 
 // Function that places the cards back into the deck

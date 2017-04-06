@@ -294,3 +294,17 @@ h3 {
 .placeBetOn:hover {
   background-color: tomato;
 }
+
+.restart {
+  position: absolute;
+  top: 40%;
+  left: 44%;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: red;
+  color: white;
+}
+
+.restartOff {
+  display: none;
+}
