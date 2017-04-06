@@ -163,6 +163,10 @@ img {
   background-color: olive;
 }
 
+.newGameOff {
+  display: none;
+}
+
 .deal {
   border: 5px solid goldenrod;
   border-radius: 50%;

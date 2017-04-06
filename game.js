@@ -79,6 +79,7 @@ notify('Welcome to Blackjack! Press NEW GAME to begin.')
 // Event listener for the new game button
   $newGame.on('click', function() {
     console.log('new game clicked');
+    $newGame.addClass('newGameOff')
     notify('Please place a minimum bet of $10')
     currentPlayer = game.player1
     resetValues()
@@ -435,6 +436,7 @@ function playerBankrupt() {
       game.player2.cash = 100
       displayScore()
       $('.restart').addClass('restartOff')
+      $newGame.removeClass('newGameOff')
       notify('Press NEW GAME to play again!')
     })
   } else if (game.player2.cash <= 0) {
@@ -445,9 +447,11 @@ function playerBankrupt() {
       game.player2.cash = 100
       displayScore()
       $('.restart').addClass('restartOff')
+      $newGame.removeClass('newGameOff')
       notify('Press NEW GAME to play again!')
     })
   } else {
+    $newGame.removeClass('newGameOff')
     notify('Press NEW GAME to play again!')
   }
 }
