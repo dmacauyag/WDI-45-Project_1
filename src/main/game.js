@@ -78,7 +78,6 @@ notify('Welcome to Blackjack! Press NEW GAME to begin.')
 
 // Event listener for the new game button
   $newGame.on('click', function() {
-    console.log('new game clicked');
     $newGame.addClass('newGameOff')
     notify('Please place a minimum bet of $10')
     currentPlayer = game.player1
@@ -91,7 +90,6 @@ notify('Welcome to Blackjack! Press NEW GAME to begin.')
 
 // Function that checks for the validity of Player 1 bet prior to dealing cards
 function checkBetP1() {
-  console.log('checking Player 1 bet');
   var player1Bet = Number($('.betP1').val())
   var player1Cash = game.player1.cash
 
@@ -110,7 +108,6 @@ function checkBetP1() {
     $('.placeBetP1').off()
     $('.placeBetP1').removeClass('placeBetOn')
     if (game.player2.bet > 0) {
-      console.log(game.player2.bet);
       $deal.addClass('dealOn')
       deal()
     }
@@ -119,7 +116,6 @@ function checkBetP1() {
 
 // Function that checks for the validity of Player 2 bet prior to dealing cards
 function checkBetP2() {
-  console.log('checking Player 2 bet');
   var player2Bet = Number($('.betP2').val())
   var player2Cash = game.player2.cash
 
@@ -138,7 +134,6 @@ function checkBetP2() {
     $('.placeBetP2').off()
     $('.placeBetP2').removeClass('placeBetOn')
     if (game.player1.bet > 0) {
-      console.log(game.player1.bet);
       $deal.addClass('dealOn')
       deal()
     }
@@ -149,13 +144,10 @@ function checkBetP2() {
 function deal() {
   notify('Press DEAL to play!')
   $deal.one('click', function() {
-    console.log('deal clicked');
     audio.shuffle.play()
     $deal.removeClass('dealOn')
     game.deck = shuffle(game.deck)
-    console.log('deck shuffled');
     dealCards()
-    console.log('cards distributed');
     checkInitialCardValues()
   })
 }
@@ -182,7 +174,6 @@ function playTurn() {
     if (currentPlayer.score == 21) {
       switchTurns()
     } else {
-      console.log('turn on ' + currentPlayer.name + ' buttons');
       notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
       $hitP1.addClass('onP1')
       $standP1.addClass('onP1')
@@ -193,7 +184,6 @@ function playTurn() {
       if (currentPlayer.score == 21) {
         switchTurns()
       } else {
-        console.log('turn on ' + currentPlayer.name + ' buttons');
         notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
         $hitP2.addClass('onP2')
         $standP2.addClass('onP2')
@@ -207,11 +197,9 @@ function playTurn() {
 
 // Function for the hit button
 function hit() {
-  console.log('hit')
   audio.hit.play()
   currentPlayer.hand.push(game.deck.pop())
   $('<img class="cardImage" src=' + currentPlayer.hand[currentPlayer.hand.length - 1].img + '>').hide().appendTo(currentPlayer.class).show('slow')
-  console.log('new card added to ' + currentPlayer.name + ' hand');
   checkCardValue()
 }
 
@@ -222,18 +210,14 @@ function switchTurns() {
     $standP1.removeClass('onP1')
     $hitP1.off()
     $standP1.off()
-    console.log('turn off ' + currentPlayer.name + ' buttons');
     currentPlayer = game.player2
-    console.log('switch to ' + currentPlayer.name);
     playTurn()
   } else if (currentPlayer == game.player2){
     $hitP2.removeClass('onP2')
     $standP2.removeClass('onP2')
     $hitP2.off()
     $standP2.off()
-    console.log('turn off ' + currentPlayer.name + ' buttons');
     currentPlayer = game.dealer
-    console.log('switch to ' + currentPlayer.name);
     playDealer()
   } else {
     checkForWinner()
@@ -242,14 +226,10 @@ function switchTurns() {
 
 // Function for the dealer's turn
 function playDealer() {
-  console.log('dealers turn');
   $('.cardBack').replaceWith('<img class="cardImage" src=' + game.dealer.hand[1].img + '>')
   if (game.player1.score > 21 && game.player2.score > 21) {
-    console.log('dealer won');
     checkForWinner()
   } else if (currentPlayer.score < 17 && (game.player1.score <= 21 || game.player2.score <= 21)) {
-    console.log(currentPlayer.score);
-    console.log('dealer must hit');
     hit()
   }
   checkForWinner()
@@ -257,14 +237,12 @@ function playDealer() {
 
 // Function that checks the initial card values
 function checkInitialCardValues() {
-  console.log('checking the initial card values');
   for (var i = 0; i < game.dealer.hand.length; i++) {
     game.dealer.score += game.dealer.hand[i].value
   }
   if (game.dealer.score > 21) {
     game.dealer.score -= 10
   }
-  console.log('dealers initial hand = ' + game.dealer.score);
 
   for (var i = 0; i < game.player1.hand.length; i++) {
     game.player1.score += game.player1.hand[i].value
@@ -272,7 +250,6 @@ function checkInitialCardValues() {
   if (game.player1.score > 21) {
     game.player1.score -= 10
   }
-  console.log('player 1 initial hand = ' + game.player1.score);
 
   for (var i = 0; i < game.player2.hand.length; i++) {
     game.player2.score += game.player2.hand[i].value
@@ -280,27 +257,23 @@ function checkInitialCardValues() {
   if (game.player2.score > 21) {
     game.player2.score -= 10
   }
-  console.log('player 2 initial hand = ' + game.player2.score);
   checkforInitialBlackjack()
   displayScore()
 }
 
 // Function that checks for the cards values between turns
 function checkCardValue() {
-  console.log('checking card value');
   currentPlayer.score = 0
   currentPlayer.aces = 0
   for (var i = 0; i < currentPlayer.hand.length; i++) {
     currentPlayer.score += currentPlayer.hand[i].value
   }
   notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
-  console.log(currentPlayer.name + ' has ' + currentPlayer.score);
   if (currentPlayer.score == 21) {
     switchTurns()
   }
   if (currentPlayer.score > 21) {
     if (isAce()) {
-      console.log('player has aces');
       checkAce()
     } else {
       switchTurns()
@@ -308,7 +281,6 @@ function checkCardValue() {
   }
   if (currentPlayer.name == 'Dealer') {
     if (currentPlayer.score < 17 && (game.player1.score <= 21 || game.player2.score <= 21)) {
-      console.log('dealer must hit');
       hit()
     } else {
       checkForWinner()
@@ -319,24 +291,20 @@ function checkCardValue() {
 
 // Function that checks if a players hand contains an ace card
 function isAce() {
-  console.log('check if hand has aces');
   for (var i = 0; i < currentPlayer.hand.length; i++) {
     if (currentPlayer.hand[i].name == 'Ace') {
       currentPlayer.aces++
     }
   }
   if (currentPlayer.aces != 0) {
-    console.log('hand has an ace');
     return true
   } else {
-    console.log('hand has no aces');
     return false
   }
 }
 
 // Function to calculate new score if there are aces in the player's hand
 function checkAce() {
-  console.log('get new value for ace');
   for (var i = 0; i < currentPlayer.aces; i++) {
     if (currentPlayer.score > 21) {
       currentPlayer.score -= 10
@@ -352,23 +320,19 @@ function checkAce() {
 
 // Function that checks if the dealer's starting hand is a 21 (blackjack)
 function checkforInitialBlackjack() {
-  console.log('checking for initial blackack');
   if (game.dealer.score == 21) {
     $('.cardBack').replaceWith('<img class="cardImage" src=' + game.dealer.hand[1].img + '>')
     checkForWinner()
   } else {
-    console.log('dealer does not have 21, start play');
     playTurn()
   }
 }
 
 // Function checks for winner at the END of the game
 function checkForWinner() {
-  console.log('checking for the game winner');
   // Player 1 //
   if (((game.player1.score > game.dealer.score) && game.player1.score <= 21) || (game.player1.score <= 21 && game.dealer.score > 21)) {
     // Player 1 Beats Dealer
-    console.log('Player 1 Beats Dealer');
     if (game.player1.resolved == false) {
       game.player1.cash = game.player1.cash + (game.player1.bet * 2)
       game.player1.resolved = true
@@ -377,7 +341,6 @@ function checkForWinner() {
     }
   } else if (((game.dealer.score > game.player1.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player1.score > 21) || game.player1.score > 21) {
     // Dealer Beats Player 1 (Player 1 Bust)
-    console.log('Dealer Beats Player 1');
     if (game.player1.resolved == false) {
       game.player1.resolved = true
       $('.resultP1').addClass('resultLose')
@@ -385,7 +348,6 @@ function checkForWinner() {
     }
   } else if (game.player1.score == game.dealer.score) {
     // Dealer and Player 1 Tie
-    console.log('Dealer and Player 1 Tie');
     if (game.player1.resolved == false) {
       game.player1.cash = game.player1.cash + game.player1.bet
       game.player1.resolved = true
@@ -396,7 +358,6 @@ function checkForWinner() {
   // Player 2 //
   if (((game.player2.score > game.dealer.score) && game.player2.score <= 21) || (game.player2.score <= 21 && game.dealer.score > 21)) {
     // Player 2 Beats Dealer
-    console.log('Player 2 Beats Dealer');
     if (game.player2.resolved == false) {
       game.player2.cash = game.player2.cash + (game.player2.bet * 2)
       game.player2.resolved = true
@@ -405,7 +366,6 @@ function checkForWinner() {
     }
   } else if (((game.dealer.score > game.player2.score) && game.dealer.score <= 21) || (game.dealer.score <= 21 && game.player2.score > 21) || game.player2.score > 21) {
     // Dealer Beats Player 2 (Player 2 Bust)
-    console.log('Dealer Beats Player 2');
     if (game.player2.resolved == false) {
       game.player2.resolved = true
       $('.resultP2').addClass('resultLose')
@@ -413,7 +373,6 @@ function checkForWinner() {
     }
   } else if (game.player2.score == game.dealer.score) {
     // Dealer and Player 2 Tie
-    console.log('Dealer and Player 2 Tie');
     if (game.player2.resolved == false) {
       game.player2.resolved = true
       game.player2.cash = game.player2.cash + game.player2.bet
@@ -465,16 +424,12 @@ function resetCardsToDeck() {
   for (var i = 0; i < dealerHandSize; i++) {
     game.deck.push(game.dealer.hand.pop())
   }
-  console.log('reshuffled dealers cards to deck');
   for (var i = 0; i < player1HandSize; i++) {
     game.deck.push(game.player1.hand.pop())
   }
-  console.log('reshuffled player 1 cards to deck');
   for (var i = 0; i < player2HandSize; i++) {
     game.deck.push(game.player2.hand.pop())
   }
-  console.log('reshuffled player 2 cards to deck');
-  console.log(game.deck.length);
 }
 
 // Function that resets values to begin a new game
