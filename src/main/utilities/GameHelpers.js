@@ -1,5 +1,5 @@
 class GameHelpers {
   static displayNotification (string) {
-    document.getElementById("gameNotifications").innerHTML = string
+    document.getElementById("game-notifications").innerHTML = string
   }
 }

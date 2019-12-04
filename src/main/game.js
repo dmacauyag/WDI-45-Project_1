@@ -63,14 +63,12 @@ const audio = {
   hit: new Audio('src/main/resources/audio/hit.wav'),
   shuffle: new Audio('src/main/resources/audio/shuffle.wav')
 }
-const $deal = $('.deal')
-const $newGame = $('.newGame')
-const $hit = $('.hit')
-const $stand = $('.stand')
-const $hitP1 = $('.hitP1')
-const $hitP2 = $('.hitP2')
-const $standP1 = $('.standP1')
-const $standP2 = $('.standP2')
+const $dealButton = $('.deal')
+const $newGameButton = $('.new-game')
+const $hitPlayer1Button = $('.hit-player1')
+const $hitPlayer2Button = $('.hit-player2')
+const $standPlayer1Button = $('.stand-player1')
+const $standPlayer2Button = $('.stand-player2')
 
 let currentPlayer
 //============================================================================//
@@ -78,20 +76,20 @@ let currentPlayer
 GameHelpers.displayNotification('Welcome to Blackjack! Press NEW GAME to begin.')
 
 // Event listener for the new game button
-  $newGame.on('click', function() {
-    $newGame.addClass('newGameOff')
+  $newGameButton.on('click', function() {
+    $newGameButton.addClass('newGameOff')
     GameHelpers.displayNotification('Please place a minimum bet of $10')
     currentPlayer = gameObject.player1
     resetValues()
     resetCardsToDeck()
-    $('.placeBet').addClass('placeBetOn')
-    $('.placeBetP1').on('click', checkBetP1)
-    $('.placeBetP2').on('click', checkBetP2)
+    $('.place-bet').addClass('placeBetOn')
+    $('.place-bet-player1').on('click', checkBetP1)
+    $('.place-bet-player2').on('click', checkBetP2)
   })
 
 // Function that checks for the validity of Player 1 bet prior to dealing cards
 function checkBetP1() {
-  var player1Bet = Number($('.betP1').val())
+  var player1Bet = Number($('.bet-player1').val())
   var player1Cash = gameObject.player1.cash
 
   if (player1Bet > player1Cash) {
@@ -104,12 +102,12 @@ function checkBetP1() {
     audio.chips.play()
     gameObject.player1.bet = player1Bet
     gameObject.player1.cash = gameObject.player1.cash - player1Bet
-    document.querySelector('.betValueP1').innerHTML = 'Player 1 Bet: $' + player1Bet
-    document.querySelector('.cashP1').innerHTML = 'Player 1 Cash: $' + gameObject.player1.cash
-    $('.placeBetP1').off()
-    $('.placeBetP1').removeClass('placeBetOn')
+    document.querySelector('.bet-value-player1').innerHTML = 'Player 1 Bet: $' + player1Bet
+    document.querySelector('.cash-player1').innerHTML = 'Player 1 Cash: $' + gameObject.player1.cash
+    $('.place-bet-player1').off()
+    $('.place-bet-player1').removeClass('placeBetOn')
     if (gameObject.player2.bet > 0) {
-      $deal.addClass('dealOn')
+      $dealButton.addClass('dealOn')
       deal()
     }
   }
@@ -117,7 +115,7 @@ function checkBetP1() {
 
 // Function that checks for the validity of Player 2 bet prior to dealing cards
 function checkBetP2() {
-  var player2Bet = Number($('.betP2').val())
+  var player2Bet = Number($('.bet-player2').val())
   var player2Cash = gameObject.player2.cash
 
   if (player2Bet > player2Cash) {
@@ -130,12 +128,12 @@ function checkBetP2() {
     audio.chips.play()
     gameObject.player2.bet = player2Bet
     gameObject.player2.cash = gameObject.player2.cash - player2Bet
-    document.querySelector('.betValueP2').innerHTML = 'Player 2 Bet: $' + player2Bet
-    document.querySelector('.cashP2').innerHTML = 'Player 2 Cash: $' + gameObject.player2.cash
-    $('.placeBetP2').off()
-    $('.placeBetP2').removeClass('placeBetOn')
+    document.querySelector('.bet-value-player2').innerHTML = 'Player 2 Bet: $' + player2Bet
+    document.querySelector('.cash-player2').innerHTML = 'Player 2 Cash: $' + gameObject.player2.cash
+    $('.place-bet-player2').off()
+    $('.place-bet-player2').removeClass('placeBetOn')
     if (gameObject.player1.bet > 0) {
-      $deal.addClass('dealOn')
+      $dealButton.addClass('dealOn')
       deal()
     }
   }
@@ -144,9 +142,9 @@ function checkBetP2() {
 // Function that shuffles the deck and deals a new hand to the dealer and both players
 function deal() {
   GameHelpers.displayNotification('Press DEAL to play!')
-  $deal.one('click', function() {
+  $dealButton.one('click', function() {
     audio.shuffle.play()
-    $deal.removeClass('dealOn')
+    $dealButton.removeClass('dealOn')
     gameObject.deck = shuffle(gameObject.deck)
     dealCards()
     checkInitialCardValues()
@@ -176,20 +174,20 @@ function playTurn() {
       switchTurns()
     } else {
       GameHelpers.displayNotification(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
-      $hitP1.addClass('onP1')
-      $standP1.addClass('onP1')
-      $hitP1.on('click', hit)
-      $standP1.on('click', switchTurns)
+      $hitPlayer1Button.addClass('onP1')
+      $standPlayer1Button.addClass('onP1')
+      $hitPlayer1Button.on('click', hit)
+      $standPlayer1Button.on('click', switchTurns)
     }
   } else if (currentPlayer.name == 'Player 2') {
       if (currentPlayer.score == 21) {
         switchTurns()
       } else {
         GameHelpers.displayNotification(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
-        $hitP2.addClass('onP2')
-        $standP2.addClass('onP2')
-        $hitP2.on('click', hit)
-        $standP2.on('click', switchTurns)
+        $hitPlayer2Button.addClass('onP2')
+        $standPlayer2Button.addClass('onP2')
+        $hitPlayer2Button.on('click', hit)
+        $standPlayer2Button.on('click', switchTurns)
       }
   } else {
     checkForWinner()
@@ -207,17 +205,17 @@ function hit() {
 // Function that switches turns
 function switchTurns() {
   if (currentPlayer == gameObject.player1) {
-    $hitP1.removeClass('onP1')
-    $standP1.removeClass('onP1')
-    $hitP1.off()
-    $standP1.off()
+    $hitPlayer1Button.removeClass('onP1')
+    $standPlayer1Button.removeClass('onP1')
+    $hitPlayer1Button.off()
+    $standPlayer1Button.off()
     currentPlayer = gameObject.player2
     playTurn()
   } else if (currentPlayer == gameObject.player2){
-    $hitP2.removeClass('onP2')
-    $standP2.removeClass('onP2')
-    $hitP2.off()
-    $standP2.off()
+    $hitPlayer2Button.removeClass('onP2')
+    $standPlayer2Button.removeClass('onP2')
+    $hitPlayer2Button.off()
+    $standPlayer2Button.off()
     currentPlayer = gameObject.dealer
     playDealer()
   } else {
@@ -337,23 +335,23 @@ function checkForWinner() {
     if (gameObject.player1.resolved == false) {
       gameObject.player1.cash = gameObject.player1.cash + (gameObject.player1.bet * 2)
       gameObject.player1.resolved = true
-      $('.resultP1').addClass('resultWin')
-      document.querySelector('.resultP1').innerHTML = 'WIN!'
+      $('.result-player1').addClass('resultWin')
+      document.querySelector('.result-player1').innerHTML = 'WIN!'
     }
   } else if (((gameObject.dealer.score > gameObject.player1.score) && gameObject.dealer.score <= 21) || (gameObject.dealer.score <= 21 && gameObject.player1.score > 21) || gameObject.player1.score > 21) {
     // Dealer Beats Player 1 (Player 1 Bust)
     if (gameObject.player1.resolved == false) {
       gameObject.player1.resolved = true
-      $('.resultP1').addClass('resultLose')
-      document.querySelector('.resultP1').innerHTML = 'LOSE!'
+      $('.result-player1').addClass('resultLose')
+      document.querySelector('.result-player1').innerHTML = 'LOSE!'
     }
   } else if (gameObject.player1.score == gameObject.dealer.score) {
     // Dealer and Player 1 Tie
     if (gameObject.player1.resolved == false) {
       gameObject.player1.cash = gameObject.player1.cash + gameObject.player1.bet
       gameObject.player1.resolved = true
-      $('.resultP1').addClass('resultTie')
-      document.querySelector('.resultP1').innerHTML = 'TIE!'
+      $('.result-player1').addClass('resultTie')
+      document.querySelector('.result-player1').innerHTML = 'TIE!'
     }
   }
   // Player 2 //
@@ -362,23 +360,23 @@ function checkForWinner() {
     if (gameObject.player2.resolved == false) {
       gameObject.player2.cash = gameObject.player2.cash + (gameObject.player2.bet * 2)
       gameObject.player2.resolved = true
-      $('.resultP2').addClass('resultWin')
-      document.querySelector('.resultP2').innerHTML = 'WIN!'
+      $('.result-player2').addClass('resultWin')
+      document.querySelector('.result-player2').innerHTML = 'WIN!'
     }
   } else if (((gameObject.dealer.score > gameObject.player2.score) && gameObject.dealer.score <= 21) || (gameObject.dealer.score <= 21 && gameObject.player2.score > 21) || gameObject.player2.score > 21) {
     // Dealer Beats Player 2 (Player 2 Bust)
     if (gameObject.player2.resolved == false) {
       gameObject.player2.resolved = true
-      $('.resultP2').addClass('resultLose')
-      document.querySelector('.resultP2').innerHTML = 'LOSE!'
+      $('.result-player2').addClass('resultLose')
+      document.querySelector('.result-player2').innerHTML = 'LOSE!'
     }
   } else if (gameObject.player2.score == gameObject.dealer.score) {
     // Dealer and Player 2 Tie
     if (gameObject.player2.resolved == false) {
       gameObject.player2.resolved = true
       gameObject.player2.cash = gameObject.player2.cash + gameObject.player2.bet
-      $('.resultP2').addClass('resultTie')
-      document.querySelector('.resultP2').innerHTML = 'TIE!'
+      $('.result-player2').addClass('resultTie')
+      document.querySelector('.result-player2').innerHTML = 'TIE!'
     }
   }
   displayScore()
@@ -390,28 +388,28 @@ function checkForWinner() {
 function playerBankrupt() {
   if (gameObject.player1.cash <= 0) {
     GameHelpers.displayNotification("Player 1 is out of cash! Press RESTART to reset each player's cash.")
-    $('.restart').removeClass('restartOff')
+    $('.restart').removeClass('restart-off')
     $('.restart').one('click', function() {
       gameObject.player1.cash = 100
       gameObject.player2.cash = 100
       displayScore()
-      $('.restart').addClass('restartOff')
-      $newGame.removeClass('newGameOff')
+      $('.restart').addClass('restart-off')
+      $newGameButton.removeClass('newGameOff')
       GameHelpers.displayNotification('Press NEW GAME to play again!')
     })
   } else if (gameObject.player2.cash <= 0) {
     GameHelpers.displayNotification("Player 2 is out of cash! Press RESTART to reset each player's cash.")
-    $('.restart').removeClass('restartOff')
+    $('.restart').removeClass('restart-off')
     $('.restart').one('click', function() {
       gameObject.player1.cash = 100
       gameObject.player2.cash = 100
       displayScore()
-      $('.restart').addClass('restartOff')
-      $newGame.removeClass('newGameOff')
+      $('.restart').addClass('restart-off')
+      $newGameButton.removeClass('newGameOff')
       GameHelpers.displayNotification('Press NEW GAME to play again!')
     })
   } else {
-    $newGame.removeClass('newGameOff')
+    $newGameButton.removeClass('newGameOff')
     GameHelpers.displayNotification('Press NEW GAME to play again!')
   }
 }
@@ -448,13 +446,13 @@ function resetValues() {
 
   document.querySelector('.score1').innerHTML = ''
   document.querySelector('.score2').innerHTML = ''
-  document.querySelector('.scoreDealer').innerHTML = ''
-  document.querySelector('.betValueP1').innerHTML = 'Player 1 Bet: $'
-  document.querySelector('.betValueP2').innerHTML = 'Player 2 Bet: $'
-  document.querySelector('.cashP1').innerHTML = 'Player 1 Cash: $' + gameObject.player1.cash
-  document.querySelector('.cashP2').innerHTML = 'Player 2 Cash: $' + gameObject.player2.cash
-  document.querySelector('.resultP1').innerHTML = ''
-  document.querySelector('.resultP2').innerHTML = ''
+  document.querySelector('.score-dealer').innerHTML = ''
+  document.querySelector('.bet-value-player1').innerHTML = 'Player 1 Bet: $'
+  document.querySelector('.bet-value-player2').innerHTML = 'Player 2 Bet: $'
+  document.querySelector('.cash-player1').innerHTML = 'Player 1 Cash: $' + gameObject.player1.cash
+  document.querySelector('.cash-player2').innerHTML = 'Player 2 Cash: $' + gameObject.player2.cash
+  document.querySelector('.result-player1').innerHTML = ''
+  document.querySelector('.result-player2').innerHTML = ''
 
   $('.result').removeClass('resultWin resultLose resultTie')
 }
@@ -478,18 +476,18 @@ function displayScore() {
   }
 
   if (gameObject.dealer.score == 21) {
-    document.querySelector('.scoreDealer').innerHTML = 'DEALER HAS ' + gameObject.dealer.score
+    document.querySelector('.score-dealer').innerHTML = 'DEALER HAS ' + gameObject.dealer.score
   } else if (currentPlayer.name != 'Dealer') {
-    document.querySelector('.scoreDealer').innerHTML = 'DEALER SHOWS ' + gameObject.dealer.hand[0].value
+    document.querySelector('.score-dealer').innerHTML = 'DEALER SHOWS ' + gameObject.dealer.hand[0].value
   } else {
     if (gameObject.dealer.score > 21) {
-      document.querySelector('.scoreDealer').innerHTML = 'DEALER HAS ' + gameObject.dealer.score + ' - BUST!'
+      document.querySelector('.score-dealer').innerHTML = 'DEALER HAS ' + gameObject.dealer.score + ' - BUST!'
     } else {
-      document.querySelector('.scoreDealer').innerHTML = 'DEALER HAS ' + gameObject.dealer.score
+      document.querySelector('.score-dealer').innerHTML = 'DEALER HAS ' + gameObject.dealer.score
     }
   }
-  document.querySelector('.cashP1').innerHTML = 'Player 1 Cash: $' + gameObject.player1.cash
-  document.querySelector('.cashP2').innerHTML = 'Player 2 Cash: $' + gameObject.player2.cash
+  document.querySelector('.cash-player1').innerHTML = 'Player 1 Cash: $' + gameObject.player1.cash
+  document.querySelector('.cash-player2').innerHTML = 'Player 2 Cash: $' + gameObject.player2.cash
 }
 
 // Function that shuffles the cards in the deck using the Fisher Yates Shuffle
