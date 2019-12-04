@@ -1,7 +1,7 @@
 .boardContainer {
   height: 700px;
   width: 1400px;
-  background-image: url('https://mxg.cdnbf.net/mexchangeblackjack/turbo/assets/gameView/tableBackground.png');
+  background-color: #289946;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
