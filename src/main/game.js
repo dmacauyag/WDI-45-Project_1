@@ -63,12 +63,12 @@ const audio = {
   hit: new Audio('src/main/resources/audio/hit.wav'),
   shuffle: new Audio('src/main/resources/audio/shuffle.wav')
 }
-const $dealButton = $('.deal')
-const $newGameButton = $('.new-game')
-const $hitPlayer1Button = $('.hit-player1')
-const $hitPlayer2Button = $('.hit-player2')
-const $standPlayer1Button = $('.stand-player1')
-const $standPlayer2Button = $('.stand-player2')
+const dealButton = document.querySelector('.dealer-buttons button.deal')
+const newGameButton = document.querySelector('button.new-game')
+const hitPlayer1Button = document.querySelector('.player1-container button.hit')
+const hitPlayer2Button = document.querySelector('.player2-container button.hit')
+const standPlayer1Button = document.querySelector('.player1-container button.stand')
+const standPlayer2Button = document.querySelector('.player2-container button.stand')
 
 let currentPlayer
 //============================================================================//
@@ -76,16 +76,16 @@ let currentPlayer
 GameHelpers.displayNotification('Welcome to Blackjack! Press NEW GAME to begin.')
 
 // Event listener for the new game button
-  $newGameButton.on('click', function() {
-    $newGameButton.addClass('newGameOff')
-    GameHelpers.displayNotification('Please place a minimum bet of $10')
-    currentPlayer = gameObject.player1
-    resetValues()
-    resetCardsToDeck()
-    $('.place-bet').addClass('placeBetOn')
-    $('.place-bet-player1').on('click', checkBetP1)
-    $('.place-bet-player2').on('click', checkBetP2)
-  })
+newGameButton.onclick = () => {
+  newGameButton.addClass('newGameOff')
+  GameHelpers.displayNotification('Please place a minimum bet of $10')
+  currentPlayer = gameObject.player1
+  resetValues()
+  resetCardsToDeck()
+  $('.place-bet').addClass('placeBetOn')
+  $('.place-bet-player1').on('click', checkBetP1)
+  $('.place-bet-player2').on('click', checkBetP2)
+}
 
 // Function that checks for the validity of Player 1 bet prior to dealing cards
 function checkBetP1() {
@@ -107,7 +107,7 @@ function checkBetP1() {
     $('.place-bet-player1').off()
     $('.place-bet-player1').removeClass('placeBetOn')
     if (gameObject.player2.bet > 0) {
-      $dealButton.addClass('dealOn')
+      dealButton.addClass('dealOn')
       deal()
     }
   }
@@ -133,7 +133,7 @@ function checkBetP2() {
     $('.place-bet-player2').off()
     $('.place-bet-player2').removeClass('placeBetOn')
     if (gameObject.player1.bet > 0) {
-      $dealButton.addClass('dealOn')
+      dealButton.addClass('dealOn')
       deal()
     }
   }
@@ -142,9 +142,9 @@ function checkBetP2() {
 // Function that shuffles the deck and deals a new hand to the dealer and both players
 function deal() {
   GameHelpers.displayNotification('Press DEAL to play!')
-  $dealButton.one('click', function() {
+  dealButton.one('click', function() {
     audio.shuffle.play()
-    $dealButton.removeClass('dealOn')
+    dealButton.removeClass('dealOn')
     gameObject.deck = shuffle(gameObject.deck)
     dealCards()
     checkInitialCardValues()
@@ -174,20 +174,20 @@ function playTurn() {
       switchTurns()
     } else {
       GameHelpers.displayNotification(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
-      $hitPlayer1Button.addClass('onP1')
-      $standPlayer1Button.addClass('onP1')
-      $hitPlayer1Button.on('click', hit)
-      $standPlayer1Button.on('click', switchTurns)
+      hitPlayer1Button.addClass('onP1')
+      standPlayer1Button.addClass('onP1')
+      hitPlayer1Button.on('click', hit)
+      standPlayer1Button.on('click', switchTurns)
     }
   } else if (currentPlayer.name == 'Player 2') {
       if (currentPlayer.score == 21) {
         switchTurns()
       } else {
         GameHelpers.displayNotification(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
-        $hitPlayer2Button.addClass('onP2')
-        $standPlayer2Button.addClass('onP2')
-        $hitPlayer2Button.on('click', hit)
-        $standPlayer2Button.on('click', switchTurns)
+        hitPlayer2Button.addClass('onP2')
+        standPlayer2Button.addClass('onP2')
+        hitPlayer2Button.on('click', hit)
+        standPlayer2Button.on('click', switchTurns)
       }
   } else {
     checkForWinner()
@@ -205,17 +205,17 @@ function hit() {
 // Function that switches turns
 function switchTurns() {
   if (currentPlayer == gameObject.player1) {
-    $hitPlayer1Button.removeClass('onP1')
-    $standPlayer1Button.removeClass('onP1')
-    $hitPlayer1Button.off()
-    $standPlayer1Button.off()
+    hitPlayer1Button.removeClass('onP1')
+    standPlayer1Button.removeClass('onP1')
+    hitPlayer1Button.off()
+    standPlayer1Button.off()
     currentPlayer = gameObject.player2
     playTurn()
   } else if (currentPlayer == gameObject.player2){
-    $hitPlayer2Button.removeClass('onP2')
-    $standPlayer2Button.removeClass('onP2')
-    $hitPlayer2Button.off()
-    $standPlayer2Button.off()
+    hitPlayer2Button.removeClass('onP2')
+    standPlayer2Button.removeClass('onP2')
+    hitPlayer2Button.off()
+    standPlayer2Button.off()
     currentPlayer = gameObject.dealer
     playDealer()
   } else {
@@ -394,7 +394,7 @@ function playerBankrupt() {
       gameObject.player2.cash = 100
       displayScore()
       $('.restart').addClass('restart-off')
-      $newGameButton.removeClass('newGameOff')
+      newGameButton.removeClass('newGameOff')
       GameHelpers.displayNotification('Press NEW GAME to play again!')
     })
   } else if (gameObject.player2.cash <= 0) {
@@ -405,11 +405,11 @@ function playerBankrupt() {
       gameObject.player2.cash = 100
       displayScore()
       $('.restart').addClass('restart-off')
-      $newGameButton.removeClass('newGameOff')
+      newGameButton.removeClass('newGameOff')
       GameHelpers.displayNotification('Press NEW GAME to play again!')
     })
   } else {
-    $newGameButton.removeClass('newGameOff')
+    newGameButton.removeClass('newGameOff')
     GameHelpers.displayNotification('Press NEW GAME to play again!')
   }
 }
