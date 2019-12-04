@@ -74,12 +74,12 @@ var $standP1 = $('.standP1')
 var $standP2 = $('.standP2')
 //============================================================================//
 
-notify('Welcome to Blackjack! Press NEW GAME to begin.')
+GameHelpers.displayNotification('Welcome to Blackjack! Press NEW GAME to begin.')
 
 // Event listener for the new game button
   $newGame.on('click', function() {
     $newGame.addClass('newGameOff')
-    notify('Please place a minimum bet of $10')
+    GameHelpers.displayNotification('Please place a minimum bet of $10')
     currentPlayer = game.player1
     resetValues()
     resetCardsToDeck()
@@ -142,7 +142,7 @@ function checkBetP2() {
 
 // Function that shuffles the deck and deals a new hand to the dealer and both players
 function deal() {
-  notify('Press DEAL to play!')
+  GameHelpers.displayNotification('Press DEAL to play!')
   $deal.one('click', function() {
     audio.shuffle.play()
     $deal.removeClass('dealOn')
@@ -174,7 +174,7 @@ function playTurn() {
     if (currentPlayer.score == 21) {
       switchTurns()
     } else {
-      notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
+      GameHelpers.displayNotification(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
       $hitP1.addClass('onP1')
       $standP1.addClass('onP1')
       $hitP1.on('click', hit)
@@ -184,7 +184,7 @@ function playTurn() {
       if (currentPlayer.score == 21) {
         switchTurns()
       } else {
-        notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
+        GameHelpers.displayNotification(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
         $hitP2.addClass('onP2')
         $standP2.addClass('onP2')
         $hitP2.on('click', hit)
@@ -268,7 +268,7 @@ function checkCardValue() {
   for (var i = 0; i < currentPlayer.hand.length; i++) {
     currentPlayer.score += currentPlayer.hand[i].value
   }
-  notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
+  GameHelpers.displayNotification(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
   if (currentPlayer.score == 21) {
     switchTurns()
   }
@@ -315,7 +315,7 @@ function checkAce() {
   } else if (currentPlayer.score == 21) {
     switchTurns()
   }
-  notify(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
+  GameHelpers.displayNotification(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
 }
 
 // Function that checks if the dealer's starting hand is a 21 (blackjack)
@@ -388,7 +388,7 @@ function checkForWinner() {
 // Function that checks if a player is out of cash
 function playerBankrupt() {
   if (game.player1.cash <= 0) {
-    notify("Player 1 is out of cash! Press RESTART to reset each player's cash.")
+    GameHelpers.displayNotification("Player 1 is out of cash! Press RESTART to reset each player's cash.")
     $('.restart').removeClass('restartOff')
     $('.restart').one('click', function() {
       game.player1.cash = 100
@@ -396,10 +396,10 @@ function playerBankrupt() {
       displayScore()
       $('.restart').addClass('restartOff')
       $newGame.removeClass('newGameOff')
-      notify('Press NEW GAME to play again!')
+      GameHelpers.displayNotification('Press NEW GAME to play again!')
     })
   } else if (game.player2.cash <= 0) {
-    notify("Player 2 is out of cash! Press RESTART to reset each player's cash.")
+    GameHelpers.displayNotification("Player 2 is out of cash! Press RESTART to reset each player's cash.")
     $('.restart').removeClass('restartOff')
     $('.restart').one('click', function() {
       game.player1.cash = 100
@@ -407,11 +407,11 @@ function playerBankrupt() {
       displayScore()
       $('.restart').addClass('restartOff')
       $newGame.removeClass('newGameOff')
-      notify('Press NEW GAME to play again!')
+      GameHelpers.displayNotification('Press NEW GAME to play again!')
     })
   } else {
     $newGame.removeClass('newGameOff')
-    notify('Press NEW GAME to play again!')
+    GameHelpers.displayNotification('Press NEW GAME to play again!')
   }
 }
 
@@ -456,11 +456,6 @@ function resetValues() {
   document.querySelector('.resultP2').innerHTML = ''
 
   $('.result').removeClass('resultWin resultLose resultTie')
-}
-
-// Function that accepts string inputs and displays game notifications on the screen
-function notify(string) {
-  document.querySelector('h2').innerHTML = string
 }
 
 // Function that displays each player's score
