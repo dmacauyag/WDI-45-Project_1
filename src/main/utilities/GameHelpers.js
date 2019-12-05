@@ -58,4 +58,11 @@ class GameHelpers {
     playerBetDisplay.innerHTML = `${playerObject.name} Bet: $${playerBet}`
     playerCashDisplay.innerHTML = `${playerObject.name} Cash: $${playerObject.cash}`
   }
+
+  static createCardElement (imageSource) {
+    const cardElement = document.createElement('img')
+    cardElement.classList.add('card-image')
+    cardElement.setAttribute('src', imageSource)
+    return cardElement
+  }
 }

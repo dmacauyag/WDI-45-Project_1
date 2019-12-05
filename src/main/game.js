@@ -101,13 +101,12 @@ newGameButton.onclick = () => {
       placeBetPlayer1Button.removeEventListener('click', clickListener)
       GameHelpers.processBet(+player2Bet.value, gameObject.player2, audio.chips)
       dealButton.classList.add('deal-on')
-      deal()
+      dealDeck()
     }
   })
 }
 
-// Function that shuffles the deck and deals a new hand to the dealer and both players
-function deal () {
+function dealDeck () {
   GameHelpers.displayNotification('Press DEAL to play!')
   dealButton.addEventListener('click', function clickListener () {
     dealButton.removeEventListener('click', clickListener)
@@ -119,20 +118,45 @@ function deal () {
   })
 }
 
-// Function pops cards from the deck into each players hand array. Function also visually displays the cards on the screen
-function dealCards() {
+function dealCards () {
   gameObject.dealer.hand = [gameObject.deck.pop(), gameObject.deck.pop()]
   gameObject.player1.hand = [gameObject.deck.pop(), gameObject.deck.pop()]
   gameObject.player2.hand = [gameObject.deck.pop(), gameObject.deck.pop()]
 
-  $('<img class="cardImage" src=' + gameObject.dealer.hand[0].img + '>').hide().appendTo('.dealer').show('slow')
-  $('<img class="cardImage cardBack" src="src/main/resources/images/card_back.jpg">').appendTo('.dealer').show('slow')
+  document.querySelector('.dealer-hand').appendChild(GameHelpers.createCardElement(gameObject.dealer.hand[0].img))
+  document.querySelector('.dealer-hand').appendChild(GameHelpers.createCardElement('src/main/resources/images/card_back.jpg'))
 
-  $('<img class="cardImage" src=' + gameObject.player1.hand[0].img + '>').hide().appendTo('.player1').show('slow')
-  $('<img class="cardImage" src=' + gameObject.player1.hand[2].img + '>').hide().appendTo('.player1').show('slow')
+  document.querySelector('.player1-hand').appendChild(GameHelpers.createCardElement(gameObject.player1.hand[0].img))
+  document.querySelector('.player1-hand').appendChild(GameHelpers.createCardElement(gameObject.player1.hand[1].img))
 
-  $('<img class="cardImage" src=' + gameObject.player2.hand[0].img + '>').hide().appendTo('.player2').show('slow')
-  $('<img class="cardImage" src=' + gameObject.player2.hand[1].img + '>').hide().appendTo('.player2').show('slow')
+  document.querySelector('.player2-hand').appendChild(GameHelpers.createCardElement(gameObject.player2.hand[0].img))
+  document.querySelector('.player2-hand').appendChild(GameHelpers.createCardElement(gameObject.player2.hand[1].img))
+}
+
+// Function that checks the initial card values
+function checkInitialCardValues () {
+  for (var i = 0; i < gameObject.dealer.hand.length; i++) {
+    gameObject.dealer.score += gameObject.dealer.hand[i].value
+  }
+  if (gameObject.dealer.score > 21) {
+    gameObject.dealer.score -= 10
+  }
+
+  for (var i = 0; i < gameObject.player1.hand.length; i++) {
+    gameObject.player1.score += gameObject.player1.hand[i].value
+  }
+  if (gameObject.player1.score > 21) {
+    gameObject.player1.score -= 10
+  }
+
+  for (var i = 0; i < gameObject.player2.hand.length; i++) {
+    gameObject.player2.score += gameObject.player2.hand[i].value
+  }
+  if (gameObject.player2.score > 21) {
+    gameObject.player2.score -= 10
+  }
+  checkforInitialBlackjack()
+  displayScore()
 }
 
 // Function for player 1 and player 2 turns
@@ -166,7 +190,7 @@ function playTurn() {
 function hit() {
   audio.hit.play()
   currentPlayer.hand.push(gameObject.deck.pop())
-  $('<img class="cardImage" src=' + currentPlayer.hand[currentPlayer.hand.length - 1].img + '>').hide().appendTo(currentPlayer.class).show('slow')
+  $('<img class="card-image" src=' + currentPlayer.hand[currentPlayer.hand.length - 1].img + '>').hide().appendTo(currentPlayer.class).show('slow')
   checkCardValue()
 }
 
@@ -193,39 +217,13 @@ function switchTurns() {
 
 // Function for the dealer's turn
 function playDealer() {
-  $('.cardBack').replaceWith('<img class="cardImage" src=' + gameObject.dealer.hand[1].img + '>')
+  $('.cardBack').replaceWith('<img class="card-image" src=' + gameObject.dealer.hand[1].img + '>')
   if (gameObject.player1.score > 21 && gameObject.player2.score > 21) {
     checkForWinner()
   } else if (currentPlayer.score < 17 && (gameObject.player1.score <= 21 || gameObject.player2.score <= 21)) {
     hit()
   }
   checkForWinner()
-}
-
-// Function that checks the initial card values
-function checkInitialCardValues() {
-  for (var i = 0; i < gameObject.dealer.hand.length; i++) {
-    gameObject.dealer.score += gameObject.dealer.hand[i].value
-  }
-  if (gameObject.dealer.score > 21) {
-    gameObject.dealer.score -= 10
-  }
-
-  for (var i = 0; i < gameObject.player1.hand.length; i++) {
-    gameObject.player1.score += gameObject.player1.hand[i].value
-  }
-  if (gameObject.player1.score > 21) {
-    gameObject.player1.score -= 10
-  }
-
-  for (var i = 0; i < gameObject.player2.hand.length; i++) {
-    gameObject.player2.score += gameObject.player2.hand[i].value
-  }
-  if (gameObject.player2.score > 21) {
-    gameObject.player2.score -= 10
-  }
-  checkforInitialBlackjack()
-  displayScore()
 }
 
 // Function that checks for the cards values between turns
@@ -288,7 +286,7 @@ function checkAce() {
 // Function that checks if the dealer's starting hand is a 21 (blackjack)
 function checkforInitialBlackjack() {
   if (gameObject.dealer.score == 21) {
-    $('.cardBack').replaceWith('<img class="cardImage" src=' + gameObject.dealer.hand[1].img + '>')
+    $('.cardBack').replaceWith('<img class="card-image" src=' + gameObject.dealer.hand[1].img + '>')
     checkForWinner()
   } else {
     playTurn()
@@ -387,7 +385,7 @@ function resetCardsToDeck() {
   var dealerHandSize = gameObject.dealer.hand.length
   var player1HandSize = gameObject.player1.hand.length
   var player2HandSize = gameObject.player2.hand.length
-  $('.cardImage').remove()
+  $('.card-image').remove()
   for (var i = 0; i < dealerHandSize; i++) {
     gameObject.deck.push(gameObject.dealer.hand.pop())
   }

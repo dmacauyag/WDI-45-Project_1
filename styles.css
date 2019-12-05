@@ -24,7 +24,7 @@ label {
   text-decoration: underline;
 }
 
-.dealer {
+.dealer-hand {
   height: 175px;
   width: 650px;
   /*border: 3px solid brown;*/
@@ -41,7 +41,7 @@ label {
   left: 150px;
 }
 
-.player1 {
+.player1-hand {
   height: 175px;
   width: 650px;
   /*border: 3px solid brown;*/
@@ -58,7 +58,7 @@ label {
   left: 20px;
 }
 
-.player2 {
+.player2-hand {
   height: 175px;
   width: 650px;
   /*border: 3px solid brown;*/
@@ -88,12 +88,12 @@ img {
   width: 130px;
 }
 
-.cardImage {
+.card-image {
   margin-left: -60px;
   box-shadow: 0px 0px 20px;
 }
 
-.cardImage:first-child {
+.card-image:first-child {
   margin-left: 0;
 }
 
