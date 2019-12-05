@@ -107,11 +107,12 @@ newGameButton.onclick = () => {
 }
 
 // Function that shuffles the deck and deals a new hand to the dealer and both players
-function deal() {
+function deal () {
   GameHelpers.displayNotification('Press DEAL to play!')
-  dealButton.one('click', function() {
+  dealButton.addEventListener('click', function clickListener () {
+    dealButton.removeEventListener('click', clickListener)
     audio.shuffle.play()
-    dealButton.removeClass('deal-on')
+    dealButton.classList.remove('deal-on')
     gameObject.deck = GameHelpers.shuffle(gameObject.deck)
     dealCards()
     checkInitialCardValues()
