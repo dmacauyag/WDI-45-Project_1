@@ -34,7 +34,6 @@ class GameHelpers {
   }
 
   static processBet (playerBet, playerObject, audio) {
-    const playerCash = playerObject.cash
     let playerBetDisplay
     let playerCashDisplay
 
