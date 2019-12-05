@@ -27,7 +27,6 @@ label {
 .dealer-hand {
   height: 175px;
   width: 650px;
-  /*border: 3px solid brown;*/
   text-align: center;
   margin: 10px auto;
 }
@@ -44,7 +43,6 @@ label {
 .player1-hand {
   height: 175px;
   width: 650px;
-  /*border: 3px solid brown;*/
   position: absolute;
   bottom: 10px;
   left: 10px;
@@ -61,7 +59,6 @@ label {
 .player2-hand {
   height: 175px;
   width: 650px;
-  /*border: 3px solid brown;*/
   float: right;
   position: absolute;
   bottom: 10px;
