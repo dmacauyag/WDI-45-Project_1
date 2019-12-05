@@ -19,16 +19,15 @@ class GameHelpers {
   }
 
   static isBetValid (betValue, playerCash) {
-    let result = true
+    let result = false
     if (betValue > playerCash) {
       alert('Player does not have enough cash to place that bet!')
-      result = false
     } else if (betValue < 10) {
       alert('Player, please enter a minimum bet of $10!')
-      result = false
     } else if (isNaN(betValue)) {
       alert('Player, please enter a valid bet!')
-      result = false
+    } else {
+      result = true
     }
 
     return result
