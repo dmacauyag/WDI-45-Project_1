@@ -69,74 +69,41 @@ const hitPlayer1Button = document.querySelector('.player1-container button.hit')
 const hitPlayer2Button = document.querySelector('.player2-container button.hit')
 const standPlayer1Button = document.querySelector('.player1-container button.stand')
 const standPlayer2Button = document.querySelector('.player2-container button.stand')
+const placeBetPlayer1Button = document.querySelector('.player1-container button.place-bet')
+const placeBetPlayer2Button = document.querySelector('.player2-container button.place-bet')
+const player1Bet = document.querySelector('.player1-container input.bet-player1')
+const player2Bet = document.querySelector('.player2-container input.bet-player2')
 
 let currentPlayer
 //============================================================================//
 
 GameHelpers.displayNotification('Welcome to Blackjack! Press NEW GAME to begin.')
 
-// Event listener for the new game button
 newGameButton.onclick = () => {
-  newGameButton.addClass('newGameOff')
+  newGameButton.classList.add('new-game-off')
   GameHelpers.displayNotification('Please place a minimum bet of $10')
   currentPlayer = gameObject.player1
   resetValues()
   resetCardsToDeck()
-  $('.place-bet').addClass('placeBetOn')
-  $('.place-bet-player1').on('click', checkBetP1)
-  $('.place-bet-player2').on('click', checkBetP2)
-}
 
-// Function that checks for the validity of Player 1 bet prior to dealing cards
-function checkBetP1() {
-  var player1Bet = Number($('.bet-player1').val())
-  var player1Cash = gameObject.player1.cash
+  placeBetPlayer1Button.classList.add('place-bet-on')
+  placeBetPlayer2Button.classList.add('place-bet-on')
 
-  if (player1Bet > player1Cash) {
-    alert('Player 1 does not have enough cash to place that bet!')
-  } else if (player1Bet < 10) {
-    alert('Player 1, please enter a minimum bet of $10!')
-  } else if (isNaN(player1Bet) == true) {
-    alert('Player 1, please enter a valid bet!')
-  } else {
-    audio.chips.play()
-    gameObject.player1.bet = player1Bet
-    gameObject.player1.cash = gameObject.player1.cash - player1Bet
-    document.querySelector('.bet-value-player1').innerHTML = 'Player 1 Bet: $' + player1Bet
-    document.querySelector('.cash-player1').innerHTML = 'Player 1 Cash: $' + gameObject.player1.cash
-    $('.place-bet-player1').off()
-    $('.place-bet-player1').removeClass('placeBetOn')
-    if (gameObject.player2.bet > 0) {
-      dealButton.addClass('dealOn')
+  placeBetPlayer1Button.addEventListener('click', function clickListener () {
+    if (GameHelpers.isBetValid(+player1Bet.value, gameObject.player1.cash)) {
+      placeBetPlayer1Button.removeEventListener('click', clickListener)
+      GameHelpers.processBet(+player1Bet.value, gameObject.player1, audio.chips)
+    }
+  })
+
+  placeBetPlayer2Button.addEventListener('click', function clickListener () {
+    if (GameHelpers.isBetValid(+player2Bet.value, gameObject.player2.cash)) {
+      placeBetPlayer1Button.removeEventListener('click', clickListener)
+      GameHelpers.processBet(+player2Bet.value, gameObject.player2, audio.chips)
+      dealButton.classList.add('deal-on')
       deal()
     }
-  }
-}
-
-// Function that checks for the validity of Player 2 bet prior to dealing cards
-function checkBetP2() {
-  var player2Bet = Number($('.bet-player2').val())
-  var player2Cash = gameObject.player2.cash
-
-  if (player2Bet > player2Cash) {
-    alert('Player 2 does not have enough cash to place that bet!')
-  } else if (player2Bet < 10) {
-    alert('Player 2, please enter a minimum bet of $10!')
-  } else if (isNaN(player2Bet) == true) {
-    alert('Player 2, please enter a valid bet!')
-  } else {
-    audio.chips.play()
-    gameObject.player2.bet = player2Bet
-    gameObject.player2.cash = gameObject.player2.cash - player2Bet
-    document.querySelector('.bet-value-player2').innerHTML = 'Player 2 Bet: $' + player2Bet
-    document.querySelector('.cash-player2').innerHTML = 'Player 2 Cash: $' + gameObject.player2.cash
-    $('.place-bet-player2').off()
-    $('.place-bet-player2').removeClass('placeBetOn')
-    if (gameObject.player1.bet > 0) {
-      dealButton.addClass('dealOn')
-      deal()
-    }
-  }
+  })
 }
 
 // Function that shuffles the deck and deals a new hand to the dealer and both players
@@ -144,7 +111,7 @@ function deal() {
   GameHelpers.displayNotification('Press DEAL to play!')
   dealButton.one('click', function() {
     audio.shuffle.play()
-    dealButton.removeClass('dealOn')
+    dealButton.removeClass('deal-on')
     gameObject.deck = GameHelpers.shuffle(gameObject.deck)
     dealCards()
     checkInitialCardValues()
@@ -161,7 +128,7 @@ function dealCards() {
   $('<img class="cardImage cardBack" src="src/main/resources/images/card_back.jpg">').appendTo('.dealer').show('slow')
 
   $('<img class="cardImage" src=' + gameObject.player1.hand[0].img + '>').hide().appendTo('.player1').show('slow')
-  $('<img class="cardImage" src=' + gameObject.player1.hand[1].img + '>').hide().appendTo('.player1').show('slow')
+  $('<img class="cardImage" src=' + gameObject.player1.hand[2].img + '>').hide().appendTo('.player1').show('slow')
 
   $('<img class="cardImage" src=' + gameObject.player2.hand[0].img + '>').hide().appendTo('.player2').show('slow')
   $('<img class="cardImage" src=' + gameObject.player2.hand[1].img + '>').hide().appendTo('.player2').show('slow')
@@ -394,7 +361,7 @@ function playerBankrupt() {
       gameObject.player2.cash = 100
       displayScore()
       $('.restart').addClass('restart-off')
-      newGameButton.removeClass('newGameOff')
+      newGameButton.removeClass('new-game-off')
       GameHelpers.displayNotification('Press NEW GAME to play again!')
     })
   } else if (gameObject.player2.cash <= 0) {
@@ -405,11 +372,11 @@ function playerBankrupt() {
       gameObject.player2.cash = 100
       displayScore()
       $('.restart').addClass('restart-off')
-      newGameButton.removeClass('newGameOff')
+      newGameButton.removeClass('new-game-off')
       GameHelpers.displayNotification('Press NEW GAME to play again!')
     })
   } else {
-    newGameButton.removeClass('newGameOff')
+    newGameButton.removeClass('new-game-off')
     GameHelpers.displayNotification('Press NEW GAME to play again!')
   }
 }

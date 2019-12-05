@@ -163,7 +163,7 @@ img {
   background-color: olive;
 }
 
-.newGameOff {
+.new-game-off {
   display: none;
 }
 
@@ -181,13 +181,13 @@ img {
   opacity: 0.5;
 }
 
-.dealOn {
+.deal-on {
   background-color: firebrick;
   color: white;
   opacity: 1;
 }
 
-.dealOn:hover {
+.deal-on:hover {
   background-color: tomato;
 }
 
@@ -290,12 +290,12 @@ h3 {
   border-radius: 5px;
 }
 
-.placeBetOn {
+.place-bet-on {
   background-color: firebrick;
   opacity: 1;
 }
 
-.placeBetOn:hover {
+.place-bet-on:hover {
   background-color: tomato;
 }
 
