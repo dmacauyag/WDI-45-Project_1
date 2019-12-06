@@ -121,23 +121,13 @@ img {
   opacity: 0.5;
 }
 
-.onP1 {
+.hit-on {
   background-color: maroon;
   color: white;
   opacity: 1;
 }
 
-.onP1:hover {
-  background-color: tomato;
-}
-
-.onP2 {
-  background-color: maroon;
-  color: white;
-  opacity: 1;
-}
-
-.onP2:hover {
+.hit-on:hover {
   background-color: tomato;
 }
 
@@ -228,17 +218,17 @@ h3 {
   padding: 4px;
  }
 
- .resultWin {
+ .result-win {
    border-color: green;
    background-color: #2ECC71;
  }
 
- .resultLose {
+ .result-lose {
    border-color: red;
    background-color: #E74C3C;
  }
 
- .resultTie {
+ .result-tie {
    border-color: orange;
    background-color: #F39C12;
  }
