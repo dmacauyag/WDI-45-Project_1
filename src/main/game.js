@@ -133,7 +133,6 @@ function dealCards () {
   document.querySelector('.player2-hand').appendChild(GameHelpers.createCardElement(gameObject.player2.hand[1].img, 'card-image'))
 }
 
-// Function that checks the initial card values
 function checkInitialCardValues () {
   const dealerScore = GameHelpers.getPlayerScore(gameObject.dealer.hand)
   const player1Score = GameHelpers.getPlayerScore(gameObject.player1.hand)
@@ -155,7 +154,6 @@ function checkInitialCardValues () {
   displayScore()
 }
 
-// Function for player 1 and player 2 turns
 function playTurn () {
   if (currentPlayer.name == 'Player 1') {
     if (currentPlayer.score == 21) {
@@ -182,7 +180,6 @@ function playTurn () {
   }
 }
 
-// Function for the hit button
 function hit() {
   audio.hit.play()
   currentPlayer.hand.push(gameObject.deck.pop())
@@ -190,7 +187,6 @@ function hit() {
   checkCardValue()
 }
 
-// Function that switches turns
 function switchTurns() {
   if (currentPlayer == gameObject.player1) {
     hitPlayer1Button.removeClass('onP1')
@@ -211,7 +207,6 @@ function switchTurns() {
   }
 }
 
-// Function for the dealer's turn
 function playDealer() {
   $('.card-back').replaceWith('<img class="card-image" src=' + gameObject.dealer.hand[1].img + '>')
   if (gameObject.player1.score > 21 && gameObject.player2.score > 21) {
@@ -222,7 +217,6 @@ function playDealer() {
   checkForWinner()
 }
 
-// Function that checks for the cards values between turns
 function checkCardValue() {
   currentPlayer.score = 0
   currentPlayer.aces = 0
@@ -250,7 +244,6 @@ function checkCardValue() {
   displayScore()
 }
 
-// Function that checks if a players hand contains an ace card
 function isAce() {
   for (var i = 0; i < currentPlayer.hand.length; i++) {
     if (currentPlayer.hand[i].name == 'Ace') {
@@ -264,7 +257,6 @@ function isAce() {
   }
 }
 
-// Function to calculate new score if there are aces in the player's hand
 function checkAce() {
   for (var i = 0; i < currentPlayer.aces; i++) {
     if (currentPlayer.score > 21) {
@@ -279,7 +271,6 @@ function checkAce() {
   GameHelpers.displayNotification(currentPlayer.name + ' has ' + currentPlayer.score + '. Hit or Stand?')
 }
 
-// Function that checks if the dealer's starting hand is a 21 (blackjack)
 function checkforInitialBlackjack () {
   if (gameObject.dealer.score == 21) {
     const flippedCard = GameHelpers.createCardElement(gameObject.dealer.hand[1].img, 'card-image')
@@ -290,7 +281,6 @@ function checkforInitialBlackjack () {
   }
 }
 
-// Function checks for winner at the END of the game
 function checkForWinner () {
   // Player 1 //
   if (((gameObject.player1.score > gameObject.dealer.score) && gameObject.player1.score <= 21) || (gameObject.player1.score <= 21 && gameObject.dealer.score > 21)) {
@@ -347,7 +337,6 @@ function checkForWinner () {
 }
 
 
-// Function that checks if a player is out of cash
 function playerBankrupt() {
   if (gameObject.player1.cash <= 0) {
     GameHelpers.displayNotification("Player 1 is out of cash! Press RESTART to reset each player's cash.")
@@ -377,7 +366,6 @@ function playerBankrupt() {
   }
 }
 
-// Function that places the cards back into the deck
 function resetCardsToDeck() {
   var dealerHandSize = gameObject.dealer.hand.length
   var player1HandSize = gameObject.player1.hand.length
@@ -394,7 +382,6 @@ function resetCardsToDeck() {
   }
 }
 
-// Function that resets values to begin a new game
 function resetValues() {
   gameObject.dealer.score = 0
   gameObject.player1.score = 0
@@ -420,7 +407,6 @@ function resetValues() {
   $('.result').removeClass('resultWin resultLose resultTie')
 }
 
-// Function that displays each player's score
 function displayScore() {
   if (gameObject.player1.score == 21) {
     document.querySelector('.score1').innerHTML = 'SCORE: ' + gameObject.player1.score
