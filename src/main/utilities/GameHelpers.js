@@ -59,10 +59,16 @@ class GameHelpers {
     playerCashDisplay.innerHTML = `${playerObject.name} Cash: $${playerObject.cash}`
   }
 
-  static createCardElement (imageSource) {
+  static createCardElement (imageSource, className) {
     const cardElement = document.createElement('img')
-    cardElement.classList.add('card-image')
+    cardElement.classList.add(className)
     cardElement.setAttribute('src', imageSource)
     return cardElement
+  }
+
+  static getPlayerScore (playerHand) {
+    return playerHand.reduce((acc, cardObject) => {
+      return acc + cardObject.value
+    }, 0)
   }
 }

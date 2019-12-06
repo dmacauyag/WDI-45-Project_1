@@ -123,44 +123,40 @@ function dealCards () {
   gameObject.player1.hand = [gameObject.deck.pop(), gameObject.deck.pop()]
   gameObject.player2.hand = [gameObject.deck.pop(), gameObject.deck.pop()]
 
-  document.querySelector('.dealer-hand').appendChild(GameHelpers.createCardElement(gameObject.dealer.hand[0].img))
-  document.querySelector('.dealer-hand').appendChild(GameHelpers.createCardElement('src/main/resources/images/card_back.jpg'))
+  document.querySelector('.dealer-hand').appendChild(GameHelpers.createCardElement(gameObject.dealer.hand[0].img, 'card-image'))
+  document.querySelector('.dealer-hand').appendChild(GameHelpers.createCardElement('src/main/resources/images/card_back.jpg', 'card-back'))
 
-  document.querySelector('.player1-hand').appendChild(GameHelpers.createCardElement(gameObject.player1.hand[0].img))
-  document.querySelector('.player1-hand').appendChild(GameHelpers.createCardElement(gameObject.player1.hand[1].img))
+  document.querySelector('.player1-hand').appendChild(GameHelpers.createCardElement(gameObject.player1.hand[0].img, 'card-image'))
+  document.querySelector('.player1-hand').appendChild(GameHelpers.createCardElement(gameObject.player1.hand[1].img, 'card-image'))
 
-  document.querySelector('.player2-hand').appendChild(GameHelpers.createCardElement(gameObject.player2.hand[0].img))
-  document.querySelector('.player2-hand').appendChild(GameHelpers.createCardElement(gameObject.player2.hand[1].img))
+  document.querySelector('.player2-hand').appendChild(GameHelpers.createCardElement(gameObject.player2.hand[0].img, 'card-image'))
+  document.querySelector('.player2-hand').appendChild(GameHelpers.createCardElement(gameObject.player2.hand[1].img, 'card-image'))
 }
 
 // Function that checks the initial card values
 function checkInitialCardValues () {
-  for (var i = 0; i < gameObject.dealer.hand.length; i++) {
-    gameObject.dealer.score += gameObject.dealer.hand[i].value
-  }
-  if (gameObject.dealer.score > 21) {
-    gameObject.dealer.score -= 10
-  }
+  const dealerScore = GameHelpers.getPlayerScore(gameObject.dealer.hand)
+  const player1Score = GameHelpers.getPlayerScore(gameObject.player1.hand)
+  const player2Score = GameHelpers.getPlayerScore(gameObject.player2.hand)
 
-  for (var i = 0; i < gameObject.player1.hand.length; i++) {
-    gameObject.player1.score += gameObject.player1.hand[i].value
-  }
-  if (gameObject.player1.score > 21) {
-    gameObject.player1.score -= 10
-  }
+  dealerScore > 21
+    ? gameObject.dealer.score -= 10
+    : gameObject.dealer.score += dealerScore
 
-  for (var i = 0; i < gameObject.player2.hand.length; i++) {
-    gameObject.player2.score += gameObject.player2.hand[i].value
-  }
-  if (gameObject.player2.score > 21) {
-    gameObject.player2.score -= 10
-  }
+  player1Score > 21
+    ? gameObject.player1.score -= 10
+    : gameObject.player1.score += player1Score
+
+  player2Score > 21
+    ? gameObject.player2.score -= 10
+    : gameObject.player2.score += player2Score
+
   checkforInitialBlackjack()
   displayScore()
 }
 
 // Function for player 1 and player 2 turns
-function playTurn() {
+function playTurn () {
   if (currentPlayer.name == 'Player 1') {
     if (currentPlayer.score == 21) {
       switchTurns()
@@ -217,7 +213,7 @@ function switchTurns() {
 
 // Function for the dealer's turn
 function playDealer() {
-  $('.cardBack').replaceWith('<img class="card-image" src=' + gameObject.dealer.hand[1].img + '>')
+  $('.card-back').replaceWith('<img class="card-image" src=' + gameObject.dealer.hand[1].img + '>')
   if (gameObject.player1.score > 21 && gameObject.player2.score > 21) {
     checkForWinner()
   } else if (currentPlayer.score < 17 && (gameObject.player1.score <= 21 || gameObject.player2.score <= 21)) {
@@ -284,9 +280,10 @@ function checkAce() {
 }
 
 // Function that checks if the dealer's starting hand is a 21 (blackjack)
-function checkforInitialBlackjack() {
+function checkforInitialBlackjack () {
   if (gameObject.dealer.score == 21) {
-    $('.cardBack').replaceWith('<img class="card-image" src=' + gameObject.dealer.hand[1].img + '>')
+    const flippedCard = GameHelpers.createCardElement(gameObject.dealer.hand[1].img, 'card-image')
+    document.querySelector('.dealer-hand').replaceChild(flippedCard, document.querySelector('.dealer-hand .card-back'))
     checkForWinner()
   } else {
     playTurn()
@@ -294,7 +291,7 @@ function checkforInitialBlackjack() {
 }
 
 // Function checks for winner at the END of the game
-function checkForWinner() {
+function checkForWinner () {
   // Player 1 //
   if (((gameObject.player1.score > gameObject.dealer.score) && gameObject.player1.score <= 21) || (gameObject.player1.score <= 21 && gameObject.dealer.score > 21)) {
     // Player 1 Beats Dealer

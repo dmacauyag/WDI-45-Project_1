@@ -85,7 +85,8 @@ img {
   width: 130px;
 }
 
-.card-image {
+.card-image,
+.card-back {
   margin-left: -60px;
   box-shadow: 0px 0px 20px;
 }
