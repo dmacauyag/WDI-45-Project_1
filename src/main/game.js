@@ -404,9 +404,10 @@ function resetCardsToDeck () {
   for (let i = 0; i < player2HandSize; i++) {
     gameObject.deck.push(gameObject.player2.hand.pop())
   }
+  console.log('gameObject', gameObject)
 }
 
-function resetValues() {
+function resetValues () {
   gameObject.dealer.score = 0
   gameObject.player1.score = 0
   gameObject.player2.score = 0
