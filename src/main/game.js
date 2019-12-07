@@ -271,7 +271,7 @@ function isAce () {
 }
 
 function checkAce () {
-  for (var i = 0; i < currentPlayer.aces; i++) {
+  for (let i = 0; i < currentPlayer.aces; i++) {
     if (currentPlayer.score > 21) {
       currentPlayer.score -= 10
     }
@@ -388,17 +388,17 @@ function playerBankrupt () {
 }
 
 function resetCardsToDeck () {
-  var dealerHandSize = gameObject.dealer.hand.length
-  var player1HandSize = gameObject.player1.hand.length
-  var player2HandSize = gameObject.player2.hand.length
+  const dealerHandSize = gameObject.dealer.hand.length
+  const player1HandSize = gameObject.player1.hand.length
+  const player2HandSize = gameObject.player2.hand.length
   $('.card-image').remove()
-  for (var i = 0; i < dealerHandSize; i++) {
+  for (let i = 0; i < dealerHandSize; i++) {
     gameObject.deck.push(gameObject.dealer.hand.pop())
   }
-  for (var i = 0; i < player1HandSize; i++) {
+  for (let i = 0; i < player1HandSize; i++) {
     gameObject.deck.push(gameObject.player1.hand.pop())
   }
-  for (var i = 0; i < player2HandSize; i++) {
+  for (let i = 0; i < player2HandSize; i++) {
     gameObject.deck.push(gameObject.player2.hand.pop())
   }
 }
