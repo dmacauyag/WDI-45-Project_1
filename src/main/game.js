@@ -163,14 +163,8 @@ function playTurn () {
       GameHelpers.displayNotification(`${currentPlayer.name} has ${currentPlayer.score}. Hit or Stand?`)
       hitPlayer1Button.classList.add('hit-on')
       standPlayer1Button.classList.add('hit-on')
-      hitPlayer1Button.addEventListener('click', function clickListener () {
-        hit('.player1-hand')
-      })
-      standPlayer1Button.addEventListener('click', function clickListener () {
-        switchTurns()
-        hitPlayer1Button.removeEventListener('click', clickListener)
-        standPlayer1Button.removeEventListener('click', clickListener)
-      })
+      hitPlayer1Button.addEventListener('click', hit)
+      standPlayer1Button.addEventListener('click', switchTurns)
     }
   } else if (currentPlayer.name === 'Player 2') {
       if (currentPlayer.score === 21) {
@@ -179,21 +173,28 @@ function playTurn () {
         GameHelpers.displayNotification(`${currentPlayer.name} has ${currentPlayer.score}. Hit or Stand?`)
         hitPlayer2Button.classList.add('hit-on')
         standPlayer2Button.classList.add('hit-on')
-        hitPlayer2Button.addEventListener('click', function clickListener () {
-          hit('.player2-hand')
-        })
-        standPlayer2Button.addEventListener('click', function clickListener () {
-          switchTurns()
-          hitPlayer2Button.removeEventListener('click', clickListener)
-          standPlayer2Button.removeEventListener('click', clickListener)
-        })
+        hitPlayer2Button.addEventListener('click', hit)
+        standPlayer2Button.addEventListener('click', switchTurns)
       }
   } else {
     checkForWinner()
   }
 }
 
-function hit (className) {
+function hit () {
+  let className
+  switch (currentPlayer.name) {
+    case 'Player 1':
+      className = '.player1-hand'
+      break;
+    case 'Player 2':
+      className = '.player2-hand'
+      break;
+    default:
+      className = '.dealer-hand'
+      break;
+  }
+
   audio.hit.play()
   currentPlayer.hand.push(gameObject.deck.pop())
   document.querySelector(className).appendChild(GameHelpers.createCardElement(currentPlayer.hand[currentPlayer.hand.length - 1].img, 'card-image'))
@@ -204,11 +205,15 @@ function switchTurns () {
   if (currentPlayer === gameObject.player1) {
     hitPlayer1Button.classList.remove('hit-on')
     standPlayer1Button.classList.remove('hit-on')
+    hitPlayer1Button.removeEventListener('click', hit)
+    standPlayer1Button.removeEventListener('click', switchTurns)
     currentPlayer = gameObject.player2
     playTurn()
   } else if (currentPlayer === gameObject.player2){
     hitPlayer2Button.classList.remove('hit-on')
     standPlayer2Button.classList.remove('hit-on')
+    hitPlayer2Button.removeEventListener('click', hit)
+    standPlayer2Button.removeEventListener('click', switchTurns)
     currentPlayer = gameObject.dealer
     playDealer()
   } else {
@@ -223,7 +228,7 @@ function playDealer () {
   if (gameObject.player1.score > 21 && gameObject.player2.score > 21) {
     checkForWinner()
   } else if (currentPlayer.score < 17 && (gameObject.player1.score <= 21 || gameObject.player2.score <= 21)) {
-    hit('.dealer-hand')
+    hit()
   }
   checkForWinner()
 }
@@ -246,7 +251,7 @@ function checkCardValue () {
   }
   if (currentPlayer.name === 'Dealer') {
     if (currentPlayer.score < 17 && (gameObject.player1.score <= 21 || gameObject.player2.score <= 21)) {
-      hit('.dealer-hand')
+      hit()
     } else {
       checkForWinner()
     }
