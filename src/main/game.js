@@ -345,7 +345,7 @@ function checkForWinner () {
     // Dealer and Player 2 Tie
     if (gameObject.player2.resolved === false) {
       gameObject.player2.resolved = true
-      gameObject.player2.cash = gameObject.player2.cash + gam
+      gameObject.player2.cash = gameObject.player2.cash + gameObject.player2.bet
       const resultDisplayElement = eObject.player2.betdocument.querySelector('.result-player2')
       resultDisplayElement.classList.add('result-tie')
       resultDisplayElement.innerHTML = 'TIE!'
@@ -391,7 +391,10 @@ function resetCardsToDeck () {
   const dealerHandSize = gameObject.dealer.hand.length
   const player1HandSize = gameObject.player1.hand.length
   const player2HandSize = gameObject.player2.hand.length
-  $('.card-image').remove()
+
+  const cardElements = document.querySelectorAll('.card-image')
+  cardElements.forEach(el => el.remove())
+
   for (let i = 0; i < dealerHandSize; i++) {
     gameObject.deck.push(gameObject.dealer.hand.pop())
   }
@@ -425,7 +428,7 @@ function resetValues() {
   document.querySelector('.result-player1').innerHTML = ''
   document.querySelector('.result-player2').innerHTML = ''
 
-  $('.result').removeClass('result-win result-lose result-tie')
+  document.querySelectorAll('.result').forEach(el => el.classList.remove('result-win', 'result-lose', 'result-tie'))
 }
 
 function displayScore() {
