@@ -162,7 +162,7 @@ function playTurn () {
     } else {
       GameHelpers.displayNotification(`${currentPlayer.name} has ${currentPlayer.score}. Hit or Stand?`)
       hitPlayer1Button.classList.add('hit-on')
-      standPlayer1Button.classList.add('hit-on')
+      standPlayer1Button.classList.add('stand-on')
       hitPlayer1Button.addEventListener('click', hit)
       standPlayer1Button.addEventListener('click', switchTurns)
     }
@@ -172,7 +172,7 @@ function playTurn () {
       } else {
         GameHelpers.displayNotification(`${currentPlayer.name} has ${currentPlayer.score}. Hit or Stand?`)
         hitPlayer2Button.classList.add('hit-on')
-        standPlayer2Button.classList.add('hit-on')
+        standPlayer2Button.classList.add('stand-on')
         hitPlayer2Button.addEventListener('click', hit)
         standPlayer2Button.addEventListener('click', switchTurns)
       }

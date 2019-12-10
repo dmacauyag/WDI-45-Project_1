@@ -121,9 +121,11 @@ img {
   opacity: 0.5;
 }
 
-.hit-on {
+.hit-on,
+.stand-on {
   background-color: maroon;
   color: white;
+  cursor: pointer;
   opacity: 1;
 }
 
@@ -136,6 +138,7 @@ img {
   border-radius: 25px;
   background-color: green;
   color: white;
+  cursor: pointer;
   text-align: center;
   font-weight: bold;
   font-size: 20px;
@@ -172,6 +175,7 @@ img {
 .deal-on {
   background-color: firebrick;
   color: white;
+  cursor: pointer;
   opacity: 1;
 }
 
@@ -279,6 +283,7 @@ h3 {
 }
 
 .place-bet-on {
+  cursor: pointer;
   background-color: firebrick;
   opacity: 1;
 }
