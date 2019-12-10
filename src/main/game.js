@@ -1,62 +1,63 @@
 //========================== Global Variables ================================//
+const deck = [
+  {suit: 'Hearts', name: 'Ace', value: 11, altValue: 1, img: 'src/main/resources/images/ace_of_hearts.png'},
+  {suit: 'Hearts', name: '2', value: 2, img: 'src/main/resources/images/2_of_hearts.png'},
+  {suit: 'Hearts', name: '3', value: 3, img: 'src/main/resources/images/3_of_hearts.png'},
+  {suit: 'Hearts', name: '4', value: 4, img: 'src/main/resources/images/4_of_hearts.png'},
+  {suit: 'Hearts', name: '5', value: 5, img: 'src/main/resources/images/5_of_hearts.png'},
+  {suit: 'Hearts', name: '6', value: 6, img: 'src/main/resources/images/6_of_hearts.png'},
+  {suit: 'Hearts', name: '7', value: 7, img: 'src/main/resources/images/7_of_hearts.png'},
+  {suit: 'Hearts', name: '8', value: 8, img: 'src/main/resources/images/8_of_hearts.png'},
+  {suit: 'Hearts', name: '9', value: 9, img: 'src/main/resources/images/9_of_hearts.png'},
+  {suit: 'Hearts', name: '10', value: 10, img: 'src/main/resources/images/10_of_hearts.png'},
+  {suit: 'Hearts', name: 'Jack', value: 10, img: 'src/main/resources/images/jack_of_hearts.png'},
+  {suit: 'Hearts', name: 'Queen', value: 10, img: 'src/main/resources/images/queen_of_hearts.png'},
+  {suit: 'Hearts', name: 'King', value: 10, img: 'src/main/resources/images/king_of_hearts.png'},
+  {suit: 'Diamonds', name: 'Ace', value: 11, altValue: 1, img: 'src/main/resources/images/ace_of_diamonds.png'},
+  {suit: 'Diamonds', name: '2', value: 2, img: 'src/main/resources/images/2_of_diamonds.png'},
+  {suit: 'Diamonds', name: '3', value: 3, img: 'src/main/resources/images/3_of_diamonds.png'},
+  {suit: 'Diamonds', name: '4', value: 4, img: 'src/main/resources/images/4_of_diamonds.png'},
+  {suit: 'Diamonds', name: '5', value: 5, img: 'src/main/resources/images/5_of_diamonds.png'},
+  {suit: 'Diamonds', name: '6', value: 6, img: 'src/main/resources/images/6_of_diamonds.png'},
+  {suit: 'Diamonds', name: '7', value: 7, img: 'src/main/resources/images/7_of_diamonds.png'},
+  {suit: 'Diamonds', name: '8', value: 8, img: 'src/main/resources/images/8_of_diamonds.png'},
+  {suit: 'Diamonds', name: '9', value: 9, img: 'src/main/resources/images/9_of_diamonds.png'},
+  {suit: 'Diamonds', name: '10', value: 10, img: 'src/main/resources/images/10_of_diamonds.png'},
+  {suit: 'Diamonds', name: 'Jack', value: 10, img: 'src/main/resources/images/jack_of_diamonds.png'},
+  {suit: 'Diamonds', name: 'Queen', value: 10, img: 'src/main/resources/images/queen_of_diamonds.png'},
+  {suit: 'Diamonds', name: 'King', value: 10, img: 'src/main/resources/images/king_of_diamonds.png'},
+  {suit: 'Spades', name: 'Ace', value: 11, altValue: 1, img: 'src/main/resources/images/ace_of_spades.png'},
+  {suit: 'Spades', name: '2', value: 2, img: 'src/main/resources/images/2_of_spades.png'},
+  {suit: 'Spades', name: '3', value: 3, img: 'src/main/resources/images/3_of_spades.png'},
+  {suit: 'Spades', name: '4', value: 4, img: 'src/main/resources/images/4_of_spades.png'},
+  {suit: 'Spades', name: '5', value: 5, img: 'src/main/resources/images/5_of_spades.png'},
+  {suit: 'Spades', name: '6', value: 6, img: 'src/main/resources/images/6_of_spades.png'},
+  {suit: 'Spades', name: '7', value: 7, img: 'src/main/resources/images/7_of_spades.png'},
+  {suit: 'Spades', name: '8', value: 8, img: 'src/main/resources/images/8_of_spades.png'},
+  {suit: 'Spades', name: '9', value: 9, img: 'src/main/resources/images/9_of_spades.png'},
+  {suit: 'Spades', name: '10', value: 10, img: 'src/main/resources/images/10_of_spades.png'},
+  {suit: 'Spades', name: 'Jack', value: 10, img: 'src/main/resources/images/jack_of_spades.png'},
+  {suit: 'Spades', name: 'Queen', value: 10, img: 'src/main/resources/images/queen_of_spades.png'},
+  {suit: 'Spades', name: 'King', value: 10, img: 'src/main/resources/images/king_of_spades.png'},
+  {suit: 'Clubs', name: 'Ace', value: 11, altValue: 1, img: 'src/main/resources/images/ace_of_clubs.png'},
+  {suit: 'Clubs', name: '2', value: 2, img: 'src/main/resources/images/2_of_clubs.png'},
+  {suit: 'Clubs', name: '3', value: 3, img: 'src/main/resources/images/3_of_clubs.png'},
+  {suit: 'Clubs', name: '4', value: 4, img: 'src/main/resources/images/4_of_clubs.png'},
+  {suit: 'Clubs', name: '5', value: 5, img: 'src/main/resources/images/5_of_clubs.png'},
+  {suit: 'Clubs', name: '6', value: 6, img: 'src/main/resources/images/6_of_clubs.png'},
+  {suit: 'Clubs', name: '7', value: 7, img: 'src/main/resources/images/7_of_clubs.png'},
+  {suit: 'Clubs', name: '8', value: 8, img: 'src/main/resources/images/8_of_clubs.png'},
+  {suit: 'Clubs', name: '9', value: 9, img: 'src/main/resources/images/9_of_clubs.png'},
+  {suit: 'Clubs', name: '10', value: 10, img: 'src/main/resources/images/10_of_clubs.png'},
+  {suit: 'Clubs', name: 'Jack', value: 10, img: 'src/main/resources/images/jack_of_clubs.png'},
+  {suit: 'Clubs', name: 'Queen', value: 10, img: 'src/main/resources/images/queen_of_clubs.png'},
+  {suit: 'Clubs', name: 'King', value: 10, img: 'src/main/resources/images/king_of_clubs.png'},
+]
 const gameObject = {
   player1: {name: 'Player 1', class: '.player1', aces: 0, hand: [], score: 0, cash: 100, bet: 0, resolved: false},
   player2: {name: 'Player 2', class: '.player2', aces: 0, hand: [], score: 0, cash: 100, bet: 0, resolved: false},
   dealer: {name: 'Dealer', class: '.dealer', hand: [], score : 0},
-  deck: [
-    {suit: 'Hearts', name: 'Ace', value: 11, altValue: 1, img: 'src/main/resources/images/ace_of_hearts.png'},
-    {suit: 'Hearts', name: '2', value: 2, img: 'src/main/resources/images/2_of_hearts.png'},
-    {suit: 'Hearts', name: '3', value: 3, img: 'src/main/resources/images/3_of_hearts.png'},
-    {suit: 'Hearts', name: '4', value: 4, img: 'src/main/resources/images/4_of_hearts.png'},
-    {suit: 'Hearts', name: '5', value: 5, img: 'src/main/resources/images/5_of_hearts.png'},
-    {suit: 'Hearts', name: '6', value: 6, img: 'src/main/resources/images/6_of_hearts.png'},
-    {suit: 'Hearts', name: '7', value: 7, img: 'src/main/resources/images/7_of_hearts.png'},
-    {suit: 'Hearts', name: '8', value: 8, img: 'src/main/resources/images/8_of_hearts.png'},
-    {suit: 'Hearts', name: '9', value: 9, img: 'src/main/resources/images/9_of_hearts.png'},
-    {suit: 'Hearts', name: '10', value: 10, img: 'src/main/resources/images/10_of_hearts.png'},
-    {suit: 'Hearts', name: 'Jack', value: 10, img: 'src/main/resources/images/jack_of_hearts.png'},
-    {suit: 'Hearts', name: 'Queen', value: 10, img: 'src/main/resources/images/queen_of_hearts.png'},
-    {suit: 'Hearts', name: 'King', value: 10, img: 'src/main/resources/images/king_of_hearts.png'},
-    {suit: 'Diamonds', name: 'Ace', value: 11, altValue: 1, img: 'src/main/resources/images/ace_of_diamonds.png'},
-    {suit: 'Diamonds', name: '2', value: 2, img: 'src/main/resources/images/2_of_diamonds.png'},
-    {suit: 'Diamonds', name: '3', value: 3, img: 'src/main/resources/images/3_of_diamonds.png'},
-    {suit: 'Diamonds', name: '4', value: 4, img: 'src/main/resources/images/4_of_diamonds.png'},
-    {suit: 'Diamonds', name: '5', value: 5, img: 'src/main/resources/images/5_of_diamonds.png'},
-    {suit: 'Diamonds', name: '6', value: 6, img: 'src/main/resources/images/6_of_diamonds.png'},
-    {suit: 'Diamonds', name: '7', value: 7, img: 'src/main/resources/images/7_of_diamonds.png'},
-    {suit: 'Diamonds', name: '8', value: 8, img: 'src/main/resources/images/8_of_diamonds.png'},
-    {suit: 'Diamonds', name: '9', value: 9, img: 'src/main/resources/images/9_of_diamonds.png'},
-    {suit: 'Diamonds', name: '10', value: 10, img: 'src/main/resources/images/10_of_diamonds.png'},
-    {suit: 'Diamonds', name: 'Jack', value: 10, img: 'src/main/resources/images/jack_of_diamonds.png'},
-    {suit: 'Diamonds', name: 'Queen', value: 10, img: 'src/main/resources/images/queen_of_diamonds.png'},
-    {suit: 'Diamonds', name: 'King', value: 10, img: 'src/main/resources/images/king_of_diamonds.png'},
-    {suit: 'Spades', name: 'Ace', value: 11, altValue: 1, img: 'src/main/resources/images/ace_of_spades.png'},
-    {suit: 'Spades', name: '2', value: 2, img: 'src/main/resources/images/2_of_spades.png'},
-    {suit: 'Spades', name: '3', value: 3, img: 'src/main/resources/images/3_of_spades.png'},
-    {suit: 'Spades', name: '4', value: 4, img: 'src/main/resources/images/4_of_spades.png'},
-    {suit: 'Spades', name: '5', value: 5, img: 'src/main/resources/images/5_of_spades.png'},
-    {suit: 'Spades', name: '6', value: 6, img: 'src/main/resources/images/6_of_spades.png'},
-    {suit: 'Spades', name: '7', value: 7, img: 'src/main/resources/images/7_of_spades.png'},
-    {suit: 'Spades', name: '8', value: 8, img: 'src/main/resources/images/8_of_spades.png'},
-    {suit: 'Spades', name: '9', value: 9, img: 'src/main/resources/images/9_of_spades.png'},
-    {suit: 'Spades', name: '10', value: 10, img: 'src/main/resources/images/10_of_spades.png'},
-    {suit: 'Spades', name: 'Jack', value: 10, img: 'src/main/resources/images/jack_of_spades.png'},
-    {suit: 'Spades', name: 'Queen', value: 10, img: 'src/main/resources/images/queen_of_spades.png'},
-    {suit: 'Spades', name: 'King', value: 10, img: 'src/main/resources/images/king_of_spades.png'},
-    {suit: 'Clubs', name: 'Ace', value: 11, altValue: 1, img: 'src/main/resources/images/ace_of_clubs.png'},
-    {suit: 'Clubs', name: '2', value: 2, img: 'src/main/resources/images/2_of_clubs.png'},
-    {suit: 'Clubs', name: '3', value: 3, img: 'src/main/resources/images/3_of_clubs.png'},
-    {suit: 'Clubs', name: '4', value: 4, img: 'src/main/resources/images/4_of_clubs.png'},
-    {suit: 'Clubs', name: '5', value: 5, img: 'src/main/resources/images/5_of_clubs.png'},
-    {suit: 'Clubs', name: '6', value: 6, img: 'src/main/resources/images/6_of_clubs.png'},
-    {suit: 'Clubs', name: '7', value: 7, img: 'src/main/resources/images/7_of_clubs.png'},
-    {suit: 'Clubs', name: '8', value: 8, img: 'src/main/resources/images/8_of_clubs.png'},
-    {suit: 'Clubs', name: '9', value: 9, img: 'src/main/resources/images/9_of_clubs.png'},
-    {suit: 'Clubs', name: '10', value: 10, img: 'src/main/resources/images/10_of_clubs.png'},
-    {suit: 'Clubs', name: 'Jack', value: 10, img: 'src/main/resources/images/jack_of_clubs.png'},
-    {suit: 'Clubs', name: 'Queen', value: 10, img: 'src/main/resources/images/queen_of_clubs.png'},
-    {suit: 'Clubs', name: 'King', value: 10, img: 'src/main/resources/images/king_of_clubs.png'},
-  ]
+  deck: []
 }
 const audio = {
   chips: new Audio('src/main/resources/audio/chips.wav'),
@@ -85,7 +86,6 @@ newGameButton.onclick = () => {
   GameHelpers.displayNotification('Please place a minimum bet of $10')
   currentPlayer = gameObject.player1
   resetValues()
-  resetCardsToDeck()
 
   placeBetPlayer1Button.classList.add('place-bet-on')
   placeBetPlayer2Button.classList.add('place-bet-on')
@@ -113,7 +113,8 @@ function dealDeck () {
     dealButton.removeEventListener('click', clickListener)
     audio.shuffle.play()
     dealButton.classList.remove('deal-on')
-    gameObject.deck = GameHelpers.shuffle(gameObject.deck)
+    const shuffledDeck = GameHelpers.shuffle(deck)
+    gameObject.deck = shuffledDeck
     dealCards()
     checkInitialCardValues()
   })
@@ -204,14 +205,14 @@ function hit () {
 function switchTurns () {
   if (currentPlayer === gameObject.player1) {
     hitPlayer1Button.classList.remove('hit-on')
-    standPlayer1Button.classList.remove('hit-on')
+    standPlayer1Button.classList.remove('stand-on')
     hitPlayer1Button.removeEventListener('click', hit)
     standPlayer1Button.removeEventListener('click', switchTurns)
     currentPlayer = gameObject.player2
     playTurn()
   } else if (currentPlayer === gameObject.player2){
     hitPlayer2Button.classList.remove('hit-on')
-    standPlayer2Button.classList.remove('hit-on')
+    standPlayer2Button.classList.remove('stand-on')
     hitPlayer2Button.removeEventListener('click', hit)
     standPlayer2Button.removeEventListener('click', switchTurns)
     currentPlayer = gameObject.dealer
@@ -346,7 +347,7 @@ function checkForWinner () {
     if (gameObject.player2.resolved === false) {
       gameObject.player2.resolved = true
       gameObject.player2.cash = gameObject.player2.cash + gameObject.player2.bet
-      const resultDisplayElement = eObject.player2.betdocument.querySelector('.result-player2')
+      const resultDisplayElement = gameObject.player2.betdocument.querySelector('.result-player2')
       resultDisplayElement.classList.add('result-tie')
       resultDisplayElement.innerHTML = 'TIE!'
     }
@@ -387,37 +388,20 @@ function playerBankrupt () {
   }
 }
 
-function resetCardsToDeck () {
-  const dealerHandSize = gameObject.dealer.hand.length
-  const player1HandSize = gameObject.player1.hand.length
-  const player2HandSize = gameObject.player2.hand.length
-
-  const cardElements = document.querySelectorAll('.card-image')
-  cardElements.forEach(el => el.remove())
-
-  for (let i = 0; i < dealerHandSize; i++) {
-    gameObject.deck.push(gameObject.dealer.hand.pop())
-  }
-  for (let i = 0; i < player1HandSize; i++) {
-    gameObject.deck.push(gameObject.player1.hand.pop())
-  }
-  for (let i = 0; i < player2HandSize; i++) {
-    gameObject.deck.push(gameObject.player2.hand.pop())
-  }
-  console.log('gameObject', gameObject)
-}
-
 function resetValues () {
   gameObject.dealer.score = 0
+  gameObject.dealer.aces = 0
   gameObject.player1.score = 0
   gameObject.player2.score = 0
-  gameObject.dealer.aces = 0
   gameObject.player1.aces = 0
   gameObject.player2.aces = 0
   gameObject.player1.bet = 0
   gameObject.player2.bet = 0
   gameObject.player1.resolved = false
   gameObject.player2.resolved = false
+  gameObject.player1.hand = []
+  gameObject.player2.hand = []
+  gameObject.deck = []
 
   document.querySelector('.score1').innerHTML = ''
   document.querySelector('.score2').innerHTML = ''
@@ -428,6 +412,9 @@ function resetValues () {
   document.querySelector('.cash-player2').innerHTML = 'Player 2 Cash: $' + gameObject.player2.cash
   document.querySelector('.result-player1').innerHTML = ''
   document.querySelector('.result-player2').innerHTML = ''
+  document.querySelector('.dealer-hand').innerHTML = ''
+  document.querySelector('.player1-hand').innerHTML = ''
+  document.querySelector('.player2-hand').innerHTML = ''
 
   document.querySelectorAll('.result').forEach(el => el.classList.remove('result-win', 'result-lose', 'result-tie'))
 }

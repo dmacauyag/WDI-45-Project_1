@@ -1,17 +1,18 @@
 class GameHelpers {
   // Function that shuffles the cards in the deck using the Fisher Yates Shuffle
   static shuffle (array) {
-    let m = array.length, t, i
+    const arrayCopy = [...array]
+    let m = arrayCopy.length, t, i
     // While there remain elements to shuffle…
     while (m) {
       // Pick a remaining element…
       i = Math.floor(Math.random() * m--)
       // And swap it with the current element.
-      t = array[m]
-      array[m] = array[i]
-      array[i] = t
+      t = arrayCopy[m]
+      arrayCopy[m] = arrayCopy[i]
+      arrayCopy[i] = t
     }
-    return array
+    return arrayCopy
   }
 
   static displayNotification (string) {
