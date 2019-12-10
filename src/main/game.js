@@ -99,7 +99,7 @@ newGameButton.onclick = () => {
 
   placeBetPlayer2Button.addEventListener('click', function clickListener () {
     if (GameHelpers.isBetValid(+player2Bet.value, gameObject.player2.cash)) {
-      placeBetPlayer1Button.removeEventListener('click', clickListener)
+      placeBetPlayer2Button.removeEventListener('click', clickListener)
       GameHelpers.processBet(+player2Bet.value, gameObject.player2, audio.chips)
       dealButton.classList.add('deal-on')
       dealDeck()
@@ -399,6 +399,7 @@ function resetValues () {
   gameObject.player2.bet = 0
   gameObject.player1.resolved = false
   gameObject.player2.resolved = false
+  gameObject.dealer.hand = []
   gameObject.player1.hand = []
   gameObject.player2.hand = []
   gameObject.deck = []
